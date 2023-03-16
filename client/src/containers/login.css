@@ -1,0 +1,12 @@
+.form-login{
+    position: relative;
+    top: 15vh;
+}
+.input-password{
+    position: relative;
+}
+.custom-input-password i{
+    position: absolute;
+    right: 5px;
+    top: 110px;
+}
