@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\CloneController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,14 +18,23 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('member', 'MemberController');
-Route::resource('student', 'StudentController');
-Route::resource('course', 'CourseController');
-Route::resource('account', 'AccountController');
-Route::resource('nhom', 'NhomController');
-Route::resource('point', 'PointController');
-Route::resource('review', 'ReviewController');
-Route::resource('tuitionfee', 'TuitionFeeController');
+
+Route::middleware('auth:sanctum')->group(function(){
+    Route::resource('member', 'MemberController');
+    Route::resource('student', 'StudentController');
+    Route::resource('course', 'CourseController');
+    Route::resource('account', 'UserController');
+    Route::resource('nhom', 'NhomController');
+    Route::resource('point', 'PointController');
+    Route::resource('review', 'ReviewController');
+    Route::resource('tuitionfee', 'TuitionFeeController');  
+    
+    Route::get('user', function(Request $request){
+        return $request->user();
+    });
+
+});
 Route::get('member/search/{sex}', 'MemberController@search');
+Route::post('account/NoMember/',[CloneController::class,'noMember']);
 Route::post('auth/login', 'AuthController@login');
 Route::post('auth/resgiter', 'AuthController@register');

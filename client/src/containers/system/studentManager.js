@@ -1,157 +1,144 @@
-import React, {Component} from "react";
+import React, {useEffect, useState} from "react";
 import './studentManager.css'
 import { Button } from "reactstrap";
 import {getAllStudent, createStudentService, deleteStudentService, updateStudentService} from '../../services/studentService'
 import ModalAddStudent from '../../components/Modal/Student/ModalAddStudent'
 import ModalEditStudent from '../../components/Modal/Student/ModalEditStudent'
-class studentManager extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            arrStudent: [],
-            isOpenNewStudent: false,
-            isOpenEditStudent: false,
-            studentEdit: {}
-        }
-    }
-    async componentDidMount(){
-        await this.getAllStudent();
-    }
 
-    getAllStudent = async () => {
+
+function StudentManager () {
+    const [arrStudent,setArrStudent] = useState('')
+    const [isOpenNewStudent,setisOpenNewStudent] = useState(false)
+    const [isOpenEditStudent,setisOpenEditStudent] = useState(false)
+    const [studentEdit,setStudentEdit] = useState({})
+
+    useEffect(()=>{
+        getAllStudents();
+    },[])
+
+    const getAllStudents = async () => {
         let response = await getAllStudent();
-        console.log(response)
+        console.log(response);
         if(response){
-            this.setState({
-                arrStudent: response.data.data
-            },()=> {
-                console.log(this.state.arrStudent)
-            })
-            
+            setArrStudent(response.data)
+            ,()=> {
+                console.log('hihi',arrStudent)
+            }
         }
     }
-    handleAddStudent = () => {
-        this.setState({isOpenNewStudent: true})
+    const handleAddStudent = () => {
+        setisOpenNewStudent({isOpenNewStudent: true})
     }
-    handleEditStudent = (student) => {
-        console.log('eidt',student)
-        this.setState({
-            isOpenEditStudent: true,
+    const handleEditStudent = (student) => {
+        setisOpenEditStudent({
+            isOpenEditStudent: true
+        })
+        setStudentEdit({
             studentEdit: student
         })
-
     }
-    doEditStudent = async (student) => {
+    const doEditStudent = async (student) => {
         console.log('save', student)
         try{
             let response = await updateStudentService(student.student_id, student)
             if (response){
-                this.setState({
-                    isOpenEditStudent: false
+                setisOpenEditStudent({
+                    isOpenEditStudent: true
                 })
             }
-            console.log('đoEit', response)
         }catch(e){
             console.log(e)
         }
-        this.getAllStudent();
+        getAllStudents();
     }
-    // editStudent = async (student) => {
-
-    // }
-    createStudent = async (data) => {
+    const createStudent = async (student) => {
         try{
-            let response = await createStudentService(data);
-            // console.log('tra ve', response)
+            let response = await createStudentService(student);
+            console.log('tra ve', response)
+            setisOpenNewStudent({isOpenNewStudent: false})
         }catch(e){
             console.log(e)
         }
-        // console.log(data)
-        // alert('hihi')
-        this.getAllStudent();
+        getAllStudents();
     }
-    handleDeleteStudent = async (student) => {
+    const handleDeleteStudent = async (student) => {
         try{
-            // console.log(student)
             let res = await deleteStudentService(student.student_id)
-
         }catch(e){
             console.log(e);
         }
-        this.getAllStudent();
+        getAllStudents();
     }
-    render(){
-        return (
-            <div>
-                <div className="title">
+    const handleDetail = (student) => {
+        alert('hihi')
+        console.log(student);
+    }
+    return (
+        <div>
+            <div className="title">
                     Quản lí học viên của trung tâm
-                </div>
-                <div >
-                    <button 
-                    className="btn btn-primary btn-add" 
-                    onClick={() => this.handleAddStudent()}>
-                        <i className="fa-solid fa-plus"></i>Thêm học viên
-                    </button>
-                </div>
+            </div>
+            <div >
+                <button 
+                className="btn btn-primary btn-add" 
+                onClick={() => {handleAddStudent()}}>
+                    <i className="fa-solid fa-plus"></i>Thêm học viên
+                </button>
+            </div>
                 <ModalAddStudent 
-                setIsOpen={()=>this.setState({isOpenNewStudent:false})} 
-                isOpen={this.state.isOpenNewStudent}
-                createStudent = {this.createStudent}
+                setIsOpen={()=>{setisOpenNewStudent(false)}} 
+                isOpen={isOpenNewStudent}
+                createStudent = {createStudent}
                 />
                 {
-                    this.state.isOpenEditStudent &&
+                    isOpenEditStudent &&
                     <ModalEditStudent 
-                    setIsOpen={()=>this.setState({isOpenEditStudent:false})} 
-                    isOpen={this.state.isOpenEditStudent}
-                    currentStudent={this.state.studentEdit}
-                    editStudent = {this.doEditStudent}
+                    setIsOpen={()=>{setisOpenEditStudent(false)}} 
+                    isOpen={isOpenEditStudent}
+                    currentStudent={studentEdit}
+                    editStudent = {doEditStudent}
                 />
                 }
                 <table id="customers">
                     <tbody>
-                    <tr>
-                        <th>ID</th> 
-                        <th>Họ và tên</th>
-                        <th>GIới tính</th>
-                        <th>Ngày sinh</th>
-                        <th>Email</th>
-                        <th>Số điện thoại</th>
-                        <th>Thao tác</th>
-                    </tr>
-                    {
-                        this.state.arrStudent && this.state.arrStudent.map((item, index)=>{
-                            // console.log('hiih', item, index)
-                            return (
- 
-                                <tr key={index}> 
-                                    <td>{item.student_id}</td>
-                                    <td>{item.name}</td>
-                                    <td>{item.sex}</td>
-                                    <td>{item.birthday}</td>
-                                    <td>{item.email}</td>
-                                    <td>{item.phone}</td>
-                                    <td>
-                                        <Button color="warning" className="btn-edit" onClick={() => this.handleEditStudent(item)}>
-                                            <i className="fa-solid fa-pen-to-square"></i>
-                                        </Button>
-                                        <Button 
-                                            color="danger" 
-                                            className="btn-delete"
-                                            onClick={()=> this.handleDeleteStudent(item)}
-                                        >
-                                            <i className="fa-solid fa-trash"></i>
-                                        </Button>
-                                    </td>
-                                </tr>
-                            )
+                        <tr>
+                            <th>ID</th> 
+                            <th>Họ và tên</th>
+                            <th>GIới tính</th>
+                            <th>Ngày sinh</th>
+                            <th>Email</th>
+                            <th>Số điện thoại</th>
+                            <th>Thao tác</th>
+                        </tr>
+                        {
+                            arrStudent && arrStudent.map((item, index)=>{
+                                return (
+                                    <tr key={index}> 
+                                        <td>{item.student_id}</td>
+                                        <td onClick={()=>{handleDetail(item)}}>{item.name}</td>
+                                        <td>{item.sex}</td>
+                                        <td>{item.birthday}</td>
+                                        <td>{item.email}</td>
+                                        <td>{item.phone}</td>
+                                        <td>
+                                            <Button color="warning" className="btn-edit" onClick={() => {handleEditStudent(item)}}>
+                                                <i className="fa-solid fa-pen-to-square"></i>
+                                            </Button>
+                                            <Button 
+                                                color="danger" 
+                                                className="btn-delete"
+                                                onClick={()=>{handleDeleteStudent(item)}}
+                                            >
+                                                <i className="fa-solid fa-trash"></i>
+                                            </Button>
+                                        </td>
+                                    </tr>
+                                )
                             })
-                    }
+                        }
                     </tbody>
-
-
-                </table>
-            </div>
-        );
-    }
+                </table>    
+        </div>
+    )
 }
-export default studentManager;
+export default StudentManager;

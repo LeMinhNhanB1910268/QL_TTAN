@@ -15,7 +15,7 @@ class NhomController extends Controller
      */
     public function index()
     {
-        return new NhomCollection(Nhom::paginate());
+        return new NhomCollection(Nhom::with('getStudent')->paginate());
     }
 
     /**

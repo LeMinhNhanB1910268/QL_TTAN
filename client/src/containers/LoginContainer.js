@@ -11,7 +11,6 @@ import './login.css'
 // const navigate = useNavigate();
 const LoginContainer =()=> {
     const navigate = useNavigate();
-  
     const [username,setusername] = useState('')
     const [password,setPassword] = useState('')
     const [isShowPassword,setisShowPassword] = useState(false)
@@ -24,14 +23,9 @@ const LoginContainer =()=> {
     setPassword(event.target.value)
   }
   const handleLogin = async () => {
-    
-    // console.log(this.state.username)
-    // console.log(this.state.password)
     seterrMessage('')
     try{
        await handleLoginApi(username,password)
-      //  alert('hihi')
-      // console.log(res)
       .then(res=>{
         localStorage.setItem('token', res.data.token);
         navigate('../');

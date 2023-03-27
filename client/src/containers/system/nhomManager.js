@@ -1,123 +1,105 @@
-import React, {Component} from "react";
+import React, {useEffect, useState} from "react";
 import './nhomManager.css'
 import { Button } from "reactstrap";
 import {getAllNhom, createNhomService, deleteNhomService, updateNhomService} from '../../services/nhomService'
 import ModalAddNhom from '../../components/Modal/Nhom/ModalAddNhom'
 import ModalEditNhom from '../../components/Modal/Nhom/ModalEditNhom'
-class nhomManager extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            arrNhom: [],
-            arrCourse: [],
-            isOpenNewNhom: false,
-            isOpenEditNhom: false,
-            nhomEdit: {}
-        }
-    }
-    async componentDidMount(){
-        await this.getAllNhom();
-        // await this.getCourse();
-    }
 
-    getAllNhom = async () => {
+
+
+function NhomManager () {
+    const [arrNhom,setArrNhom] = useState('')
+    const [isOpenNewNhom,setisOpenNewNhom] = useState(false)
+    const [isOpenEditNhom,setisOpenEditNhom] = useState(false)
+    const [nhomEdit,setnhomEdit] = useState({})
+
+    useEffect(()=>{
+        getAllNhoms();
+    },[])
+
+    const getAllNhoms = async () => {
         let response = await getAllNhom();
-        console.log(response)
+        console.log(response);
         if(response){
-            this.setState({
-                arrNhom: response.data.data
-            },()=> {
-                console.log(this.state.arrNhom)
-            })
+            setArrNhom(response.data)
+            ,()=> {
+                console.log('hihi',arrNhom)
+            }
             
         }
     }
-    getCourse = async () => {
-        let response = await this.getCourse(nhom.course_id)
-        console.log(response)
-        if(response){
-            this.setState({
-                arrCourse: response.data.data
-            },()=> {
-                console.log(this.state.arrCourse)
-            })
-        }
+    const handleAddMenber = () => {
+        setisOpenNewNhom({isOpenNewNhom: true})
     }
-    handleAddNhom = () => {
-        this.setState({isOpenNewNhom: true})
-    }
-    handleEditNhom = (nhom) => {
-        console.log('eidt',nhom)
-        this.setState({
-            isOpenEditNhom: true,
+    const handleEditMenber = (nhom) => {
+        setisOpenEditNhom({
+            isOpenEditNhom: true
+        })
+        setnhomEdit({
             nhomEdit: nhom
         })
-
     }
-    doEditNhom = async (nhom) => {
-        console.log('save', nhom)
+    const doEditNhom = async (account) => {
+        console.log('save', account)
         try{
-            let response = await updateNhomService(nhom.nhom_id, nhom)
+            let response = await updateNhomService(account.account_id, account)
             if (response){
-                this.setState({
-                    isOpenEditNhom: false
+                setisOpenEditNhom({
+                    isOpenEditNhom: true
                 })
             }
-            console.log('đoEit', response)
         }catch(e){
             console.log(e)
         }
-        this.getAllNhom();
+        getAllNhom();
     }
-    // editNhom = async (nhom) => {
-
-    // }
-    createNhom = async (data) => {
+    const createNhom = async (account) => {
         try{
-            let response = await createNhomService(data);
-            // console.log('tra ve', response)
+            let response = await createNhomService(account);
+            console.log('tra ve', response)
+            setisOpenNewNhom({isOpenNewNhom: false})
         }catch(e){
             console.log(e)
         }
-        // console.log(data)
-        // alert('hihi')
-        this.getAllNhom();
+        getAllNhom();
     }
-    handleDeleteNhom = async (nhom) => {
+    const handleDeleteNhom = async (nhom) => {
         try{
-            // console.log(nhom)
-            let res = await deleteNhomService(nhom.nhom_id)
-
+            let res = await deleteNhomService(nhom.account_id)
         }catch(e){
             console.log(e);
         }
-        this.getAllNhom();
+        getAllNhom();
     }
-    render(){
-        return (
-            <div>
-                <div className="title">
-                    Quản lí học viên của trung tâm
-                </div>
-                <div >
-                    <button 
-                    className="btn btn-primary btn-add" 
-                    onClick={() => this.handleAddNhom()}>
-                        <i className="fa-solid fa-plus"></i>Thêm lớp học
-                    </button>
-                </div>
+    const handleDetail = (nhom) => {
+        alert('hihi')
+        console.log(nhom);
+    }
+    return (
+        <div>
+            <div className="title">
+                    Quản lí thành viên của trung tâm
+            </div>
+            <div >
+                <button 
+                className="btn btn-primary btn-add" 
+                onClick={() => {handleAddMenber()}}>
+                    <i className="fa-solid fa-plus"></i>Thêm thành viên
+                </button>
+            </div>
                 <ModalAddNhom 
-                setIsOpen={()=>this.setState({isOpenNewNhom:false})} 
-                isOpen={this.state.isOpenNewNhom}
-                createNhom = {this.createNhom}
+                setIsOpen={()=>{setisOpenNewNhom(false)}} 
+                isOpen={isOpenNewNhom}
+                createNhom = {createNhom}
+                // createNhom = {createNhom}
                 />
                 {
-                    this.state.isOpenEditNhom &&
+                    isOpenEditNhom &&
                     <ModalEditNhom 
-                    setIsOpen={()=>this.setState({isOpenEditNhom:false})} 
-                    isOpen={this.state.isOpenEditNhom}
-                    currentNhom={this.state.nhomEdit}
-                    editNhom = {this.doEditNhom}
+                    setIsOpen={()=>{setisOpenEditNhom(false)}} 
+                    isOpen={isOpenEditNhom}
+                    currentNhom={nhomEdit}
+                    editNhom = {doEditNhom}
                 />
                 }
                 <table id="customers">
@@ -130,23 +112,21 @@ class nhomManager extends Component {
                         <th>Thao tác</th>
                     </tr>
                     {
-                        this.state.arrNhom && this.state.arrCourse && this.state.arrNhom.map((item, index)=>{
-                            // console.log('hiih', item, index)
+                        arrNhom && arrNhom.map((item, index)=>{
                             return (
- 
                                 <tr key={index}> 
                                     <td>{item.nhom_id}</td>
                                     <td>{item.name}</td>
                                     <td>{item.course_id}</td>
                                     <td>{item.description}</td>
                                     <td>
-                                        <Button color="warning" className="btn-edit" onClick={() => this.handleEditNhom(item)}>
+                                        <Button color="warning" className="btn-edit" onClick={() => {handleEditMenber(item)}}>
                                             <i className="fa-solid fa-pen-to-square"></i>
                                         </Button>
                                         <Button 
                                             color="danger" 
                                             className="btn-delete"
-                                            onClick={()=> this.handleDeleteNhom(item)}
+                                            onClick={()=> {handleDeleteNhom(item)}}
                                         >
                                             <i className="fa-solid fa-trash"></i>
                                         </Button>
@@ -156,9 +136,9 @@ class nhomManager extends Component {
                             })
                     }
                     </tbody>
-                </table>
-            </div>
-        );
-    }
+                </table>    
+        </div>
+    )
 }
-export default nhomManager;
+
+export default NhomManager

@@ -1,22 +1,24 @@
 import axios from 'axios'
-import './axiosjs'
-const getAllMember = () => {
-    return axios.get('http://localhost:8000/api/member');
+// import './axiosjs'
+import createApiClient from "./apiService";
+const api = createApiClient('localhost:8000');
+const getAllMember = async() => {
+    return (await api.get('http://localhost:8000/api/member'))
 }
-const createMemberService = (data) => {
+const createMemberService = async(data) => {
     console.log('data1:', data)
-    return axios.post('http://localhost:8000/api/member',data);
+    return (await api.post('http://localhost:8000/api/member',data))
 }
 
-const deleteMemberService = (member_id) => {
+const deleteMemberService = async(member_id) => {
     console.log('id', member_id)
-    return axios.delete('http://localhost:8000/api/member/'+member_id);
+    return (await api.delete('http://localhost:8000/api/member/'+member_id))
 }
 
-const updateMemberService = (member_id, data) => {
+const updateMemberService = async(member_id, data) => {
     console.log('id', member_id)
     console.log('date', data)
-    return axios.put('http://localhost:8000/api/member/'+member_id,data
+    return (await api.put('http://localhost:8000/api/member/'+member_id,data)
     );
 }
 

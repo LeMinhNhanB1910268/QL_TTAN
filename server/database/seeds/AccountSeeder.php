@@ -13,7 +13,19 @@ class AccountSeeder extends Seeder
     public function run()
     {
         DB::table('accounts')->insert([
-            array('member_id'=> '1', 'username' => 'nhanminhle', 'password' => 'nhan123', 'role' => 'Admin',  'created_at' => Carbon::now('Asia/Ho_Chi_Minh'), 'updated_at' => Carbon::now('Asia/Ho_Chi_Minh'))
+            array('username' => 'nhanminhle', 
+            'password' => 'nhan123', 
+            'role' => 'Admin',  
+            'member_id'=>'B1910268',
+            'name'=> 'Le Minh Nhan',  
+            'sex' => 'Nam', 
+            'birthday' => '09/01/2001', 
+            'email' => 'nhanb1910268@student.ctu.edu.vn', 
+            'phone' => '0565766636', 
+            'position' => 'Quan ly', 
+            'nhom_id' => '1', 
+            'created_at' => Carbon::now('Asia/Ho_Chi_Minh'), 
+            'updated_at' => Carbon::now('Asia/Ho_Chi_Minh'))
         ]);
     }
 }

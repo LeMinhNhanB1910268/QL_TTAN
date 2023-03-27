@@ -16,9 +16,16 @@ class CreateAccountsTable extends Migration
         Schema::create('accounts', function (Blueprint $table) {
             $table->increments('account_id');
             $table->string('role');
-            $table->integer('member_id')->unsigned();
+            $table->string('member_id');
             $table->string('username');
             $table->string('password');
+            $table->string('name');
+            $table->string('sex');
+            $table->string('birthday');
+            $table->string('email');
+            $table->string('phone');
+            $table->integer('nhom_id')->unsigned();
+            $table->string('position');
             $table->integer('created_by')->unsigned()->nullable();
             $table->integer('updated_by')->unsigned()->nullable();
             $table->timestamps();

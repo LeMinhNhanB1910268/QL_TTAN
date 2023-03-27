@@ -9,7 +9,10 @@ class Member extends Model
 {
     protected $table = 'members';
     protected $primaryKey = 'member_id';
+    public $incrementing = false;
+    protected $keyType = 'string';
     protected $fillable = [ 
+        'member_id',
         'name', 
         'sex', 
         'birthday', 

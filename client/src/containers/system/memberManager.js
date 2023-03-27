@@ -1,148 +1,144 @@
-import React, {Component} from "react";
+import React, {useEffect,useState} from "react";
 import './memberManager.css'
 import { Button } from "reactstrap";
-import {getAllMember, createMemberService, deleteMemberService, updateMemberService} from '../../services/memberService'
+import {getAllAccount,getUser, createAccountService, deleteAccountService, updateAccountService} from '../../services/accountService'
 import ModalAddMember from "../../components/Modal/Member/ModalAddMember";
 import ModalEditMember from "../../components/Modal/Member/ModalEditMember";
-class memberManager extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            arrMember: [],
-            isOpenNewMember: false,
-            isOpenEditMember: false,
-            memberEdit: {}
-        }
-    }
-    async componentDidMount(){
-        await this.getAllMember();
-    }
 
-    getAllMember = async () => {
-        let response = await getAllMember();
-        console.log(response)
+
+function MemberManager () {
+    const [user,setUser] = useState('')
+    const [arrMember,setArrMember] = useState('')
+    const [isOpenNewMember,setisOpenNewMember] = useState(false)
+    const [isOpenEditMember,setisOpenEditMember] = useState(false)
+    const [memberEdit,setmemberEdit] = useState({})
+    const getMember= async ()=>{
+        const data = await getUser();
+        setUser(data);
+    }
+    console.log(user);
+
+    useEffect(()=>{
+        getAllMember();
+        getMember();
+    },[])
+
+    const getAllMember = async () => {
+        let response = await getAllAccount();
+        console.log(response);
         if(response){
-            this.setState({
-                arrMember: response.data.data
-            },()=> {
-                console.log(this.state.arrMember)
-            })
+            setArrMember(response.data)
+            ,()=> {
+                console.log('hihi',arrAccount)
+            }
             
         }
     }
-    handleAddMenber = () => {
-        this.setState({isOpenNewMember: true})
+    const handleAddMenber = () => {
+        setisOpenNewMember({isOpenNewMember: true})
     }
-    handleEditMenber = (member) => {
-        console.log('eidt',member)
-        this.setState({
-            isOpenEditMember: true,
+    const handleEditMenber = (member) => {
+        setisOpenEditMember({
+            isOpenEditMember: true
+        })
+        setmemberEdit({
             memberEdit: member
         })
-
     }
-    doEditMember = async (member) => {
-        console.log('save', member)
+    const doEditMember = async (account) => {
+        console.log('save', account)
         try{
-            let response = await updateMemberService(member.member_id, member)
+            let response = await updateAccountService(account.account_id, account)
             if (response){
-                this.setState({
-                    isOpenEditMember: false
+                setisOpenEditMember({
+                    isOpenEditMember: true
                 })
             }
-            console.log('đoEit', response)
         }catch(e){
             console.log(e)
         }
-        this.getAllMember();
+        getAllMember();
     }
-    // editMember = async (member) => {
-
-    // }
-    createMember = async (data) => {
+    const createMember = async (account) => {
         try{
-            let response = await createMemberService(data);
-            // console.log('tra ve', response)
-            this.setState({isOpenNewMember: false})
+            let response = await createAccountService(account);
+            console.log('tra ve', response)
+            setisOpenNewMember({isOpenNewMember: false})
         }catch(e){
             console.log(e)
         }
-        // console.log(data)
-        // alert('hihi')
-        this.getAllMember();
+        getAllMember();
     }
-    handleDeleteMember = async (member) => {
+    const handleDeleteMember = async (member) => {
         try{
-            // console.log(member)
-            let res = await deleteMemberService(member.member_id)
-
+            let res = await deleteAccountService(member.account_id)
         }catch(e){
             console.log(e);
         }
-        this.getAllMember();
+        getAllMember();
     }
-    render(){
-        return (
-            <div>
-                <div className="title">
+    const handleDetail = (member) => {
+        alert('hihi')
+        console.log(member);
+    }
+    return (
+        <div>
+            <div className="title">
                     Quản lí thành viên của trung tâm
-                </div>
-                <div >
-                    <button 
-                    className="btn btn-primary btn-add" 
-                    onClick={() => this.handleAddMenber()}>
-                        <i className="fa-solid fa-plus"></i>Thêm thành viên
-                    </button>
-                </div>
+            </div>
+            <div >
+                <button 
+                className="btn btn-primary btn-add" 
+                onClick={() => {handleAddMenber()}}>
+                    <i className="fa-solid fa-plus"></i>Thêm thành viên
+                </button>
+            </div>
                 <ModalAddMember 
-                setIsOpen={()=>this.setState({isOpenNewMember:false})} 
-                isOpen={this.state.isOpenNewMember}
-                createMember = {this.createMember}
+                setIsOpen={()=>{setisOpenNewMember(false)}} 
+                isOpen={isOpenNewMember}
+                createMember = {createMember}
+                // createAccount = {createAccount}
                 />
                 {
-                    this.state.isOpenEditMember &&
+                    isOpenEditMember &&
                     <ModalEditMember 
-                    setIsOpen={()=>this.setState({isOpenEditMember:false})} 
-                    isOpen={this.state.isOpenEditMember}
-                    currentMember={this.state.memberEdit}
-                    editMember = {this.doEditMember}
+                    setIsOpen={()=>{setisOpenEditMember(false)}} 
+                    isOpen={isOpenEditMember}
+                    currentMember={memberEdit}
+                    editMember = {doEditMember}
                 />
                 }
                 <table id="customers">
                     <tbody>
                     <tr>
-                        <th>ID</th> 
+                        <th>Mã nhân viên</th> 
                         <th>Họ và tên</th>
                         <th>GIới tính</th>
                         <th>Ngày sinh</th>
                         <th>Email</th>
-                        <th>hihih</th>
                         <th>Số điện thoại</th>
                         <th>Vị trí</th>
                         <th>Thao tác</th>
                     </tr>
                     {
-                        this.state.arrMember && this.state.arrMember.map((item, index)=>{
-                            // console.log('hiih', item, index)
+                        arrMember && arrMember.map((item, index)=>{
                             return (
- 
                                 <tr key={index}> 
                                     <td>{item.member_id}</td>
-                                    <td>{item.name}</td>
+                                    <td onClick={() => {handleDetail(item)}}>{item.name}</td>
                                     <td>{item.sex}</td>
                                     <td>{item.birthday}</td>
                                     <td>{item.email}</td>
-                                    {/* <td>{item.account.username}</td> */}
                                     <td>{item.phone}</td>
                                     <td>{item.position}</td>
                                     <td>
-                                        <Button color="warning" className="btn-edit" onClick={() => this.handleEditMenber(item)}>
+                                        <Button color="warning" className="btn-edit" onClick={() => {handleEditMenber(item)}}>
                                             <i className="fa-solid fa-pen-to-square"></i>
                                         </Button>
                                         <Button 
                                             color="danger" 
                                             className="btn-delete"
-                                            onClick={()=> this.handleDeleteMember(item)}
+                                            onClick={()=> {handleDeleteMember(item)}}
                                         >
                                             <i className="fa-solid fa-trash"></i>
                                         </Button>
@@ -152,11 +148,8 @@ class memberManager extends Component {
                             })
                     }
                     </tbody>
-
-
-                </table>
-            </div>
-        );
-    }
+                </table>    
+        </div>
+    )
 }
-export default memberManager;
+export default MemberManager;

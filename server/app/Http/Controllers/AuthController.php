@@ -8,10 +8,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 class AuthController extends Controller
-
-
-
-
 {
     public function response($user)
     {
@@ -29,7 +25,6 @@ class AuthController extends Controller
             'role' => $req->role,
             'password' => bcrypt($req->password),
         ]);
-
         return $user;
     }
     public function Login(Request $request){

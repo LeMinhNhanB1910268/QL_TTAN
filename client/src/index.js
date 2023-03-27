@@ -7,12 +7,15 @@ import 'semantic-ui-css/semantic.min.css'
 import App from './App';
 // import reportWebVitals from './reportWebVitals';
 
-ReactDOM.render(
+const Index = ()=>(
   <React.StrictMode>
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </React.StrictMode>,
+  </React.StrictMode>
+)
+ReactDOM.render(
+  <Index/>,
   document.getElementById('root')
 )
 

@@ -38,13 +38,19 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'role' => 'required',
-            'username' => 'required',
-            'password' => 'required',
+        $user = User::create([
+            'username' => $request->username,
+            'member_id' => $request->member_id,
+            'role' => $request->role,
+            'password' => bcrypt($request->password),
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'birthday' => $request->birthday,
+            'position' => $request->position,
+            'sex' => $request->sex,
         ]);
-        $account = User::create($request->all());
-        return new UserResource($account);
+        return $user;
     }
 
     /**

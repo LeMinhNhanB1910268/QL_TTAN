@@ -1,0 +1,72 @@
+.content{
+    border: 1px solid rebeccapurple;
+    margin-top: 30px;
+    border-radius: 10px;
+    .homepage-left{
+        padding: 50px;
+        .box{
+            width: 100%;
+            height: 80%;
+            border: 1px solid #636e72;
+            padding: 20px;
+            border-radius: 10px;
+            .title-content{
+                font-weight: 600;
+                margin-top: 10px;
+                color: #6c5ce7;
+    
+            }
+            .text-content{
+                font-size: 18px;
+                p{
+                    color: #636e72;
+                    label{
+                        min-width: 150px;
+                        color: black;
+                        font-weight: 700;
+                    }
+                }
+            }
+        }
+    }
+    .center{
+        // border-left: 2px solid green;
+        // height: 500px;
+        // position: absolute;
+        // left: 50%;
+        // margin-left: -3px;
+        // top: 15%;
+    }
+    .homepage-right{
+        padding: 50px;
+        .item{
+            .bth-item{
+                border-radius: 5px;
+                border: none;
+                width: 100px;
+                height: 100px;
+                margin-top: 25px;
+                background-color: white;
+                
+                i{
+                font-size: 40px;
+                color: green;
+                } 
+                .bth-text{
+                    color: black;
+                    font-size: 18px;
+                    margin-top: 5px;
+                }
+                img{
+                    max-width: 100%;
+                    max-height: 70px;
+                }
+                &.review{
+                    width: 100%;
+                    height: 150px;
+                }
+            
+            }
+        }
+    }
+}

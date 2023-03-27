@@ -1,27 +1,27 @@
 import axios from 'axios'
-import './axiosjs'
-const getAllCourse = () => {
-    return axios.get('http://localhost:8000/api/course');
-}
-const getCourse = (course_id) => {
-    return axios.get('http://localhost:8000/api/course'+course_id);
-}
-const createCourseService = (data) => {
-    console.log('data1:', data)
-    return axios.post('http://localhost:8000/api/course',data);
+import createApiClient from "./apiService";
+const api = createApiClient('http://localhost:8000');
 
+const getAllCourse = async () => {
+    return (await api.get(`api/course`)).data;
 }
-
-const deleteCourseService = (course_id) => {
-    console.log('id', course_id)
-    return axios.delete('http://localhost:8000/api/course/'+course_id);
+const getCourse = async (course_id) => {
+    return (await api.get(`api/course`+course_id));
+}
+const createCourseService = async (data) => {
+    return (await api.post(`api/course`,data));
 }
 
-const updateCourseService = (course_id, data) => {
-    console.log('id', course_id)
-    console.log('date', data)
-    return axios.put('http://localhost:8000/api/course/'+course_id,data
-    );
+const deleteCourseService = async (course_id) => {
+    // console.log('id', course_id)
+    return (await api.delete(`api/course/`+course_id));
+}
+
+const updateCourseService = async (course_id, data) => {
+    // console.log('id', course_id)
+    // console.log('date', data)
+    return (await api.put(`api/course/`+course_id,data))
+    ;
 }
 
 export {

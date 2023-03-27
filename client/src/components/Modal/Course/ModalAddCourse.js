@@ -1,25 +1,27 @@
-import React, { Component } from 'react'
+import React, { useEffect,useState} from "react";
+// import React, { Component } from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import './ModalAddCourse.scss'
-export default class ModalAddCourse extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            modal: false,
-            name:'',
-            time_start:'',
-            time_finish:'',
-            price:'',
-        }
-    }
-    componentDidMount(){
 
-    }
-    checkInput = () => {
+
+
+
+function ModalAddCourse (props){
+    const [modal,setModal] = useState('')
+    const [name,setName] = useState('')
+    const [time_start,setTimeStart] = useState('')
+    const [time_finish,setTimeFinish] = useState('')
+    const [price,setPrice] = useState('')
+
+    // useEffect(()=>{
+
+    // },[])
+
+    const checkInput = () => {
         let isValid  = true
         let arrInput = ['name', 'time_start', 'time_finish', 'price'];
         for (let i=0; i<arrInput.length; i++){
-            if(!this.state[arrInput[i]]){
+            if(!arrInput[i]){
                 isValid = false;
                 alert("missing parameter: "+arrInput[i]);
                 break;
@@ -27,45 +29,29 @@ export default class ModalAddCourse extends Component {
         }
         return isValid;
     }
-    handleOnChangeInput = (event, id) => {
-        // console.log(event.target.value, id)
-        let copyState = {
-            ...this.state
-        }
-        copyState[id] = event.target.value;
-        this.setState({
-            ...copyState
-        })
-        // console.log('copystate ', copyState)
-    }
-    handleAddNewCourse = () => {
-        let isValid = this.checkInput();
+    const handleAddNewCourse = () => {
+        let isValid = checkInput();
         console.log(isValid)
-        if (isValid === true) {
-            this.props.createCourse(this.state);
-            // console.log('data model', this.state)
+        if (isValid) {
+            const data = {name,time_start,time_finish,price}
+            props.createCourse(data);
         }
         else {
 
         }
 
     }
-    // toggle = () => {
-    //     this.setState({model: true});
-    // }
-    render() {
-        // console.log(this.props.isOpen)
-        return (
-            <div>
+    return(
+        <div>
             <Modal 
-            isOpen={this.props.isOpen} 
-            toggle={()=>{this.props.setIsOpen()}}
+            isOpen={props.isOpen} 
+            toggle={()=>{props.setIsOpen()}}
             size='lg'
             centered
             className='modal-student-container'
             > 
               <ModalHeader 
-              toggle={()=>{this.props.setIsOpen()}} 
+              toggle={()=>{props.setIsOpen()}} 
               >Thêm học viên mới</ModalHeader>
               <ModalBody>
                 <div className='modal-student-body'>
@@ -75,54 +61,56 @@ export default class ModalAddCourse extends Component {
                         </label>
                         <input 
                             type="text" 
-                            onChange={(event)=>{this.handleOnChangeInput(event, "name")}}
-                            value ={this.state.name}
+                            onChange={(event)=>{setName(event.target.value)}}
+                            value ={name}
                         />
                     </div>
-
-                    <div className='input-container'>
+                    <div className='input-container max-width-input'>
                         <label>
                             Thời gian bắt đầu: 
                         </label>
                         <input 
-                            type="date" 
-                            onChange={(event)=>{this.handleOnChangeInput(event, "time_start")}}
-                            value={this.state.time_start}
+                            type="text" 
+                            onChange={(event)=>{setTimeStart(event.target.value)}}
+                            value ={time_start}
                         />
                     </div>
-                    <div className='input-container'>
+                    <div className='input-container max-width-input'>
                         <label>
                             Thời gian kết thúc: 
                         </label>
                         <input 
-                            type="date" 
-                            onChange={(event)=>{this.handleOnChangeInput(event, "time_finish")}}
-                            value={this.state.time_finish}
+                            type="text" 
+                            onChange={(event)=>{setTimeFinish(event.target.value)}}
+                            value ={time_finish}
                         />
                     </div>
-                    <div className='input-container'>
+                    <div className='input-container  max-width-input'>
                         <label>
-                            Giá: 
+                           Price: 
                         </label>
                         <input 
                             type="text" 
-                            onChange={(event)=>{this.handleOnChangeInput(event, "price")}}
-                            value={this.state.price}
+                            onChange={(event)=>{setPrice(event.target.value)}}
+                            value={price}
                         />
                     </div>
-
                 </div>
               </ModalBody>
               <ModalFooter>
-                <Button color="primary" onClick={()=>{this.handleAddNewCourse()}}>
+                <Button color="primary" onClick={()=>{handleAddNewCourse()}}>
                   Thêm
                 </Button>{' '}
-                <Button color="secondary" onClick={()=>{this.props.setIsOpen}}>
+                <Button color="secondary" onClick={()=>{props.setIsOpen}}>
                   Hủy
                 </Button>
               </ModalFooter>
             </Modal>
-          </div>
-        )
-    } 
+            {/* Minh */}
+        </div>
+    )
 }
+export default ModalAddCourse
+
+
+

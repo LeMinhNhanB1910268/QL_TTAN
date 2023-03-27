@@ -18,7 +18,13 @@ class User extends Authenticatable
         'password', 
         'member_id', 
         'role', 
-
+        'name', 
+        'sex', 
+        'birthday', 
+        'email', 
+        'phone', 
+        'picture', 
+        'position', 
         'created_by', 
         'modified_by', 
         'created_at', 
@@ -27,8 +33,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password'
     ];
-    public function member()
-    {
-        return $this->hasOne(Member::class, 'account_id', 'account_id');
-    }
+    // public function member()
+    // {
+    //     return $this->hasOne(Member::class, 'account_id', 'account_id');
+    // }
 }

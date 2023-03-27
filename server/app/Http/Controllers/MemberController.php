@@ -37,13 +37,14 @@ class MemberController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+                'member_id'=>'required',
                 'name' => 'required',
-                'sex' => 'required',
-                'birthday' => 'required',
-                'email' => 'required',
-                'phone' => 'required',
-                'birthday' => 'required',
-                'position' => 'required',
+                // 'sex' => 'required',
+                // 'birthday' => 'required',
+                // 'email' => 'required',
+                // 'phone' => 'required',
+                // 'birthday' => 'required',
+                // 'position' => 'required',
             ]);
         $member = Member::create($request->all());
         return new MemberResource($member);
