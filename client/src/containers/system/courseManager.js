@@ -1,5 +1,6 @@
 import React, { useEffect, useState} from "react";
 import './courseManager.css'
+import { useNavigate } from "react-router-dom";
 import { Button } from "reactstrap";
 import {getAllCourse, createCourseService, deleteCourseService, updateCourseService} from '../../services/courseService'
 import ModalAddCourse from '../../components/Modal/Course/ModalAddCourse'
@@ -7,6 +8,7 @@ import ModalEditCourse from '../../components/Modal/Course/ModalEditCourse'
 
 
 function CourseManager () {
+    const navigate = useNavigate();
     const [arrCourse,setArrCourse] = useState('')
     const [isOpenNewCourse,setisOpenNewCourse] = useState(false)
     const [isOpenEditCourse,setisOpenEditCourse] = useState(false)
@@ -72,8 +74,12 @@ function CourseManager () {
         getAllCourses();
     }
     const handleDetail = (course) => {
-        alert('hihi')
+        localStorage.setItem('course', JSON.stringify(course));
+        navigate('/course-detail')
         console.log(course);
+    }
+    const handleJoinCourse = () => {
+        navigate('/nhom')
     }
     return (
         <div>
@@ -116,7 +122,7 @@ function CourseManager () {
                         return (
                             <tr key={index}> 
                                     <td>{item.course_id}</td>
-                                    <td>{item.name}</td>
+                                    <td onClick={()=>{handleDetail(item)}}>{item.name}</td>
                                     <td>{item.time_start}</td>
                                     <td>{item.time_finish}</td>
                                     <td>{item.price}</td>
@@ -130,6 +136,9 @@ function CourseManager () {
                                         onClick={()=>{handleDeleteCourse(item)}}
                                     >
                                         <i className="fa-solid fa-trash"></i>
+                                    </Button>
+                                    <Button color="success" className="btn-join" onClick={()=>{handleJoinCourse()}}>
+                                        <i className="fa-solid fa-right-to-bracket"></i>
                                     </Button>
                                 </td>
                             </tr>

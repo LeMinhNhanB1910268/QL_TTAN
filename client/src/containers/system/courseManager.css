@@ -30,7 +30,7 @@
   .bth-edit{
     color: white;
   }
-  .btn-edit, .btn-delete{
+  .btn-edit, .btn-delete, .btn-join{
     width: 40px;
     height: 40px;
     margin: 5px;
@@ -41,3 +41,4 @@
     font-weight: 600;
     font-size: 15px;
   }
+

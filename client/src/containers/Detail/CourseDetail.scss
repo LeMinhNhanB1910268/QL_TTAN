@@ -1,0 +1,22 @@
+.container{
+
+    .title-Course{
+        color: black;
+    }
+    .content-Course{
+        border: none;
+        label{
+            font-size: 18px;
+            margin: 5px;
+            min-width: 200px;
+        }
+        p{
+            display: inline;
+            margin-left: 10px;
+            font-size: 18px;
+        }
+        table{
+            font-size: 18px;
+        }
+    }
+}

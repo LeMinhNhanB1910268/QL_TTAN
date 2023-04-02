@@ -38,7 +38,7 @@ class PointController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
+            'student_id' => 'required',
             'diem' => 'required',
         ]);
         $point = Point::create($request->all());

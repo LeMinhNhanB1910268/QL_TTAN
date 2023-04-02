@@ -1,23 +1,37 @@
 import React, {useEffect, useState} from "react";
-import { useNavigate } from "react-router-dom";
-import './studentManager.css'
+import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "reactstrap";
+import {getAllNhom, getNhom} from '../../services/nhomService'
 import {getAllStudent, createStudentService, deleteStudentService, updateStudentService} from '../../services/studentService'
 import ModalAddStudent from '../../components/Modal/Student/ModalAddStudent'
 import ModalEditStudent from '../../components/Modal/Student/ModalEditStudent'
 
 
-function StudentManager () {
+
+function ClassDetail (props) {
     const navigate = useNavigate();
+    const { id } = useParams();
+    const [arrNhom,setArrNhom] = useState('')
     const [arrStudent,setArrStudent] = useState('')
     const [isOpenNewStudent,setisOpenNewStudent] = useState(false)
     const [isOpenEditStudent,setisOpenEditStudent] = useState(false)
     const [studentEdit,setStudentEdit] = useState({})
-
+    // const [nhom] = useState(JSON.parse(localStorage.getItem('nhom')))
     useEffect(()=>{
+        getAllNhoms();
+        getNhomWithStudent();
         getAllStudents();
-    },[])
 
+    },[])
+    const getAllNhoms = async () => {
+        let response = await getAllNhom();
+        if(response){
+            setArrNhom(response.data)
+            ,()=> {
+                console.log('hihi',arrNhom)
+            } 
+        }
+    }
     const getAllStudents = async () => {
         let response = await getAllStudent();
         console.log(response);
@@ -26,6 +40,12 @@ function StudentManager () {
             ,()=> {
                 console.log('hihi',arrStudent)
             }
+        }
+    }
+    const getNhomWithStudent = async () => {
+        let response = await getNhom(id);
+        if(response){
+            setArrNhom(response.data)
         }
     }
     const handleAddStudent = () => {
@@ -51,7 +71,7 @@ function StudentManager () {
         }catch(e){
             console.log(e)
         }
-        getAllStudents();
+        getAllNhoms();
     }
     const createStudent = async (student) => {
         try{
@@ -69,17 +89,17 @@ function StudentManager () {
         }catch(e){
             console.log(e);
         }
-        getAllStudents();
+        getAllNhoms();
     }
     const handleDetail = (student) => {
         localStorage.setItem('student', JSON.stringify(student));
-        navigate({pathname: '/student-detail/'+student.student_id})
-        // console.log(student);
+        navigate({pathname: '/student-detail/'+id})
+        console.log(student);
     }
     return (
         <div>
             <div className="title">
-                    Quản lí học viên của trung tâm
+                    Chi tiet
             </div>
             <div >
                 <button 
@@ -102,46 +122,51 @@ function StudentManager () {
                 editStudent = {doEditStudent}
             />
             }
-                <table id="customers">
-                    <tbody>
-                        <tr>
-                            <th>ID</th> 
-                            <th>Họ và tên</th>
-                            <th>GIới tính</th>
-                            <th>Ngày sinh</th>
-                            <th>Email</th>
-                            <th>Số điện thoại</th>
-                            <th>Thao tác</th>
-                        </tr>
-                        {
-                            arrStudent && arrStudent.map((item, index)=>{
-                                return (
-                                    <tr key={index}> 
-                                        <td>{item.student_id}</td>
-                                        <td onClick={()=>{handleDetail(item)}}>{item.name}</td>
-                                        <td>{item.sex}</td>
-                                        <td>{item.birthday}</td>
-                                        <td>{item.email}</td>
-                                        <td>{item.phone}</td>
-                                        <td>
-                                            <Button color="warning" className="btn-edit" onClick={() => {handleEditStudent(item)}}>
-                                                <i className="fa-solid fa-pen-to-square"></i>
-                                            </Button>
-                                            <Button 
-                                                color="danger" 
-                                                className="btn-delete"
-                                                onClick={()=>{handleDeleteStudent(item)}}
-                                            >
-                                                <i className="fa-solid fa-trash"></i>
-                                            </Button>
-                                        </td>
-                                    </tr>
-                                )
-                            })
-                        }
-                    </tbody>
-                </table>    
+            <table id="customers">
+                <tbody>
+                    <tr>
+                        <th>ID</th> 
+                        <th>Tên Học Viên</th>
+                        <th>Giới tính</th>
+                        <th>Số điện thoại</th>
+                        <th>Email</th>
+                        <th>Nhận xét</th>
+                        <th>Thao tác</th>
+                    </tr>
+                    {
+                        arrNhom.get_student && arrNhom.get_student.map((item, index)=>{
+                            return (
+                                <tr key={index}>
+                                    <td>{item.student_id}</td>
+                                    <td onClick={()=>{handleDetail(item)}}>{item.name}</td>
+                                    <td>{item.sex}</td>
+                                    <td>{item.phone}</td>
+                                    <td>{item.email}</td>
+                                    <td>
+                                        <button>
+                                            nhận xét
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <Button color="warning" className="btn-edit" onClick={() => {handleEditStudent(item)}}>
+                                            <i className="fa-solid fa-pen-to-square"></i>
+                                        </Button>
+                                        <Button 
+                                            color="danger" 
+                                            className="btn-delete"
+                                            onClick={()=> {handleDeleteStudent(item)}}
+                                        >
+                                            <i className="fa-solid fa-trash"></i>
+                                        </Button>
+                                    </td>
+                                </tr>
+                            )
+                        })
+                    }
+                </tbody>
+            </table>
         </div>
     )
 }
-export default StudentManager;
+
+export default ClassDetail;

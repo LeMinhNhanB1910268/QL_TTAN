@@ -12,6 +12,7 @@ function ModalEditStudent (props){
     const [birthday,setBirthday] = useState('')
     const [sex,setSex] = useState('')
     const [student_id,setAccount] = useState('')
+    const [nhom_id,setNhom_id] = useState('')
 
     useEffect(()=>{
         const student = props.currentStudent;
@@ -22,6 +23,7 @@ function ModalEditStudent (props){
         setBirthday(student.studentEdit.birthday)
         setSex(student.studentEdit.sex)
         setAccount(student.studentEdit.student_id)
+        setNhom(student.studentEdit.nhom_id)
     },[])
 
     const checkInput = () => {
@@ -52,7 +54,8 @@ function ModalEditStudent (props){
                 phone,
                 birthday,
                 sex,
-                student_id}
+                student_id,
+                nhom_id}
             props.editStudent(data);
         }
         else {
@@ -92,6 +95,16 @@ function ModalEditStudent (props){
                             value ={email}
                         />
                     </div>
+                    <div className='input-container max-width-input'>
+                        <label>
+                            Nhóm: 
+                        </label>
+                        <input 
+                            type="text" 
+                            onChange={(event)=>{setNhom_id(event.target.value)}}
+                            value ={nhom_id}
+                        />
+                    </div>
                     <div className='input-container '>
                         <label>
                             Số điện thoại: 
@@ -126,7 +139,7 @@ function ModalEditStudent (props){
               </ModalBody>
               <ModalFooter>
                 <Button color="primary" onClick={()=>{handleAddEditStudent()}}>
-                  Thêm
+                  Thay đổi
                 </Button>{' '}
                 <Button color="secondary" onClick={()=>{props.setIsOpen}}>
                   Hủy

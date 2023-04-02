@@ -196,7 +196,7 @@ function ModalEditMember (props){
               </ModalBody>
               <ModalFooter>
                 <Button color="primary" onClick={()=>{handleAddEditMember()}}>
-                  Thêm
+                  Thay đổi
                 </Button>{' '}
                 <Button color="secondary" onClick={()=>{props.setIsOpen}}>
                   Hủy

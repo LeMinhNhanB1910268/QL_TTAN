@@ -1,4 +1,5 @@
 import React, {useEffect,useState} from "react";
+import { useNavigate} from 'react-router-dom';
 import './memberManager.css'
 import { Button } from "reactstrap";
 import {getAllAccount,getUser, createAccountService, deleteAccountService, updateAccountService} from '../../services/accountService'
@@ -7,6 +8,7 @@ import ModalEditMember from "../../components/Modal/Member/ModalEditMember";
 
 
 function MemberManager () {
+    const navigate = useNavigate();
     const [user,setUser] = useState('')
     const [arrMember,setArrMember] = useState('')
     const [isOpenNewMember,setisOpenNewMember] = useState(false)
@@ -77,8 +79,9 @@ function MemberManager () {
         }
         getAllMember();
     }
-    const handleDetail = (member) => {
-        alert('hihi')
+    const handleDetail =  async (member) => {
+        localStorage.setItem('member', JSON.stringify(member));
+        navigate('/member-detail')
         console.log(member);
     }
     return (

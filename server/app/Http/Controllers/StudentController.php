@@ -17,7 +17,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        return new StudentCollection(Student::paginate());
+        return new StudentCollection(Student::with('points')->paginate());
     }
 
     /**
@@ -56,9 +56,9 @@ class StudentController extends Controller
      * @param  int  Student $student
      * @return \Illuminate\Http\Response
      */
-    public function show(Student $student)
+    public function show($id)
     {
-        return new StudentResource($student);
+        return new StudentResource(Student::with('points')->find($id));
     }
 
     /**

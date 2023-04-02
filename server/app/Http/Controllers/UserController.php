@@ -98,4 +98,9 @@ class UserController extends Controller
     {
         $account->delete();
     }
+
+    public function search($sex) {
+        return User::with('account')->where('sex','like', '%'.$sex.'%')->get();
+        // return $sex;
+    }
 }

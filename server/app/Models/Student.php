@@ -15,6 +15,7 @@ class Student extends Model
         'email',
         'phone',
         'picture',
+        'nhom_id',
         'created_by',
         'modified_by',
         'created_at',
@@ -22,6 +23,11 @@ class Student extends Model
     ];
     public function points()
     {
-        return $this->hasOne(Point::class, 'student_id', 'student_id');
+        return $this->hasMany(Point::class, 'student_id', 'student_id');
+        return $this->hasOne(Nhom::class, 'nhom_id', 'nhom_id');
+    }
+    public function nhom()
+    {
+        return $this->hasOne(Nhom::class, 'nhom_id', 'nhom_id');
     }
 }

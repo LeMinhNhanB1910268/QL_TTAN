@@ -1,0 +1,22 @@
+.container{
+
+    .title-Student{
+        color: black;
+    }
+    .content-Student{
+        border: none;
+        label{
+            font-size: 18px;
+            margin: 5px;
+            min-width: 150px;
+        }
+        p{
+            display: inline;
+            margin-left: 10px;
+            font-size: 18px;
+        }
+        table{
+            font-size: 18px;
+        }
+    }
+}

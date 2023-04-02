@@ -17,7 +17,10 @@ class NhomController extends Controller
     {
         return new NhomCollection(Nhom::with('getStudent')->paginate());
     }
-
+    // public function student()
+    // {
+    //     return new NhomCollection(Nhom::with('getStudent')->paginate());
+    // }
     /**
      * Show the form for creating a new resource.
      *
@@ -49,9 +52,15 @@ class NhomController extends Controller
      * @param  int  Nhom $nhom
      * @return \Illuminate\Http\Response
      */
-    public function show(Nhom $nhom)
+    public function show($id)
     {
-        return new NhomResource($nhom);
+        // return Nhom::with('getStudent')->find($id);
+        return new NhomResource(Nhom::with('getStudent')->find($id));
+    }
+    public function getCourse($id)
+    {
+        // return Nhom::with('getStudent')->find($id);
+        return new NhomResource(Nhom::with('getCourse')->find($id));
     }
 
     /**

@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import './nhomManager.css'
+import { useNavigate } from "react-router-dom";
 import { Button } from "reactstrap";
 import {getAllNhom, createNhomService, deleteNhomService, updateNhomService} from '../../services/nhomService'
 import ModalAddNhom from '../../components/Modal/Nhom/ModalAddNhom'
@@ -8,6 +9,7 @@ import ModalEditNhom from '../../components/Modal/Nhom/ModalEditNhom'
 
 
 function NhomManager () {
+    const navigate = useNavigate();
     const [arrNhom,setArrNhom] = useState('')
     const [isOpenNewNhom,setisOpenNewNhom] = useState(false)
     const [isOpenEditNhom,setisOpenEditNhom] = useState(false)
@@ -19,7 +21,7 @@ function NhomManager () {
 
     const getAllNhoms = async () => {
         let response = await getAllNhom();
-        console.log(response);
+        // console.log(response);
         if(response){
             setArrNhom(response.data)
             ,()=> {
@@ -40,7 +42,7 @@ function NhomManager () {
         })
     }
     const doEditNhom = async (account) => {
-        console.log('save', account)
+        // console.log('save', account)
         try{
             let response = await updateNhomService(account.account_id, account)
             if (response){
@@ -56,7 +58,7 @@ function NhomManager () {
     const createNhom = async (account) => {
         try{
             let response = await createNhomService(account);
-            console.log('tra ve', response)
+            // console.log('tra ve', response)
             setisOpenNewNhom({isOpenNewNhom: false})
         }catch(e){
             console.log(e)
@@ -71,27 +73,26 @@ function NhomManager () {
         }
         getAllNhom();
     }
-    const handleDetail = (nhom) => {
-        alert('hihi')
-        console.log(nhom);
+    const handleDetail = (id) => {
+        navigate({pathname: '/class-detail/'+id})
+        // console.log(id);
     }
     return (
         <div>
             <div className="title">
-                    Quản lí thành viên của trung tâm
+                    Quản lí nhóm của trung tâm
             </div>
             <div >
                 <button 
                 className="btn btn-primary btn-add" 
                 onClick={() => {handleAddMenber()}}>
-                    <i className="fa-solid fa-plus"></i>Thêm thành viên
+                    <i className="fa-solid fa-plus"></i>Thêm nhóm
                 </button>
             </div>
                 <ModalAddNhom 
                 setIsOpen={()=>{setisOpenNewNhom(false)}} 
                 isOpen={isOpenNewNhom}
                 createNhom = {createNhom}
-                // createNhom = {createNhom}
                 />
                 {
                     isOpenEditNhom &&
@@ -116,7 +117,7 @@ function NhomManager () {
                             return (
                                 <tr key={index}> 
                                     <td>{item.nhom_id}</td>
-                                    <td>{item.name}</td>
+                                    <td onClick={()=>{handleDetail(item.nhom_id)}}>{item.name}</td>
                                     <td>{item.course_id}</td>
                                     <td>{item.description}</td>
                                     <td>

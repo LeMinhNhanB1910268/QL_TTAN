@@ -32,6 +32,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('user', function(Request $request){
         return $request->user();
     });
+    Route::get('ClassWithCourse/{id}', 'NhomController@getCourse');
 
 });
 Route::get('member/search/{sex}', 'MemberController@search');

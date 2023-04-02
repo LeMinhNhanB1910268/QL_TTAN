@@ -5,6 +5,7 @@ const api = createApiClient('localhost:8000');
 const getAllMember = async() => {
     return (await api.get('http://localhost:8000/api/member'))
 }
+
 const createMemberService = async(data) => {
     console.log('data1:', data)
     return (await api.post('http://localhost:8000/api/member',data))
