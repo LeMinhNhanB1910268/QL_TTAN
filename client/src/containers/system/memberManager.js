@@ -128,7 +128,7 @@ function MemberManager () {
                             return (
                                 <tr key={index}> 
                                     <td>{item.member_id}</td>
-                                    <td onClick={() => {handleDetail(item)}}>{item.name}</td>
+                                    <td onClick={()=>{handleDetail(item)}}>{item.name}</td>
                                     <td>{item.sex}</td>
                                     <td>{item.birthday}</td>
                                     <td>{item.email}</td>

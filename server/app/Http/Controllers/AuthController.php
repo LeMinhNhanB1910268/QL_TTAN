@@ -32,7 +32,6 @@ class AuthController extends Controller
             'username' => 'required|exists:accounts',
             'password'=> 'required|min:6'
          ]);
-        // $account = User::where('username', $fields['username'])->first();
         if(!Auth::attempt($cred)){
             return response()->json([
                 'message'=>'Unauthorized.'

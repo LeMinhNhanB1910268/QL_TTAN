@@ -1,24 +1,27 @@
-import React, { Component } from 'react'
+import React, { useEffect,useState} from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import './ModalAddNhom.scss'
-export default class ModalAddNhom extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            modal: false,
-            name:'',
-            course_id:'',
-            description:'',
-        }
-    }
-    componentDidMount(){
 
-    }
-    checkInput = () => {
+
+
+
+function ModalAddNhom (props){
+    const [modal,setModal] = useState(false)
+    const [name,setName] = useState('')
+    const [course_id,setCourse_id] = useState('')
+    const [description,setDescription] = useState('')
+
+
+
+    const checkInput = () => {
         let isValid  = true
-        let arrInput = ['name', 'course_id'];
+        let arrInput = [
+            'name', 
+            'course_id', 
+            'description', 
+        ];
         for (let i=0; i<arrInput.length; i++){
-            if(!this.state[arrInput[i]]){
+            if(!arrInput[i]){
                 isValid = false;
                 alert("missing parameter: "+arrInput[i]);
                 break;
@@ -26,91 +29,81 @@ export default class ModalAddNhom extends Component {
         }
         return isValid;
     }
-    handleOnChangeInput = (event, id) => {
-        // console.log(event.target.value, id)
-        let copyState = {
-            ...this.state
-        }
-        copyState[id] = event.target.value;
-        this.setState({
-            ...copyState
-        })
-        // console.log('copystate ', copyState)
-    }
-    handleAddNewNhom = () => {
-        let isValid = this.checkInput();
+    const handleAddNewNhom = () => {
+        let isValid = checkInput();
         console.log(isValid)
-        if (isValid === true) {
-            this.props.createNhom(this.state);
-            // console.log('data model', this.state)
+        if (isValid) {
+            const data = {
+                name,
+                description,
+                course_id,
+            }
+            props.createNhom(data);
         }
-        else {
-
-        }
-
     }
-    // toggle = () => {
-    //     this.setState({model: true});
-    // }
-    render() {
-        // console.log(this.props.isOpen)
-        return (
-            <div>
+    return(
+        <div>
             <Modal 
-            isOpen={this.props.isOpen} 
-            toggle={()=>{this.props.setIsOpen()}}
+            isOpen={props.isOpen} 
+            toggle={()=>{props.setIsOpen()}}
             size='lg'
             centered
             className='modal-nhom-container'
             > 
               <ModalHeader 
-              toggle={()=>{this.props.setIsOpen()}} 
+              toggle={()=>{props.setIsOpen()}} 
               >Thêm học viên mới</ModalHeader>
               <ModalBody>
                 <div className='modal-nhom-body'>
-                    <div className='input-container'>
+                    <div className='input-container max-width-input'>
                         <label>
-                            Tên lớp học: 
+                            Họ và tên: 
                         </label>
                         <input 
                             type="text" 
-                            onChange={(event)=>{this.handleOnChangeInput(event, "name")}}
-                            value ={this.state.name}
-                        />
-                    </div>
-
-                    <div className='input-container '>
-                        <label>
-                            Khóa học: 
-                        </label>
-                        <input 
-                            type="text" 
-                            onChange={(event)=>{this.handleOnChangeInput(event, "course_id")}}
-                            value={this.state.course_id}
+                            onChange={(event)=>{setName(event.target.value)}}
+                            value ={name}
                         />
                     </div>
                     <div className='input-container max-width-input'>
                         <label>
-                            Thông tin chi tiết: 
+                           Ma khoa hoc: 
                         </label>
-                        <textarea 
-                            rows="4" cols="50"
-                            onChange={(event)=>{this.handleOnChangeInput(event, "description")}}
-                            value={this.state.description}
+                        <input 
+                            type="text" 
+                            onChange={(event)=>{setCourse_id(event.target.value)}}
+                            value ={course_id}
+                        />
+                    </div>
+                    <div className='input-container '>
+                        <label>
+                            Thong tin chi tiet: 
+                        </label>
+                        <input 
+                            type="text" 
+                            onChange={(event)=>{setDescription(event.target.value)}}
+                            value ={description}
                         />
                     </div>
                 </div>
               </ModalBody>
               <ModalFooter>
-                <Button color="primary" onClick={()=>{this.handleAddNewNhom()}}>
+                <Button color="primary" onClick={()=>{handleAddNewNhom()}}>
                   Thêm
-                </Button>{' '}
-                <Button color="secondary" onClick={()=>{this.props.setIsOpen}}>
+                </Button>
+                <Button color="secondary" onClick={()=>{props.setIsOpen}}>
                   Hủy
                 </Button>
               </ModalFooter>
             </Modal>
-          </div>
-        )
-    } 
+        </div>
+    )
 }
+export default ModalAddNhom
+
+
+
+
+
+
+

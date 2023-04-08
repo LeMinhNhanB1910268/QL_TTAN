@@ -70,7 +70,7 @@ function ModalAddCourse (props){
                             Thời gian bắt đầu: 
                         </label>
                         <input 
-                            type="text" 
+                            type="date" 
                             onChange={(event)=>{setTimeStart(event.target.value)}}
                             value ={time_start}
                         />
@@ -80,7 +80,7 @@ function ModalAddCourse (props){
                             Thời gian kết thúc: 
                         </label>
                         <input 
-                            type="text" 
+                            type="date" 
                             onChange={(event)=>{setTimeFinish(event.target.value)}}
                             value ={time_finish}
                         />

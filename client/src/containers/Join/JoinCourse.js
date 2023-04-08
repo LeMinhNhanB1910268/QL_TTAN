@@ -1,30 +1,38 @@
-import React, {useEffect, useState} from "react";
-import './nhomManager.css'
-import { useNavigate } from "react-router-dom";
+import React, { useEffect,useState} from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "reactstrap";
-import {getAllNhom, createNhomService, deleteNhomService, updateNhomService} from '../../services/nhomService'
+import {getAllCourse,getCourse} from '../../services/courseService'
+import {getAllNhom, createNhomService, deleteNhomService, updateNhomService, getNhom} from '../../services/nhomService'
 import ModalAddNhom from '../../components/Modal/Nhom/ModalAddNhom'
 import ModalEditNhom from '../../components/Modal/Nhom/ModalEditNhom'
-
-
-
-function NhomManager () {
+function JoinCourse (){
     const navigate = useNavigate();
+    const { id } = useParams();
+    const [arrCourse,setArrCourse] = useState('')
+    const [Course,setCourse] = useState('')
     const [arrNhom,setArrNhom] = useState('')
     const [isOpenNewNhom,setisOpenNewNhom] = useState(false)
     const [isOpenEditNhom,setisOpenEditNhom] = useState(false)
     const [nhomEdit,setnhomEdit] = useState({})
-
     useEffect(()=>{
-        getAllNhoms();
+        getAllCourses();
+        getNhom();
     },[])
 
-    const getAllNhoms = async () => {
-        let response = await getAllNhom();
-        // console.log(response);
+    const getAllCourses = async () => {
+        let response = await getAllCourse();
         if(response){
-            setArrNhom(response.data)
-            console.log(response.data);
+            setArrCourse(response.data)
+            // console.log(response.data);
+        }
+    }
+    const getNhom = async () => {
+        let response = await getCourse(id)
+        if (response){
+            setCourse(response.data.data)
+            console.log("data", Course[0].get_class)
+            // console.log(response.data.data[0]);
+            // console.log(Course.data[0].get_class);
         }
     }
     const handleAddNhom = () => {
@@ -39,7 +47,7 @@ function NhomManager () {
         })
     }
     const doEditNhom = async (nhom) => {
-        console.log('save', nhom)
+        // console.log('save', nhom)
         try{
             let response = await updateNhomService(nhom.nhom_id, nhom)
             if (response){
@@ -50,33 +58,29 @@ function NhomManager () {
         }catch(e){
             console.log(e)
         }
-        getAllNhom();
+        getAllCourses();
     }
     const createNhom = async (nhom) => {
-        console.log(nhom)
+        console.log()
         try{
             let response = await createNhomService(nhom);
-            setisOpenNewNhom(false)
-            console.log(isOpenNewNhom)
+            // console.log('tra ve', response)
+            setisOpenNewNhom({isOpenNewNhom: false})
         }catch(e){
             console.log(e)
         }
-        getAllNhom();
+        getAllCourses();
     }
     const handleDeleteNhom = async (nhom) => {
         try{
             let res = await deleteNhomService(nhom.nhom_id)
-            if(res.status===200){
-                getAllNhoms();
-            }
         }catch(e){
             console.log(e);
         }
-
+        getAllCourses();
     }
-    const handleDetail = (id) => {
-        navigate({pathname: '/class-detail/'+id})
-        // console.log(id);
+    const handleDetail = (nhom_id) => {
+        navigate({pathname: '/class-detail/'+nhom_id})
     }
     return (
         <div>
@@ -114,7 +118,8 @@ function NhomManager () {
                         <th>Thao tác</th>
                     </tr>
                     {
-                        arrNhom && arrNhom.map((item, index)=>{
+                        Course.length > 0 && Course[0].get_class.map((item, index)=>{
+                            console.log('classname', item);
                             return (
                                 <tr key={index}> 
                                     <td>{item.nhom_id}</td>
@@ -122,25 +127,25 @@ function NhomManager () {
                                     <td>{item.course_id}</td>
                                     <td>{item.description}</td>
                                     <td>
-                                        <Button color="warning" className="btn-edit" onClick={()=>{handleEditNhom(item)}}>
+                                        <Button color="warning" className="btn-edit" onClick={() => {handleEditNhom(item)}}>
                                             <i className="fa-solid fa-pen-to-square"></i>
                                         </Button>
                                         <Button 
                                             color="danger" 
                                             className="btn-delete"
-                                            onClick={()=>{handleDeleteNhom(item)}}
+                                            onClick={()=> {handleDeleteNhom(item)}}
                                         >
                                             <i className="fa-solid fa-trash"></i>
                                         </Button>
                                     </td>
                                 </tr>
                             )
-                        })
+                            })
                     }
                     </tbody>
                 </table>    
         </div>
     )
 }
+export default JoinCourse;
 
-export default NhomManager

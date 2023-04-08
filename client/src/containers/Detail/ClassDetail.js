@@ -5,7 +5,7 @@ import {getAllNhom, getNhom} from '../../services/nhomService'
 import {getAllStudent, createStudentService, deleteStudentService, updateStudentService} from '../../services/studentService'
 import ModalAddStudent from '../../components/Modal/Student/ModalAddStudent'
 import ModalEditStudent from '../../components/Modal/Student/ModalEditStudent'
-
+import ModalAddReview from '../../components/Modal/Review/ModalAddReview'
 
 
 function ClassDetail (props) {
@@ -15,12 +15,14 @@ function ClassDetail (props) {
     const [arrStudent,setArrStudent] = useState('')
     const [isOpenNewStudent,setisOpenNewStudent] = useState(false)
     const [isOpenEditStudent,setisOpenEditStudent] = useState(false)
+    const [isOpenAddReview,setisOpenAddReview] = useState(false)
     const [studentEdit,setStudentEdit] = useState({})
+    const [studentReview,setStudentReview] = useState({})
     // const [nhom] = useState(JSON.parse(localStorage.getItem('nhom')))
     useEffect(()=>{
-        getAllNhoms();
+        // getAllNhoms();
         getNhomWithStudent();
-        getAllStudents();
+        // getAllStudents();
 
     },[])
     const getAllNhoms = async () => {
@@ -34,7 +36,7 @@ function ClassDetail (props) {
     }
     const getAllStudents = async () => {
         let response = await getAllStudent();
-        console.log(response);
+        // console.log(response);
         if(response){
             setArrStudent(response.data)
             ,()=> {
@@ -44,8 +46,10 @@ function ClassDetail (props) {
     }
     const getNhomWithStudent = async () => {
         let response = await getNhom(id);
+        console.log(response)
         if(response){
             setArrNhom(response.data)
+            console.log(response.data)
         }
     }
     const handleAddStudent = () => {
@@ -96,6 +100,11 @@ function ClassDetail (props) {
         navigate({pathname: '/student-detail/'+id})
         console.log(student);
     }
+    const handleAddReview = (student) => {
+        setisOpenAddReview({isOpenAddReview: true})
+        console.log(student)
+        setStudentReview({studentReview: student})
+    }
     return (
         <div>
             <div className="title">
@@ -112,6 +121,11 @@ function ClassDetail (props) {
                 setIsOpen={()=>{setisOpenNewStudent(false)}} 
                 isOpen={isOpenNewStudent}
                 createStudent = {createStudent}
+            />
+            <ModalAddReview 
+                setIsOpen={()=>{setisOpenAddReview(false)}} 
+                isOpen={isOpenAddReview}
+                currentStudent={studentReview}
             />
             {
                 isOpenEditStudent &&
@@ -143,7 +157,7 @@ function ClassDetail (props) {
                                     <td>{item.phone}</td>
                                     <td>{item.email}</td>
                                     <td>
-                                        <button>
+                                        <button onClick={()=>{handleAddReview(item)}}>
                                             nhận xét
                                         </button>
                                     </td>

@@ -1,0 +1,25 @@
+.modal-review-container{
+    .modal-review-body{
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+            .input-container{
+                display: flex;
+                flex-direction: column;
+                width: 49%;
+
+                &.max-width-input{
+                    width: 100%;
+                }
+                input{
+                    border: 1px solid gray;
+                    border-radius: 5px;
+                    height: 35px;
+                    padding: 0 10px;
+                    outline: none;
+                }
+                
+            }
+    }
+}
+

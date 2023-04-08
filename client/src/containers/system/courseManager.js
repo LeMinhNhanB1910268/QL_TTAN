@@ -13,18 +13,16 @@ function CourseManager () {
     const [isOpenNewCourse,setisOpenNewCourse] = useState(false)
     const [isOpenEditCourse,setisOpenEditCourse] = useState(false)
     const [courseEdit,setCourseEdit] = useState({})
-
+    const [courseid] = useState(JSON.parse(localStorage.getItem('course')))
 
     useEffect(()=>{
         getAllCourses();
     },[])
     const getAllCourses = async () => {
         let response = await getAllCourse();
-        // console.log('hihi',response);
         if(response){
             setArrCourse(response.data)
             ,()=> {
-                // console.log('hihi',arrCourse)
             }
         }
     }
@@ -78,8 +76,8 @@ function CourseManager () {
         navigate('/course-detail')
         console.log(course);
     }
-    const handleJoinCourse = () => {
-        navigate('/nhom')
+    const handleJoinCourse = (course_id) => {
+        navigate('/join-course/'+course_id)
     }
     return (
         <div>
@@ -89,7 +87,7 @@ function CourseManager () {
             <div >
                 <button 
                     className="btn btn-primary btn-add" 
-                    onClick={() => {handleAddCourse()}}>
+                    onClick={()=>{handleAddCourse()}}>
                     <i className="fa-solid fa-plus"></i>Thêm khóa học
                 </button>
             </div>
@@ -109,41 +107,41 @@ function CourseManager () {
             }
             <table id="customers">
                 <tbody>
-                <tr>
-                    <th>ID</th> 
-                    <th onClick={() => {handleDetail(item)}}>Tên khóa học</th>
-                    <th>Thời gian bắt đầu</th>
-                    <th>Thời gian kết thúc</th>
-                    <th>Giá</th>
-                    <th>Thao tác</th>
-                </tr>                    
+                    <tr>
+                        <th>ID</th> 
+                        <th onClick={()=>{handleDetail(item)}}>Tên khóa học</th>
+                        <th>Thời gian bắt đầu</th>
+                        <th>Thời gian kết thúc</th>
+                        <th>Giá</th>
+                        <th>Thao tác</th>
+                    </tr>
                     {
-                    arrCourse && arrCourse.map((item, index)=>{
-                        return (
-                            <tr key={index}> 
-                                    <td>{item.course_id}</td>
-                                    <td onClick={()=>{handleDetail(item)}}>{item.name}</td>
-                                    <td>{item.time_start}</td>
-                                    <td>{item.time_finish}</td>
-                                    <td>{item.price}</td>
-                                    <td>
-                                    <Button color="warning" className="btn-edit" onClick={()=>{handleEditCourse(item)}}>
-                                        <i className="fa-solid fa-pen-to-square"></i>
-                                    </Button>
-                                    <Button 
-                                        color="danger" 
-                                        className="btn-delete"
-                                        onClick={()=>{handleDeleteCourse(item)}}
-                                    >
-                                        <i className="fa-solid fa-trash"></i>
-                                    </Button>
-                                    <Button color="success" className="btn-join" onClick={()=>{handleJoinCourse()}}>
-                                        <i className="fa-solid fa-right-to-bracket"></i>
-                                    </Button>
-                                </td>
-                            </tr>
-                        )
-                    })
+                        arrCourse && arrCourse.map((item, index)=>{
+                            return (
+                                <tr key={index}> 
+                                        <td>{item.course_id}</td>
+                                        <td onClick={()=>{handleDetail(item)}}>{item.name}</td>
+                                        <td>{item.time_start}</td>
+                                        <td>{item.time_finish}</td>
+                                        <td>{item.price}</td>
+                                        <td>
+                                        <Button color="warning" className="btn-edit" onClick={()=>{handleEditCourse(item)}}>
+                                            <i className="fa-solid fa-pen-to-square"></i>
+                                        </Button>
+                                        <Button 
+                                            color="danger" 
+                                            className="btn-delete"
+                                            onClick={()=>{handleDeleteCourse(item)}}
+                                        >
+                                            <i className="fa-solid fa-trash"></i>
+                                        </Button>
+                                        <Button color="success" className="btn-join" onClick={()=>{handleJoinCourse(item.course_id)}}>
+                                            <i className="fa-solid fa-right-to-bracket"></i>
+                                        </Button>
+                                    </td>
+                                </tr>
+                            )
+                        })
                     }
                 </tbody>
             </table>

@@ -6,7 +6,7 @@ const getAllCourse = async () => {
     return (await api.get(`api/course`)).data;
 }
 const getCourse = async (course_id) => {
-    return (await api.get(`api/course`+course_id));
+    return (await api.get(`api/course/`+course_id));
 }
 const createCourseService = async (data) => {
     return (await api.post(`api/course`,data));

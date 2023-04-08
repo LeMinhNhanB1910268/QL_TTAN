@@ -15,7 +15,7 @@ class CourseController extends Controller
      */
     public function index()
     {
-        return new CourseCollection(Course::paginate());
+        return new CourseCollection(Course::with('getClass')->paginate());
     }
 
     /**
@@ -54,7 +54,7 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
-        return new CourseResource($course);
+        return new CourseResource(Course::with('getClass')->find($course));
     }
 
     /**

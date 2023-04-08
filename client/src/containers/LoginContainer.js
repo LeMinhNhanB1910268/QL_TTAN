@@ -54,7 +54,7 @@ const LoginContainer =()=> {
                         <input 
                         placeholder='username' 
                         value={username}
-                        onChange={(event) => {handleOnChangeUsername(event)}}
+                        onChange={(event)=>{handleOnChangeUsername(event)}}
                         />
                       </Form.Field>
                       <Form.Field>
@@ -64,9 +64,9 @@ const LoginContainer =()=> {
                           placeholder='password' 
                           type={isShowPassword ? 'text' : 'password'}
                           value={password}
-                          onChange={(event) => {handleOnChangePassword(event)}}
+                          onChange={(event)=>{handleOnChangePassword(event)}}
                           />
-                          <span onClick={() => {handleShowHidenPassword()}}>
+                          <span onClick={()=>{handleShowHidenPassword()}}>
                             <i className={isShowPassword ? 'fa-regular fa-eye' : 'fa-regular fa-eye-slash'}></i>
                           </span>
                         </div>

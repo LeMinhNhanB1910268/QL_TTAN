@@ -18,4 +18,8 @@ class Course extends Model
         'created_at', 
         'updated_at'
     ];
+    public function getClass()
+    {
+        return $this->hasMany(Nhom::class, 'course_id', 'course_id');
+    }
 }

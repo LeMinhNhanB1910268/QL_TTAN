@@ -14,6 +14,7 @@ import AccountDetail from '../src/containers/Detail/AccountDetail'
 import ClassDetail from '../src/containers/Detail/ClassDetail'
 import StudentDetail from '../src/containers/Detail/StudentDetail'
 import CourseDetail from '../src/containers/Detail/CourseDetail'
+import JoinCourse from '../src/containers/Join/JoinCourse'
 function Router (){
     return (
         <Routes>
@@ -28,6 +29,7 @@ function Router (){
             <Route path='/student-detail/:id' element={<StudentDetail />}></Route>
             <Route path='/course-detail' element={<CourseDetail />}></Route>
             <Route path='/class-detail/:id' element={<ClassDetail />}></Route>
+            <Route path='/join-course/:id' element={<JoinCourse />}></Route>
             {/* <Route path='/account-detail' element={<AccountDetail />}></Route> */}
         </Routes>
     )

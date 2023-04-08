@@ -124,7 +124,7 @@ function StudentManager () {
                                         <td>{item.email}</td>
                                         <td>{item.phone}</td>
                                         <td>
-                                            <Button color="warning" className="btn-edit" onClick={() => {handleEditStudent(item)}}>
+                                            <Button color="warning" className="btn-edit" onClick={()=>{handleEditStudent(item)}}>
                                                 <i className="fa-solid fa-pen-to-square"></i>
                                             </Button>
                                             <Button 

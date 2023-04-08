@@ -17,7 +17,8 @@ use App\Http\Controllers\CloneController;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+Route::post('auth/login', 'AuthController@login');
+Route::post('auth/resgiter', 'AuthController@register');
 
 Route::middleware('auth:sanctum')->group(function(){
     Route::resource('member', 'MemberController');
@@ -36,6 +37,5 @@ Route::middleware('auth:sanctum')->group(function(){
 
 });
 Route::get('member/search/{sex}', 'MemberController@search');
+
 Route::post('account/NoMember/',[CloneController::class,'noMember']);
-Route::post('auth/login', 'AuthController@login');
-Route::post('auth/resgiter', 'AuthController@register');
