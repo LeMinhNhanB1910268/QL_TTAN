@@ -1,8 +1,8 @@
 import React, { useEffect,useState} from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "reactstrap";
-import {getAllCourse,getCourse} from '../../services/courseService'
-import {getAllNhom, createNhomService, deleteNhomService, updateNhomService, getNhom} from '../../services/nhomService'
+import {getAllCourse,getCourse, getClass} from '../../services/courseService'
+import {createNhomService, deleteNhomService, updateNhomService, getNhom} from '../../services/nhomService'
 import ModalAddNhom from '../../components/Modal/Nhom/ModalAddNhom'
 import ModalEditNhom from '../../components/Modal/Nhom/ModalEditNhom'
 function JoinCourse (){
@@ -27,21 +27,17 @@ function JoinCourse (){
         }
     }
     const getNhom = async () => {
-        let response = await getCourse(id)
+        let response = await getClass(id)
         if (response){
             setCourse(response.data.data)
-            console.log("data", Course[0].get_class)
-            // console.log(response.data.data[0]);
-            // console.log(Course.data[0].get_class);
+            // console.log('khoahoc',response.data.data);
         }
     }
     const handleAddNhom = () => {
-        setisOpenNewNhom({isOpenNewNhom: true})
+        setisOpenNewNhom( true)
     }
     const handleEditNhom = (nhom) => {
-        setisOpenEditNhom({
-            isOpenEditNhom: true
-        })
+        setisOpenEditNhom(true)
         setnhomEdit({
             nhomEdit: nhom
         })
@@ -51,9 +47,7 @@ function JoinCourse (){
         try{
             let response = await updateNhomService(nhom.nhom_id, nhom)
             if (response){
-                setisOpenEditNhom({
-                    isOpenEditNhom: true
-                })
+                setisOpenEditNhom(true)
             }
         }catch(e){
             console.log(e)
@@ -65,7 +59,7 @@ function JoinCourse (){
         try{
             let response = await createNhomService(nhom);
             // console.log('tra ve', response)
-            setisOpenNewNhom({isOpenNewNhom: false})
+            setisOpenNewNhom(false)
         }catch(e){
             console.log(e)
         }
@@ -118,8 +112,8 @@ function JoinCourse (){
                         <th>Thao tác</th>
                     </tr>
                     {
-                        Course.length > 0 && Course[0].get_class.map((item, index)=>{
-                            console.log('classname', item);
+                        Course.get_class && Course.get_class.map((item, index)=>{
+                            // console.log('classname', item);
                             return (
                                 <tr key={index}> 
                                     <td>{item.nhom_id}</td>

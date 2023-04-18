@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Providers;
-
+use App\Models\Nhom;
+use App\Models\Student;
+use App\Models\TuitionFee;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

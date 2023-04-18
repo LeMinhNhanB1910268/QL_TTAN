@@ -6,7 +6,12 @@ use App\Models\Student;
 use Illuminate\Http\Request;
 use App\Http\Resources\StudentCollection;
 use App\Http\Resources\StudentResource;
+use App\Models\Point;
 use PHPUnit\Framework\MockObject\Builder\Stub;
+use Illuminate\Support\Facades\DB;
+
+
+
 
 class StudentController extends Controller
 {
@@ -19,6 +24,28 @@ class StudentController extends Controller
     {
         return new StudentCollection(Student::with('points')->paginate());
     }
+    public function getFee($id)
+    {
+        return new StudentCollection(Student::where('nhom_id', $id)->with('tuitionfee')->get());
+    }
+    public function getReview($id)
+    {
+        return new StudentCollection(Student::where('nhom_id', $id)->with('review')->with('points')->get());
+    }
+    public function getPoint($id)
+    {
+        return new StudentCollection(Student::where('nhom_id', $id)->with('points')->get());
+    }
+    // public function getPoint($id) {
+    //     $result = Point::where(['student_id'=>$id])->get();
+    //     return $result;
+    // }
+    // public function getPoint() {
+    //     $result = Student::join('nhoms','students.nhom_id','=','nhoms.nhom_id')->get();
+    //     return $result;
+    // }
+
+
 
     /**
      * Show the form for creating a new resource.

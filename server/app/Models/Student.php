@@ -30,4 +30,12 @@ class Student extends Model
     {
         return $this->hasOne(Nhom::class, 'nhom_id', 'nhom_id');
     }
+    public function tuitionfee()
+    {
+        return $this->hasOne(TuitionFee::class, 'student_id', 'student_id');
+    }
+    public function review()
+    {
+        return $this->hasMany(Review::class, 'student_id', 'student_id');
+    }
 }

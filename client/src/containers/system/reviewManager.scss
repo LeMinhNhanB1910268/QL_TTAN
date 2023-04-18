@@ -1,4 +1,4 @@
-.content-point{
+.content-review{
     margin-top: 20px;
     .row{
         margin-top: 30px;
@@ -38,7 +38,7 @@
             }
         }
     }
-    .content-point-bot{
+    .content-review-bot{
         table{
             tbody{
                 tr{
@@ -56,13 +56,10 @@
                             font-weight: 600;
                             border: none;
                         }
-                        .btn-add-point{
+                        .btn-add-review{
                             background-color: blue;
                         }
-                        .btn-print{
-                            background-color: #FFCA2C;
-                        }
-                        .modal-point{
+                        .modal-review{
                             background-color: white;
                             margin-left: 10px;
                             height: 20px;
@@ -71,10 +68,10 @@
                                 height: 20px;
                                 padding: 0 5px;
                             }
-                            .btn-edit-point{
+                            .btn-edit-review{
                                 background-color: #FFCA2C;
                             }
-                            .btn-delete-point{
+                            .btn-delete-review{
                                 background-color: red;
                             }
                         }

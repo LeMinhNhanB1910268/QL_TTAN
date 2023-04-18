@@ -1,4 +1,4 @@
-.content-point{
+.content-fee{
     margin-top: 20px;
     .row{
         margin-top: 30px;
@@ -38,7 +38,7 @@
             }
         }
     }
-    .content-point-bot{
+    .content-bot{
         table{
             tbody{
                 tr{
@@ -47,7 +47,7 @@
                     }
                     td{
                         font-size: 15px;
-                        font-weight: 500;
+                        padding: 5px;
                         button{
                             padding: 7px;
                             border-radius: 5px;
@@ -55,28 +55,13 @@
                             color: white;
                             font-weight: 600;
                             border: none;
+
                         }
-                        .btn-add-point{
+                        .btn-confirm{
                             background-color: blue;
                         }
                         .btn-print{
                             background-color: #FFCA2C;
-                        }
-                        .modal-point{
-                            background-color: white;
-                            margin-left: 10px;
-                            height: 20px;
-                            font-size: 15px;
-                            button{
-                                height: 20px;
-                                padding: 0 5px;
-                            }
-                            .btn-edit-point{
-                                background-color: #FFCA2C;
-                            }
-                            .btn-delete-point{
-                                background-color: red;
-                            }
                         }
                     }
                 }

@@ -10,6 +10,7 @@ import Student from '../../assets/student.png'
 import TK from '../../assets/tk.png'
 import Course from '../../assets/course.png'
 import Nhom from '../../assets/nhom.png'
+import Score from '../../assets/score.png'
 
 
 //hoc sinh
@@ -87,14 +88,16 @@ function Homepage (){
 
                             </div>
                             <div className='col-sm-6 item text-center'>
-                                <button className='bth-item'>
-                                <img src={TuitionFee}/><div className='bth-text'>Học phí</div>
-                                </button>
+                                <Link to='/tuition-fee'>
+                                    <button className='bth-item'>
+                                        <img src={TuitionFee}/><div className='bth-text'>Học phí</div>
+                                    </button>
+                                </Link>
                             </div>
                         </div>
                         <div className='row'>
                             <div className='col-sm-6 item text-center'>
-                                <Link to='/account'>
+                                <Link to='/review-student'>
                                     <button className='bth-item'>
                                         <img src={Review} className='review'/>
                                         <div className='bth-text'>Đánh giá</div>
@@ -112,6 +115,28 @@ function Homepage (){
                                     </button>
                                 </Link>
                             </div>
+                            <div className='col-sm-6 item text-center'>
+                                
+                                <Link to='/point'>
+                                    <button className='bth-item'>
+                                        <img src={Score}/>
+                                        <div className='bth-text'>
+                                        Cham diem
+                                        </div>
+                                    </button>
+                                </Link>
+                            </div>
+                            <div className='col-sm-6 item text-center'>
+                                
+                                <Link to='/statistical'>
+                                    <button className='bth-item'>
+                                        <img src={TK}/>
+                                        <div className='bth-text'>
+                                        Thong ke
+                                        </div>
+                                    </button>
+                                </Link>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -124,95 +149,4 @@ export default Homepage;
 
 
 
-// export default class ModalAddMember extends Component {
-//     constructor(props){
-//         super(props);
-//         this.state = {
-//             arrAccount: [],
-//         }
-//     }
-//     async componentDidMount(){
-//         await this.getAllAccount();
-//     }
-//     getAllAccount = async () => {
-//         let response = await getAllAccount();
-//         // console.log(response)
-//         if(response){
-//             this.setState({
-//                 arrAccount: response.data.data
-//             },()=> {
-//                 console.log(this.state.arrAccount)
-//             })
-            
-//         }
-//     }
-//     render() {
-//         // console.log(this.props.isOpen)
-//         return (
-//             <div>
-//                 <div className='row content'>
-//                     <div className='col-sm-6 homepage-left'>
-//                         <div className='content-left'>
 
-//                         </div>
-//                     </div>
-//                     <div className='col-sm-6 homepage-right'>
-//                         <div className='content-right'>
-//                             <div className='row'>
-//                                 <div className='col-sm-6 item text-center'>
-//                                     <button className='bth-item'>
-//                                         <img src={Member}/>
-//                                         <div className='bth-text'>Cá nhân</div>
-//                                     </button>
-//                                 </div>
-//                                 <div className='col-sm-6 item text-center'> 
-//                                     <button className='bth-item'>
-//                                         <img src={Student}/>
-//                                         <div className='bth-text'>
-//                                             Học viên
-//                                         </div>
-//                                     </button>
-//                                 </div>
-//                             </div>
-//                             <div className='row'>
-//                                 <div className='col-sm-6 item text-center'>
-//                                     <button className='bth-item'>
-//                                     <img src={Course}/><div className='bth-text'>Khóa học</div>
-//                                     </button>
-//                                 </div>
-//                                 <div className='col-sm-6 item text-center'>
-//                                     <button className='bth-item'>
-//                                     <img src={TuitionFee}/><div className='bth-text'>Học phí</div>
-//                                     </button>
-//                                 </div>
-//                             </div>
-//                             <div className='row'>
-//                                 <div className='col-sm-6 item text-center'>
-//                                     <button className='bth-item'>
-//                                         {/* <i className="fa-solid fa-comment"></i> */}
-//                                         <img src={Review} className='review'/>
-//                                         <div className='bth-text'>Đánh giá</div>
-//                                     </button>
-//                                     </div>
-//                                 <div className='col-sm-6 item text-center'>
-//                                     <button className='bth-item'>
-//                                         <img src={Nhom}/>
-//                                         <div className='bth-text'>
-//                                         Lớp học
-//                                         </div>
-//                                     </button>
-//                                 </div>
-//                             </div>
-                            
-//                             <Link to='/member'>member </Link>
-//                             <Link to='/student'>student </Link>
-//                             <Link to='/nhom'>nhom </Link>
-//                             <Link to='/course'>course </Link>
-//                             <Link to='/account'>account </Link>
-//                         </div>
-//                     </div>
-//                 </div>
-//           </div>
-//         )
-//     } 
-// }

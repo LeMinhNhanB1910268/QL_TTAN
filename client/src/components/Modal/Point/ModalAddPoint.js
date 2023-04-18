@@ -2,26 +2,24 @@
 import React, { useEffect,useState} from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
-import './ModalAddReview.scss'
+import './ModalAddPoint.scss'
 import {getUser} from '../../../services/accountService'
-function ModalAddReview (props){
+function ModalAddPoint (props){
     const [name,setName] = useState('')
-    const [detail,setDetail] = useState('')
+    const [diem,setDetail] = useState('')
     const [member_id,setMember_id] = useState('')
     const [student_id,setStudent_id] = useState('')
     const [user,setUser] = useState('')
     
     useEffect(()=>{
         if(props.isOpen){
-            setStudent_id(props.currentStudent.studentReview.student_id)
+            setStudent_id(props.currentStudent.studentPoint.student_id)
         }
     },[props.isOpen])
     useEffect(()=>{
-       
         if(user){
             setMember_id(user.member_id);
         }
-
     },[user])
     useEffect(()=>{
         getMember();
@@ -34,7 +32,7 @@ function ModalAddReview (props){
         let isValid  = true
         let arrInput = [
             'name', 
-            'detail', 
+            'diem', 
             'student_id', 
             'member_id',
         ];
@@ -47,19 +45,18 @@ function ModalAddReview (props){
         }
         return isValid;
     }
-    const handleAddNewReview = () => {
+    const handleAddNewPoint = () => {
         // updateInput();
         let isValid = checkInput();
         console.log(isValid)
         if (isValid) {
             const data = {
                 name,
-                detail,
+                diem,
                 member_id:user.member_id,
                 student_id,}
             console.log('save',data)
-            props.createReview(data)
-        // await createReviewService(data);
+            props.createPoint(data)
         }
     }
     return(
@@ -69,13 +66,13 @@ function ModalAddReview (props){
             toggle={()=>{props.setIsOpen()}}
             size='lg'
             centered
-            className='modal-review-container'
+            className='modal-point-container'
             > 
               <ModalHeader 
               toggle={()=>{props.setIsOpen()}} 
               >Thêm nhận xét</ModalHeader>
               <ModalBody>
-                <div className='modal-review-body'>
+                <div className='modal-point-body'>
                     <div className='input-container '>
                         <label>
                            Mã nhân viên: 
@@ -98,7 +95,7 @@ function ModalAddReview (props){
                     </div>
                     <div className='input-container  '>
                         <label>
-                           Tên đánh giá: 
+                        Kì kiểm tra: 
                         </label>
                         <input 
                             type="text" 
@@ -106,20 +103,20 @@ function ModalAddReview (props){
                             value={name}
                         />
                     </div>
-                    <div className='input-container max-width-input'>
+                    <div className='input-container'>
                         <label>
-                           Chi tiết: 
+                           Điểm: 
                         </label>
                         <input 
                             type="text" 
                             onChange={(event)=>{setDetail(event.target.value)}}
-                            value ={detail}
+                            value ={diem}
                         />
                     </div>
                 </div>
               </ModalBody>
               <ModalFooter>
-                <Button color="primary" onClick={()=>{handleAddNewReview()}}>
+                <Button color="primary" onClick={()=>{handleAddNewPoint()}}>
                   Thêm
                 </Button>
                 <Button color="secondary" onClick={()=>{props.setIsOpen}}>
@@ -130,4 +127,4 @@ function ModalAddReview (props){
         </div>
     )
 }
-export default ModalAddReview
+export default ModalAddPoint;

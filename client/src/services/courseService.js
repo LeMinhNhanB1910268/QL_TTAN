@@ -8,6 +8,9 @@ const getAllCourse = async () => {
 const getCourse = async (course_id) => {
     return (await api.get(`api/course/`+course_id));
 }
+const getClass = async (course_id) => {
+    return (await api.get(`api/getClass/`+course_id));
+}
 const createCourseService = async (data) => {
     return (await api.post(`api/course`,data));
 }
@@ -27,6 +30,7 @@ const updateCourseService = async (course_id, data) => {
 export {
     getAllCourse,
     getCourse,
+    getClass,
     createCourseService,
     deleteCourseService,
     updateCourseService

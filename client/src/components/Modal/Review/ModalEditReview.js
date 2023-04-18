@@ -1,25 +1,31 @@
 import React, { useEffect,useState} from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import './ModalAddNhom.scss'
+import './ModalEditReview.scss'
 
 
-
-
-function ModalAddNhom (props){
-    const [modal,setModal] = useState(false)
+function ModalEditReview (props){
+    const [review_id,setReview_id] = useState('')
     const [name,setName] = useState('')
-    const [course_id,setCourse_id] = useState('')
-    const [description,setDescription] = useState('')
+    const [student_id,setCourse_id] = useState('')
+    const [detail,setDescription] = useState('')
 
 
+    useEffect(()=>{
+        const review = props.currentReview;
+        console.log('review',review)
+        setName(review.studentReview.name)
+        setCourse_id(review.studentReview.student_id)
+        setDescription(review.studentReview.detail)
+        setReview_id(review.studentReview.review_id)
+    },[])
 
     const checkInput = () => {
         let isValid  = true
         let arrInput = [
             'name', 
-            'course_id', 
-            'description', 
-        ];
+            'student_id', 
+            'detail',
+            'review_id'];
         for (let i=0; i<arrInput.length; i++){
             if(!arrInput[i]){
                 isValid = false;
@@ -29,16 +35,17 @@ function ModalAddNhom (props){
         }
         return isValid;
     }
-    const handleAddNewNhom = () => {
+    const handleAddEditReview = () => {
         let isValid = checkInput();
         console.log(isValid)
         if (isValid) {
             const data = {
                 name,
-                description,
-                course_id,
-            }
-            props.createNhom(data);
+                student_id,
+                detail,
+                review_id}
+            props.editReview(data);
+            console.log('data',data);
         }
     }
     return(
@@ -48,16 +55,26 @@ function ModalAddNhom (props){
             toggle={()=>{props.setIsOpen()}}
             size='lg'
             centered
-            className='modal-nhom-container'
+            className='modal-review-container'
             > 
               <ModalHeader 
               toggle={()=>{props.setIsOpen()}} 
               >Thêm học viên mới</ModalHeader>
               <ModalBody>
-                <div className='modal-nhom-body'>
+                <div className='modal-review-body'>
                     <div className='input-container '>
                         <label>
-                            Tên nhóm: 
+                           Mã học viên: 
+                        </label>
+                        <input 
+                            type="text" 
+                            onChange={(event)=>{setCourse_id(event.target.value)}}
+                            value ={student_id}
+                        />
+                    </div>
+                    <div className='input-container'>
+                        <label>
+                            Tên đánh giá: 
                         </label>
                         <input 
                             type="text" 
@@ -65,32 +82,22 @@ function ModalAddNhom (props){
                             value ={name}
                         />
                     </div>
-                    <div className='input-container '>
-                        <label>
-                           Mã khóa học: 
-                        </label>
-                        <input 
-                            type="text" 
-                            onChange={(event)=>{setCourse_id(event.target.value)}}
-                            value ={course_id}
-                        />
-                    </div>
                     <div className='input-container max-width-input'>
                         <label>
-                            Thông tin chi tiết: 
+                           Nội dung: 
                         </label>
-                        <input 
+                        <textarea
                             type="text" 
                             onChange={(event)=>{setDescription(event.target.value)}}
-                            value ={description}
+                            value={detail}
                         />
-                    </div>
+                    </div>                  
                 </div>
               </ModalBody>
               <ModalFooter>
-                <Button color="primary" onClick={()=>{handleAddNewNhom()}}>
-                  Thêm
-                </Button>
+                <Button color="primary" onClick={()=>{handleAddEditReview()}}>
+                  Thay đổi
+                </Button>{' '}
                 <Button color="secondary" onClick={()=>{props.setIsOpen}}>
                   Hủy
                 </Button>
@@ -99,10 +106,7 @@ function ModalAddNhom (props){
         </div>
     )
 }
-export default ModalAddNhom
-
-
-
+export default ModalEditReview
 
 
 

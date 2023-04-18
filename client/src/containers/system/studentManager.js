@@ -5,7 +5,7 @@ import { Button } from "reactstrap";
 import {getAllStudent, createStudentService, deleteStudentService, updateStudentService} from '../../services/studentService'
 import ModalAddStudent from '../../components/Modal/Student/ModalAddStudent'
 import ModalEditStudent from '../../components/Modal/Student/ModalEditStudent'
-
+import { createTuitionService } from "../../services/tuiionfeeService";
 
 function StudentManager () {
     const navigate = useNavigate();
@@ -29,24 +29,20 @@ function StudentManager () {
         }
     }
     const handleAddStudent = () => {
-        setisOpenNewStudent({isOpenNewStudent: true})
+        setisOpenNewStudent( true)
     }
     const handleEditStudent = (student) => {
-        setisOpenEditStudent({
-            isOpenEditStudent: true
-        })
+        setisOpenEditStudent(true)
         setStudentEdit({
             studentEdit: student
         })
     }
     const doEditStudent = async (student) => {
-        console.log('save', student)
+        // console.log('save', student)
         try{
             let response = await updateStudentService(student.student_id, student)
             if (response){
-                setisOpenEditStudent({
-                    isOpenEditStudent: true
-                })
+                setisOpenEditStudent(false)
             }
         }catch(e){
             console.log(e)
@@ -54,10 +50,11 @@ function StudentManager () {
         getAllStudents();
     }
     const createStudent = async (student) => {
+        
         try{
             let response = await createStudentService(student);
             console.log('tra ve', response)
-            setisOpenNewStudent({isOpenNewStudent: false})
+            setisOpenNewStudent(false)
         }catch(e){
             console.log(e)
         }
@@ -74,7 +71,6 @@ function StudentManager () {
     const handleDetail = (student) => {
         localStorage.setItem('student', JSON.stringify(student));
         navigate({pathname: '/student-detail/'+student.student_id})
-        // console.log(student);
     }
     return (
         <div>
@@ -100,7 +96,7 @@ function StudentManager () {
                 isOpen={isOpenEditStudent}
                 currentStudent={studentEdit}
                 editStudent = {doEditStudent}
-            />
+                />
             }
                 <table id="customers">
                     <tbody>

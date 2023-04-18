@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Resources\NhomResource;
 use App\Http\Resources\NhomCollection;
 use App\Models\Nhom;
+use App\Models\Student;
 class NhomController extends Controller
 {
     /**
@@ -54,7 +55,11 @@ class NhomController extends Controller
      */
     public function show($id)
     {
-        // return Nhom::with('getStudent')->find($id);
+        // return new NhomResource(Nhom::with('getStudent')
+        // ->with('getStudent',function($query){
+        //     $query->with("tuitionfee");
+        // })
+        // ->find($id));
         return new NhomResource(Nhom::with('getStudent')->find($id));
     }
     public function getCourse($id)

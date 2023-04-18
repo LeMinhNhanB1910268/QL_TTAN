@@ -72,7 +72,6 @@ function NhomManager () {
         }catch(e){
             console.log(e);
         }
-
     }
     const handleDetail = (id) => {
         navigate({pathname: '/class-detail/'+id})
@@ -81,7 +80,7 @@ function NhomManager () {
     return (
         <div>
             <div className="title">
-                    Quản lí nhóm của trung tâm
+                    Quản lí lớp của trung tâm
             </div>
             <div >
                 <button 

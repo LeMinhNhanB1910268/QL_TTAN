@@ -1,0 +1,30 @@
+.modal-point-container{
+    .modal-point-body{
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+        // .modal-point-input{
+            .input-container{
+                display: flex;
+                flex-direction: column;
+                width: 49%;
+
+                &.max-width-input{
+                    width: 100%;
+                }
+                input{
+                    border: 1px solid gray;
+                    border-radius: 5px;
+                    height: 35px;
+                    padding: 0 10px;
+                    outline: none;
+                }
+                textarea{
+                    height: 100px;
+                }
+                
+            }
+        // }
+    }
+}
+

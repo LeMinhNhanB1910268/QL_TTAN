@@ -36,15 +36,6 @@ class TuitionFeeController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //         'name' => 'required',
-        //         'sex' => 'required',
-        //         'birthday' => 'required',
-        //         'email' => 'required',
-        //         'phone' => 'required',
-        //         'birthday' => 'required',
-        //         'position' => 'required',
-        //     ]);
         $tuitionfee = TuitionFee::create($request->all());
         return new TuitionFeeResource($tuitionfee);
     }
