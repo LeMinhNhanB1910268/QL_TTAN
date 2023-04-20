@@ -59,9 +59,9 @@ class UserController extends Controller
      * @param  int  User $account
      * @return \Illuminate\Http\Response
      */
-    public function show(User $account)
+    public function show($id)
     {
-        return new UserResource($account);
+        return new UserResource(User::where('member_id',$id)->get());
     }
 
     /**

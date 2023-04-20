@@ -17,8 +17,6 @@ use App\Http\Controllers\CloneController;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::post('auth/login', 'AuthController@login');
-Route::post('auth/resgiter', 'AuthController@register');
 
 Route::middleware('auth:sanctum')->group(function(){
     Route::resource('member', 'MemberController');
@@ -38,9 +36,17 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('getTuition/{id}', 'StudentController@getFee');
     Route::get('getReview/{id}', 'StudentController@getReview');
     Route::get('getPoint/{id}', 'StudentController@getPoint');
+    Route::get('getStateFeeA/{id}', 'StudentController@getStateFeeA');
+    Route::get('getStateFeeB/{id}', 'StudentController@getStateFeeB');
+    Route::get('getCountStateFee/{id}', 'StudentController@getCountStateFee');
+    Route::get('getCountStateFeeA/{id}', 'StudentController@getCountStateFeeA');
+    Route::get('getCountStateFeeB/{id}', 'StudentController@getCountStateFeeB');
+    Route::get('getClassOfMenber/{id}', 'NhomController@getClassOfMenber');
     // Route::get('getPoint', 'StudentController@getPoint');
 
 });
+Route::post('auth/login', 'AuthController@login');
+Route::post('auth/resgiter', 'AuthController@register');
 Route::get('member/search/{sex}', 'MemberController@search');
 
 Route::post('account/NoMember/',[CloneController::class,'noMember']);

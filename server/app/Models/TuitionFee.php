@@ -11,7 +11,6 @@ class TuitionFee extends Model
     protected $fillable = [
         'student_id',
         'status',
-        'nhom_id',
         'created_by',
         'modified_by',
         'created_at',

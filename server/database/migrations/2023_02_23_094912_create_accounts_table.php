@@ -24,6 +24,7 @@ class CreateAccountsTable extends Migration
             $table->string('birthday');
             $table->string('email');
             $table->string('phone');
+            $table->string('address');
             $table->integer('nhom_id')->unsigned();
             $table->string('position');
             $table->integer('created_by')->unsigned()->nullable();

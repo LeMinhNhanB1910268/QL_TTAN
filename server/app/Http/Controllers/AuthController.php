@@ -37,7 +37,6 @@ class AuthController extends Controller
                 'message'=>'Unauthorized.'
             ],401);
         };
-        
         return $this->response( Auth::user());
     }
 }

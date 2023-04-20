@@ -28,6 +28,33 @@ class StudentController extends Controller
     {
         return new StudentCollection(Student::where('nhom_id', $id)->with('tuitionfee')->get());
     }
+    public function getStateFeeA($id)
+    {
+        $result = Student::where('nhom_id',$id)->join('tuitionfees','students.student_id','=', 'tuitionfees.student_id')->where('status','=','da dong')->get();
+        return $result;
+    } 
+    public function getCountStateFee($id)
+    {
+        $result = Student::where('nhom_id',$id)->join('tuitionfees','students.student_id','=', 'tuitionfees.student_id')->count();
+        return $result;
+    } 
+    public function getCountStateFeeA($id)
+    {
+        $result = Student::where('nhom_id',$id)->join('tuitionfees','students.student_id','=', 'tuitionfees.student_id')->where('status','=','da dong')->count();
+        return $result;
+    } 
+    public function getStateFeeB($id)
+    {
+        $result = Student::where('nhom_id',$id)->join('tuitionfees','students.student_id','=', 'tuitionfees.student_id')->where('status','<>','da dong')->get();
+        return $result;
+    } 
+    public function getCountStateFeeB($id)
+    {
+        $result = Student::where('nhom_id',$id)->join('tuitionfees','students.student_id','=', 'tuitionfees.student_id')->where('status','<>','da dong')->count();
+        return $result;
+    } 
+
+
     public function getReview($id)
     {
         return new StudentCollection(Student::where('nhom_id', $id)->with('review')->with('points')->get());

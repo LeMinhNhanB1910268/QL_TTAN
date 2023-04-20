@@ -1,0 +1,27 @@
+.body-modal-container{
+    margin-left: 20px;
+}
+table{
+    width: 95%;
+    margin-right: 20px;
+}
+table, th, td {
+    border: 1px solid black;
+    padding: 5px;
+    border-collapse: collapse;
+}
+tr{
+    height: 40px;
+}
+.stt{
+    width: 10%;
+}
+.name{
+    width: 50%;
+}
+.fee{
+    width: 30%;
+}
+.status{
+    width: 10%;
+}

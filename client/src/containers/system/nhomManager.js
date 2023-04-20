@@ -2,23 +2,41 @@ import React, {useEffect, useState} from "react";
 import './nhomManager.css'
 import { useNavigate } from "react-router-dom";
 import { Button } from "reactstrap";
-import {getAllNhom, createNhomService, deleteNhomService, updateNhomService} from '../../services/nhomService'
+import {getAllNhom,getClassofMember, createNhomService, deleteNhomService, updateNhomService} from '../../services/nhomService'
 import ModalAddNhom from '../../components/Modal/Nhom/ModalAddNhom'
 import ModalEditNhom from '../../components/Modal/Nhom/ModalEditNhom'
-
+import {getUser} from '../../services/accountService'
 
 
 function NhomManager () {
     const navigate = useNavigate();
     const [arrNhom,setArrNhom] = useState('')
+    const [arrNhomOfMember,setArrNhomOfMember] = useState('')
     const [isOpenNewNhom,setisOpenNewNhom] = useState(false)
     const [isOpenEditNhom,setisOpenEditNhom] = useState(false)
     const [nhomEdit,setnhomEdit] = useState({})
-
+    const [user,setUser] = useState('')
+    const [member_id,setMember_id] = useState('')
     useEffect(()=>{
         getAllNhoms();
     },[])
-
+    useEffect(()=>{
+        if(user){
+            setMember_id(user.member_id);
+        }
+    },[user])
+    useEffect(()=>{
+        getMember();
+    },[])
+    useEffect(()=>{
+        if(member_id){
+            getClass();
+        }
+    },[member_id])
+    const getMember= async ()=>{
+        const data = await getUser();
+        setUser(data);
+    }
     const getAllNhoms = async () => {
         let response = await getAllNhom();
         // console.log(response);
@@ -27,13 +45,18 @@ function NhomManager () {
             console.log(response.data);
         }
     }
+    const getClass = async () => {
+        let response = await getClassofMember(member_id);
+        if (response) {
+            setArrNhomOfMember(response.data)
+            // console.log('member',response.data);
+        }
+    }
     const handleAddNhom = () => {
-        setisOpenNewNhom({isOpenNewNhom: true})
+        setisOpenNewNhom(true)
     }
     const handleEditNhom = (nhom) => {
-        setisOpenEditNhom({
-            isOpenEditNhom: true
-        })
+        setisOpenEditNhom(true)
         setnhomEdit({
             nhomEdit: nhom
         })
@@ -43,14 +66,12 @@ function NhomManager () {
         try{
             let response = await updateNhomService(nhom.nhom_id, nhom)
             if (response){
-                setisOpenEditNhom({
-                    isOpenEditNhom: true
-                })
+                setisOpenEditNhom(false)
             }
         }catch(e){
             console.log(e)
         }
-        getAllNhom();
+        getAllNhoms();
     }
     const createNhom = async (nhom) => {
         console.log(nhom)
@@ -61,7 +82,7 @@ function NhomManager () {
         }catch(e){
             console.log(e)
         }
-        getAllNhom();
+        getAllNhoms();
     }
     const handleDeleteNhom = async (nhom) => {
         try{
@@ -109,32 +130,71 @@ function NhomManager () {
                         <th>ID</th> 
                         <th>Tên Nhóm</th>
                         <th>Khóa học</th>
+                        <th>Ngày học</th>
+                        <th>Thời gian học</th>
                         <th>Chi tiết</th>
                         <th>Thao tác</th>
                     </tr>
                     {
-                        arrNhom && arrNhom.map((item, index)=>{
-                            return (
-                                <tr key={index}> 
-                                    <td>{item.nhom_id}</td>
-                                    <td onClick={()=>{handleDetail(item.nhom_id)}}>{item.name}</td>
-                                    <td>{item.course_id}</td>
-                                    <td>{item.description}</td>
-                                    <td>
-                                        <Button color="warning" className="btn-edit" onClick={()=>{handleEditNhom(item)}}>
-                                            <i className="fa-solid fa-pen-to-square"></i>
-                                        </Button>
-                                        <Button 
-                                            color="danger" 
-                                            className="btn-delete"
-                                            onClick={()=>{handleDeleteNhom(item)}}
-                                        >
-                                            <i className="fa-solid fa-trash"></i>
-                                        </Button>
-                                    </td>
-                                </tr>
-                            )
-                        })
+                        user.role == "admin" ? (
+                            <>
+                                {
+                                    arrNhom && arrNhom.map((item, index)=>{
+                                        return (
+                                            <tr key={index}> 
+                                                <td>{item.nhom_id}</td>
+                                                <td onClick={()=>{handleDetail(item.nhom_id)}}>{item.name}</td>
+                                                <td>{item.course_id}</td>
+                                                <td>{item.day}</td>
+                                                <td>{item.time}</td>
+                                                <td>{item.description}</td>
+                                                <td>
+                                                    <Button color="warning" className="btn-edit" onClick={()=>{handleEditNhom(item)}}>
+                                                        <i className="fa-solid fa-pen-to-square"></i>
+                                                    </Button>
+                                                    <Button 
+                                                        color="danger" 
+                                                        className="btn-delete"
+                                                        onClick={()=>{handleDeleteNhom(item)}}
+                                                    >
+                                                        <i className="fa-solid fa-trash"></i>
+                                                    </Button>
+                                                </td>
+                                            </tr>
+                                        )
+                                    })
+                                }
+                            </>
+                        ) : (
+                            <>
+                                {
+                                    arrNhomOfMember && arrNhomOfMember.map((item, index)=>{
+                                        return (
+                                            <tr key={index}> 
+                                                <td>{item.nhom_id}</td>
+                                                <td onClick={()=>{handleDetail(item.nhom_id)}}>{item.name}</td>
+                                                <td>{item.course_id}</td>
+                                                <td>{item.day}</td>
+                                                <td>{item.time}</td>
+                                                <td>{item.description}</td>
+                                                <td>
+                                                    <Button color="warning" className="btn-edit" onClick={()=>{handleEditNhom(item)}}>
+                                                        <i className="fa-solid fa-pen-to-square"></i>
+                                                    </Button>
+                                                    <Button 
+                                                        color="danger" 
+                                                        className="btn-delete"
+                                                        onClick={()=>{handleDeleteNhom(item)}}
+                                                    >
+                                                        <i className="fa-solid fa-trash"></i>
+                                                    </Button>
+                                                </td>
+                                            </tr>
+                                        )
+                                    })
+                                }
+                            </>
+                        )
                     }
                     </tbody>
                 </table>    

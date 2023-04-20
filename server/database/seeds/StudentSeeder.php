@@ -13,8 +13,25 @@ class StudentSeeder extends Seeder
     public function run()
     {
         DB::table('students')->insert([
-            array('name'=> 'Le Minh Nhan',  'sex' => 'Nam', 'birthday' => '09/01/2001', 'email' => 'nhanb1910268@student.ctu.edu.vn', 'phone' => '0565766636', 'nhom_id' => '1', 'created_at' => Carbon::now('Asia/Ho_Chi_Minh'), 'updated_at' => Carbon::now('Asia/Ho_Chi_Minh')),
-            array('name'=> 'Le Minh Nhan1',  'sex' => 'Nam', 'birthday' => '09/01/2001', 'email' => 'nhanb1910268@student.ctu.edu.vn', 'phone' => '0565766636', 'nhom_id' => '1', 'created_at' => Carbon::now('Asia/Ho_Chi_Minh'), 'updated_at' => Carbon::now('Asia/Ho_Chi_Minh'))
+            array('name'=> 'Le Minh Nhan', 
+            'sex' => 'Nam', 
+            'birthday' => '09/01/2001', 
+            'email' => 
+            'nhanb1910268@student.ctu.edu.vn', 
+            'phone' => '0565766636', 
+            'nhom_id' => '1', 
+            'address' => 'Vinh Long', 
+            'created_at' => Carbon::now('Asia/Ho_Chi_Minh'), 
+            'updated_at' => Carbon::now('Asia/Ho_Chi_Minh')),
+            array('name'=> 'Le Minh Nhan1', 
+            'sex' => 'Nam', 
+            'birthday' => '09/01/2001', 
+            'email' => 'nhanb1910268@student.ctu.edu.vn', 
+            'phone' => '0565766636', 
+            'nhom_id' => '1', 
+            'address' => 'Vinh Long', 
+            'created_at' => Carbon::now('Asia/Ho_Chi_Minh'), 
+            'updated_at' => Carbon::now('Asia/Ho_Chi_Minh'))
         ]);
     }
 }

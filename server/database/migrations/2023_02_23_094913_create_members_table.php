@@ -21,6 +21,8 @@ class CreateMembersTable extends Migration
             $table->integer('account_id')->unsigned();
             $table->string('email');
             $table->string('phone');
+            $table->string('course_id');
+            $table->string('address');
             $table->integer('nhom_id')->unsigned();
             $table->string('position');
             $table->integer('created_by')->unsigned()->nullable();

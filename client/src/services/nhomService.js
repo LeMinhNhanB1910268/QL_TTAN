@@ -18,7 +18,9 @@ const createNhomService = async(data) => {
 const getCourse = async (course_id) => {
     return (await api.get('api/ClassWithCourse/'+course_id)).data
 }
-
+const getClassofMember = async (member_id) => {
+    return (await api.get('api/getClassOfMenber/'+member_id)).data
+}
 const deleteNhomService = async(nhom_id) => {
     console.log('id', nhom_id)
     return (await api.delete('api/nhom/'+nhom_id))
@@ -35,6 +37,7 @@ export {
     getAllNhom,
     getNhom,
     getCourse,
+    getClassofMember,
     createNhomService,
     deleteNhomService,
     updateNhomService

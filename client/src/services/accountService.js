@@ -11,6 +11,9 @@ const getUser = async()=>{
 const getAllAccount = async () => {
     return (await api.get('api/account')).data;
 }
+const getTeacher = async (member_id) => {
+    return (await api.get('api/account/'+member_id)).data;
+}
 const createAccountService = async (data) => {
     console.log('data2:', data)
     return (await api.post('api/account',data)).data;
@@ -36,6 +39,7 @@ export {
     getUser,
     handleLoginApi,
     getAllAccount,
+    getTeacher,
     createAccountService,
     deleteAccountService,
     updateAccountService,

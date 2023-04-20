@@ -10,7 +10,6 @@ import ReviewStudent from './containers/system/reviewStudent'
 import CourseManager from './containers/system/courseManager'
 import LoginContainer from './containers/LoginContainer'
 import DetailMember from '../src/containers/Detail/DetailMember'
-import AccountDetail from '../src/containers/Detail/AccountDetail'
 import ClassDetail from '../src/containers/Detail/ClassDetail'
 import StudentDetail from '../src/containers/Detail/StudentDetail'
 import CourseDetail from '../src/containers/Detail/CourseDetail'
@@ -18,6 +17,7 @@ import JoinCourse from '../src/containers/Join/JoinCourse'
 import TuitionManager from "./containers/system/tuitionManager";
 import PointManager from "./containers/system/pointManager";
 import Statistical from "./containers/system/statistical";
+import JoinClass from "../src/containers/Join/JoinClass"
 function Router (){
     return (
         <Routes>
@@ -33,6 +33,7 @@ function Router (){
             <Route path='/student-detail/:id' element={<StudentDetail />}></Route>
             <Route path='/course-detail' element={<CourseDetail />}></Route>
             <Route path='/class-detail/:id' element={<ClassDetail />}></Route>
+            <Route path='/join-class/:id' element={<JoinClass />}></Route>
             <Route path='/join-course/:id' element={<JoinCourse />}></Route>
             <Route path='/point' element={<PointManager />}></Route>
             <Route path='/Statistical' element={<Statistical />}></Route>

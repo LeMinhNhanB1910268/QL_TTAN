@@ -13,9 +13,7 @@ import Nhom from '../../assets/nhom.png'
 import Score from '../../assets/score.png'
 
 
-//hoc sinh
-//tkb
-//
+
 
 function Homepage (){
     const [user,setUser] = useState('')
@@ -50,6 +48,8 @@ function Homepage (){
                             <hr />
                             <div className="text-content"><p><label>Giới tính:</label> {user.sex}</p></div>
                             <hr />
+                            <div className="text-content"><p><label>Địa chỉ:</label> {user.address}</p></div>
+                            <hr />
                             <div className="text-content"><p><label>Chức vụ:</label> {user.position}</p></div>
                             <hr />
                         </div>
@@ -79,14 +79,31 @@ function Homepage (){
                             </div>
                         </div>
                         <div className='row'>
-                            <div className='col-sm-6 item text-center'>
-                                <Link to='/course'>
-                                    <button className='bth-item'>
-                                    <img src={Course}/><div className='bth-text'>Khóa học</div>
-                                    </button>
-                                </Link>
+                            {
+                                user.role == 'admin' ? (
+                                    <div className='col-sm-6 item text-center'>
+                                    <Link to='/course'>
+                                        <button className='bth-item'>
+                                        <img src={Course}/><div className='bth-text'>Khóa học</div>
+                                        </button>
+                                    </Link>
+    
+                                </div>
+                                ) : (
+                                    <div className='col-sm-6 item text-center'>
+                                    <Link to='/course'>
+                                        <button className='bth-item'>
+                                        <img src={Course}/><div className='bth-text'>Khóa học1</div>
+                                        </button>
+                                    </Link>
+    
+                                </div>
+                                )
+                                    
+                                
+                            }
 
-                            </div>
+
                             <div className='col-sm-6 item text-center'>
                                 <Link to='/tuition-fee'>
                                     <button className='bth-item'>
@@ -105,7 +122,6 @@ function Homepage (){
                                 </Link>
                                 </div>
                             <div className='col-sm-6 item text-center'>
-                                
                                 <Link to='/nhom'>
                                     <button className='bth-item'>
                                         <img src={Nhom}/>
@@ -116,23 +132,21 @@ function Homepage (){
                                 </Link>
                             </div>
                             <div className='col-sm-6 item text-center'>
-                                
                                 <Link to='/point'>
                                     <button className='bth-item'>
                                         <img src={Score}/>
                                         <div className='bth-text'>
-                                        Cham diem
+                                        Chấm điểm
                                         </div>
                                     </button>
                                 </Link>
                             </div>
                             <div className='col-sm-6 item text-center'>
-                                
                                 <Link to='/statistical'>
                                     <button className='bth-item'>
                                         <img src={TK}/>
                                         <div className='bth-text'>
-                                        Thong ke
+                                        Thống kê
                                         </div>
                                     </button>
                                 </Link>

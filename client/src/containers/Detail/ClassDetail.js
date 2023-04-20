@@ -1,160 +1,88 @@
 import React, {useEffect, useState} from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { Button } from "reactstrap";
-import {getAllStudent, createStudentService, deleteStudentService, updateStudentService} from '../../services/studentService'
-import ModalAddStudent from '../../components/Modal/Student/ModalAddStudent'
-import ModalEditStudent from '../../components/Modal/Student/ModalEditStudent'
-import ModalAddReview from '../../components/Modal/Review/ModalAddReview'
-import {getNhom} from '../../services/nhomService'
+import { useParams } from "react-router-dom";
 
-function ClassDetail (props) {
-    const navigate = useNavigate();
+import './ClassDetail.scss'
+import {getNhom,  getCourse} from '../../services/nhomService'
+
+import {getTeacher} from '../../services/accountService'
+
+function ClassDetail () {
     const { id } = useParams();
-    const [arrNhom,setArrNhom] = useState('')
-    const [isOpenNewStudent,setisOpenNewStudent] = useState(false)
-    const [isOpenEditStudent,setisOpenEditStudent] = useState(false)
-    const [isOpenAddReview,setisOpenAddReview] = useState(false)
-    const [studentEdit,setStudentEdit] = useState({})
-    const [studentReview,setStudentReview] = useState({})
+    const [Nhom,setNhom] = useState('')
+    const [Count,setCount] = useState('')
+    const [Course,setCourse] = useState('')
+    const [Teacher,setTeacher] = useState('')
 
     useEffect(()=>{
         getNhomWithStudent();
     },[])
-
+    useEffect(()=>{
+        if(Nhom){
+            CountStudent();
+            getCourseWithClass();
+            getTeacherOfClass();
+        }
+    },[Nhom])
     const getNhomWithStudent = async () => {
         let response = await getNhom(id);
         console.log(response)
         if(response){
-            setArrNhom(response.data)
-            console.log(response.data)
+            setNhom(response.data)
+            console.log('nhom',Nhom)
+            // console.log(Nhom.member_id)
         }
     }
-    const handleAddStudent = () => {
-        setisOpenNewStudent(true)
-    }
-    const handleEditStudent = (student) => {
-        setisOpenEditStudent(true)
-        console.log(isOpenEditStudent)
-        setStudentEdit({
-            studentEdit: student
-        })
-    }
-    const doEditStudent = async (student) => {
-        console.log('save', student)
-        try{
-            let response = await updateStudentService(student.student_id, student)
-            if (response){
-                setisOpenEditStudent(false)
-            }
-        }catch(e){
-            console.log(e)
+    const getTeacherOfClass = async () => {
+        console.log(Nhom.member_id)
+        let response = await getTeacher(Nhom.member_id)
+        if (response){
+            setTeacher(response.data)
+            console.log('teacher',Teacher)
         }
-        getNhomWithStudent();
     }
-    const createStudent = async (student) => {
-        try{
-            let response = await createStudentService(student);
-            // console.log('tra ve', response)
-            setisOpenNewStudent(false)
-        }catch(e){
-            console.log(e)
+    const getCourseWithClass = async () => {
+        let response = await getCourse(Nhom.course_id);
+        console.log(response)
+        if(response){
+            setCourse(response.data.get_course)
+
         }
-        getNhomWithStudent();
     }
-    const handleDeleteStudent = async (student) => {
-        try{
-            let res = await deleteStudentService(student.student_id)
-        }catch(e){
-            console.log(e);
-        }
-        getNhomWithStudent();
+    const CountStudent = () => {
+        let count = Nhom.get_student.length;
+        setCount(count);
+
     }
-    const handleDetail = (student) => {
-        localStorage.setItem('student', JSON.stringify(student));
-        navigate({pathname: '/student-detail/'+id})
-        console.log(student);
-    }
-    // const handleAddReview = (student) => {
-    //     setisOpenAddReview(true)
-    //     console.log(student)
-    //     setStudentReview({studentReview: student})
-    // }
+
     return (
-        <div>
-            <div className="title">
-                    Danh sách học viên trong nhóm
+        <div className="content-deatil-class">
+            <div className="info">
+                <h2>Thông tin chi tiết về {Nhom.name}</h2>
+                <div className="row">
+                    <div className="info-class col-6">
+                        <h3>Thông tin nhóm</h3>
+                        <p><label>Mã nhóm:</label>{Nhom.nhom_id}</p>
+                        <p><label>Tên nhóm:</label>{Nhom.name}</p>
+                        <p><label>Số lượng học viên:</label>{Count}</p>
+                        <p><label>Giới thiệu về lớp:</label>{Nhom.description}</p>
+                    </div>
+                    <div className="info-course col-6">
+                        <h3>Thông tin khóa học</h3>
+                        <p><label>Mã khóa học:</label>{Course.course_id}</p>
+                        <p><label>Tên khóa học:</label>{Course.name}</p>
+                        <p><label>Thời gian bắt đầu:</label>{Course.time_start}</p>
+                        <p><label>Thời gian kết thúc:</label>{Course.time_finish}</p>
+                        <p><label>Học phí:</label>{Course.price}</p>
+                    </div>
+                    {/* <div className="info-teacher">
+                        <h3>Giảng viên giảng dạy</h3>
+                            <p><label>Mã giáo viên:</label>{Teacher[0].member_id}</p>
+                            <p><label>Tên giáo viên:</label>{Teacher[0].name}</p>
+                            <p><label>Số điện thoại:</label>{Teacher[0].phone}</p>
+                            <p><label>Email:</label>{Teacher[0].email}</p>
+                    </div> */}
+                </div>
             </div>
-            <div >
-                <button 
-                className="btn btn-primary btn-add" 
-                onClick={() => {handleAddStudent()}}>
-                    <i className="fa-solid fa-plus"></i>Thêm học viên
-                </button>
-            </div>
-            <ModalAddStudent 
-                setIsOpen={()=>{setisOpenNewStudent(false)}} 
-                isOpen={isOpenNewStudent}
-                createStudent = {createStudent}
-            />
-            {/* <ModalAddReview 
-                setIsOpen={()=>{setisOpenAddReview(false)}} 
-                isOpen={isOpenAddReview}
-                currentStudent={studentReview}
-            /> */}
-            {
-                isOpenEditStudent &&
-                <ModalEditStudent 
-                setIsOpen={()=>{setisOpenEditStudent(false)}} 
-                isOpen={isOpenEditStudent}
-                currentStudent={studentEdit}
-                editStudent = {doEditStudent}
-            />
-            }
-            <table id="customers">
-                <tbody>
-                    <tr>
-                        <th>ID</th> 
-                        <th>Tên Học Viên</th>
-                        <th>Giới tính</th>
-                        <th>Ngày sinh</th>
-                        <th>Số điện thoại</th>
-                        <th>Email</th>
-                        <th>Thao tác</th>
-                    </tr>
-                    {
-                        arrNhom.get_student && arrNhom.get_student.map((item, index)=>{
-                            return (
-                                <tr key={index}>
-                                    <td>{item.student_id}</td>
-                                    <td onClick={()=>{handleDetail(item)}}>{item.name}</td>
-                                    <td>{item.sex}</td>
-                                    <td>{item.birthday}</td>
-                                    <td>{item.phone}</td>
-                                    <td>{item.email}</td>
-                                    {/* <td>
-                                        <button onClick={()=>{handleAddReview(item)}}>
-                                            nhận xét
-                                        </button>
-                                        
-                                    </td> */}
-                                    <td>
-                                        <Button color="warning" className="btn-edit" onClick={() => {handleEditStudent(item)}}>
-                                            <i className="fa-solid fa-pen-to-square"></i>
-                                        </Button>
-                                        <Button 
-                                            color="danger" 
-                                            className="btn-delete"
-                                            onClick={()=> {handleDeleteStudent(item)}}
-                                        >
-                                            <i className="fa-solid fa-trash"></i>
-                                        </Button>
-                                    </td>
-                                </tr>
-                            )
-                        })
-                    }
-                </tbody>
-            </table>
         </div>
     )
 }

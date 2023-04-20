@@ -76,6 +76,9 @@ function JoinCourse (){
     const handleDetail = (nhom_id) => {
         navigate({pathname: '/class-detail/'+nhom_id})
     }
+    const handleJoinClass = (nhom_id) => {
+        navigate({pathname: '/join-class/'+nhom_id})
+    }
     return (
         <div>
             <div className="title">
@@ -130,6 +133,9 @@ function JoinCourse (){
                                             onClick={()=> {handleDeleteNhom(item)}}
                                         >
                                             <i className="fa-solid fa-trash"></i>
+                                        </Button>
+                                        <Button color="success" className="btn-join" onClick={()=>{handleJoinClass(item.course_id)}}>
+                                            <i className="fa-solid fa-right-to-bracket"></i>
                                         </Button>
                                     </td>
                                 </tr>

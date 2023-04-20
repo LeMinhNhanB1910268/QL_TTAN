@@ -5,6 +5,8 @@ import { getNhom } from "../../services/nhomService";
 import { getAllCourse, getCourse,getClass } from "../../services/courseService";
 import { getFee } from "../../services/studentService";
 import {updateTuitionService, createTuitionService} from "../../services/tuiionfeeService";
+import Bill from "../../components/Modal/TuitionFee/Bill"
+
 function tuitionManager() {
 
     // const [arrNhom,setArrNhom] = useState('')
@@ -12,9 +14,7 @@ function tuitionManager() {
     const [nhomID,setnhomID] = useState('')
     const [CourseID,setCourseID] = useState('')
     const [Course,setCourse] = useState('')
-    const [isOpenAddReview,setisOpenAddReview] = useState(false)
-    const [studentReview,setStudentReview] = useState({})
-
+    const [isOpenPrint,setisOpenPrint] = useState(false)
     const [Student,setStudent] = useState('')
 
     useEffect(()=>{
@@ -54,15 +54,14 @@ function tuitionManager() {
         }
     }
     const handleState = async (student) => {
-
         let rp = await createTuitionService({
             student_id: student.student_id,
             status: 'da dong'
         })
         getStudent();
     }
-    const handlePrint = async (student) => {
-
+    const handlePrint = async () => {
+        setisOpenPrint(true)
     }
 
     return (
@@ -97,6 +96,11 @@ function tuitionManager() {
                 </div>
             </div>
             <div className="content-bot">
+                <Bill 
+                    setIsOpen={()=>{setisOpenPrint(false)}} 
+                    isOpen={isOpenPrint}
+
+                />
                 <table id="customers">
                     <tbody>
                         <tr>
@@ -121,8 +125,19 @@ function tuitionManager() {
                                     <td>{item.tuitionfee!==null && item.tuitionfee.status }</ td>
 
                                     <td>
-                                        <button className="btn-confirm" onClick={()=>{handleState(item)}}>Xác nhận</button>
-                                        <button className="btn-print" onClick={()=>{handlePrint(item)}}>In HD</button>
+                                        {
+                                        item.tuitionfee!==null && item.tuitionfee.status == "da dong" ? (
+                                            <>
+                                                <button className="btn-confirm" onClick={()=>{handleState(item)}}>Xác nhận</button>
+                                                <button className="btn-print" onClick={()=>{handlePrint()}}>In HD</button>
+                                            </>
+                                        ) : (                                        
+                                            <>
+                                                <button className="btn-confirm" onClick={()=>{handleState(item)}}>Xác nhận</button>
+                                                <button className="btn-print" >In HD</button>
+                                            </>    
+                                            ) 
+                                        }
                                     </td>
                                 </tr>
                             )

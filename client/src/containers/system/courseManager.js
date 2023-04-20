@@ -22,17 +22,13 @@ function CourseManager () {
         let response = await getAllCourse();
         if(response){
             setArrCourse(response.data)
-            ,()=> {
-            }
         }
     }
     const handleAddCourse = () => {
-        setisOpenNewCourse({isOpenNewCourse: true})
+        setisOpenNewCourse(true)
     }
     const handleEditCourse = (course) => {
-        setisOpenEditCourse({
-            isOpenEditCourse: true
-        })
+        setisOpenEditCourse(true)
         setCourseEdit({
             courseEdit: course
         })
@@ -42,9 +38,7 @@ function CourseManager () {
         try{
             let response = await updateCourseService(course.course_id, course)
             if (response){
-                setisOpenEditCourse({
-                    isOpenEditCourse: true
-                })
+                setisOpenEditCourse(false)
             }
         }catch(e){
             console.log(e)
@@ -55,7 +49,7 @@ function CourseManager () {
         try{
             let response = await createCourseService(course);
             console.log('tra ve', response)
-            setisOpenNewCourse({isOpenNewCourse: false})
+            setisOpenNewCourse(false)
         }catch(e){
             console.log(e)
         }

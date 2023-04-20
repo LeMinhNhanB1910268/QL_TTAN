@@ -56,7 +56,6 @@ class CourseController extends Controller
     {
         return new CourseResource(Course::with('getClass')->find($course));
     }
-
     public function getClass($id)
     {
         return new CourseResource(Course::with('getClass')->find($id));

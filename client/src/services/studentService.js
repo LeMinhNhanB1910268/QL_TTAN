@@ -17,7 +17,21 @@ const getReview = async(nhom_id) => {
 const getPoint = async(nhom_id) => {
     return (await api.get('api/getPoint/'+nhom_id)).data
 }
-
+const getStateFeeA = async(nhom_id) => {
+    return (await api.get('api/getStateFeeA/'+nhom_id)).data
+}
+const getCountStateFeeA = async(nhom_id) => {
+    return (await api.get('api/getCountStateFeeA/'+nhom_id)).data
+}
+const getStateFeeB = async(nhom_id) => {
+    return (await api.get('api/getStateFeeB/'+nhom_id)).data
+}
+const getCountStateFeeB = async(nhom_id) => {
+    return (await api.get('api/getCountStateFeeB/'+nhom_id)).data
+}
+const getCountStateFee = async(nhom_id) => {
+    return (await api.get('api/getCountStateFee/'+nhom_id)).data
+}
 const createStudentService = async(data) => {
     console.log('data1:', data)
     return (await api.post('api/student',data))
@@ -40,6 +54,11 @@ export {
     getFee,
     getPoint,
     getReview,
+    getStateFeeA,
+    getStateFeeB,
+    getCountStateFee,
+    getCountStateFeeB,
+    getCountStateFeeA,
     createStudentService,
     deleteStudentService,
     updateStudentService

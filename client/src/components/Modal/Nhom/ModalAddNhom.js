@@ -10,6 +10,9 @@ function ModalAddNhom (props){
     const [name,setName] = useState('')
     const [course_id,setCourse_id] = useState('')
     const [description,setDescription] = useState('')
+    const [time,setTime] = useState('')
+    const [day,setDay] = useState('')
+    const [member_id,setMember_id] = useState('')
 
 
 
@@ -36,7 +39,10 @@ function ModalAddNhom (props){
             const data = {
                 name,
                 description,
+                time,
+                day,
                 course_id,
+                member_id,
             }
             props.createNhom(data);
         }
@@ -73,6 +79,36 @@ function ModalAddNhom (props){
                             type="text" 
                             onChange={(event)=>{setCourse_id(event.target.value)}}
                             value ={course_id}
+                        />
+                    </div>
+                    <div className='input-container '>
+                        <label>
+                           Thời gian học: 
+                        </label>
+                        <input 
+                            type="text" 
+                            onChange={(event)=>{setTime(event.target.value)}}
+                            value ={time}
+                        />
+                    </div>
+                    <div className='input-container '>
+                        <label>
+                           Ngày học: 
+                        </label>
+                        <input 
+                            type="text" 
+                            onChange={(event)=>{setDay(event.target.value)}}
+                            value ={day}
+                        />
+                    </div>
+                    <div className='input-container '>
+                        <label>
+                           Giáo viên: 
+                        </label>
+                        <input 
+                            type="text" 
+                            onChange={(event)=>{setMember_id(event.target.value)}}
+                            value ={member_id}
                         />
                     </div>
                     <div className='input-container max-width-input'>

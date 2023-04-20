@@ -10,6 +10,9 @@ function ModalEditNhom (props){
     const [name,setName] = useState('')
     const [course_id,setCourse_id] = useState('')
     const [description,setDescription] = useState('')
+    const [time,setTime] = useState('')
+    const [day,setDay] = useState('')
+    const [member_id,setMember_id] = useState('')
 
 
     useEffect(()=>{
@@ -18,6 +21,9 @@ function ModalEditNhom (props){
         setCourse_id(nhom.nhomEdit.course_id)
         setDescription(nhom.nhomEdit.description)
         setNhom_id(nhom.nhomEdit.nhom_id)
+        setTime(nhom.nhomEdit.time)
+        setDay(nhom.nhomEdit.day)
+        setMember_id(nhom.nhomEdit.member_id)
     },[])
 
     const checkInput = () => {
@@ -44,7 +50,10 @@ function ModalEditNhom (props){
                 name,
                 course_id,
                 description,
-                nhom_id}
+                nhom_id,
+                time,
+                day,
+                member_id}
             props.editNhom(data);
         }
     }
@@ -72,7 +81,7 @@ function ModalEditNhom (props){
                             value ={name}
                         />
                     </div>
-                    <div className='input-container max-width-input'>
+                    <div className='input-container'>
                         <label>
                            Ma khoa hoc: 
                         </label>
@@ -83,6 +92,36 @@ function ModalEditNhom (props){
                         />
                     </div>
                     <div className='input-container '>
+                        <label>
+                           Thời gian học: 
+                        </label>
+                        <input 
+                            type="text" 
+                            onChange={(event)=>{setTime(event.target.value)}}
+                            value ={time}
+                        />
+                    </div>
+                    <div className='input-container '>
+                        <label>
+                           Ngày học: 
+                        </label>
+                        <input 
+                            type="text" 
+                            onChange={(event)=>{setDay(event.target.value)}}
+                            value ={day}
+                        />
+                    </div>
+                    <div className='input-container '>
+                        <label>
+                           Giáo viên: 
+                        </label>
+                        <input 
+                            type="text" 
+                            onChange={(event)=>{setMember_id(event.target.value)}}
+                            value ={member_id}
+                        />
+                    </div>
+                    <div className='input-container max-width-input'>
                         <label>
                            Thong tin chi tiet: 
                         </label>

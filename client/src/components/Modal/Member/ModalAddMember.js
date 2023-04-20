@@ -1,5 +1,5 @@
-// import React, { Component } from 'react'
-import { flatMap } from "lodash";
+
+
 import React, { useEffect,useState} from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import './ModalAddMember.scss'
@@ -13,6 +13,7 @@ function ModalAddMember (props){
     const [name,setName] = useState('')
     const [email,setEmail] = useState('')
     const [phone,setPhone] = useState('')
+    const [address,setAddress] = useState('')
     const [birthday,setBirthday] = useState('')
     const [member_id,setMember] = useState('')
     const [sex,setSex] = useState('')
@@ -35,6 +36,7 @@ function ModalAddMember (props){
             'birthday',
             'member_id',
             'sex',
+            'address',
             'position',
             'username',
             'password',
@@ -60,6 +62,7 @@ function ModalAddMember (props){
                 birthday,
                 member_id,
                 sex,
+                address,
                 position,
                 username,
                 password,
@@ -122,6 +125,16 @@ function ModalAddMember (props){
                             type="text" 
                             onChange={(event)=>{setPhone(event.target.value)}}
                             value ={phone}
+                        />
+                    </div>
+                    <div className='input-container '>
+                        <label>
+                            Địa chỉ: 
+                        </label>
+                        <input 
+                            type="text" 
+                            onChange={(event)=>{setAddress(event.target.value)}}
+                            value ={address}
                         />
                     </div>
                     <div className='input-container  '>
@@ -195,7 +208,6 @@ function ModalAddMember (props){
                 </Button>
               </ModalFooter>
             </Modal>
-            {/* Minh */}
         </div>
     )
 }
@@ -217,185 +229,3 @@ export default ModalAddMember
 
 
 
-// export default class ModalAddMember extends Component {
-//     constructor(props){
-//         super(props);
-//         this.state = {
-//             modal: false,
-//             name:'',
-//             email:'',
-//             phone:'',
-//             birthday:'',
-//             member_id: '',
-//             sex:'',
-//             position:'',
-//             username: '',
-//             password: '',
-//             role: ''
-//         }
-//     }
-//     componentDidMount(){
-
-//     }
-//     checkInput = () => {
-//         let isValid  = true
-//         let arrInput = ['name', 'email', 'phone', 'birthday', 'sex', 'position', 'username', 'password', 'role'];
-//         for (let i=0; i<arrInput.length; i++){
-//             if(!this.state[arrInput[i]]){
-//                 isValid = false;
-//                 alert("missing parameter: "+arrInput[i]);
-//                 break;
-//             }
-//         }
-//         return isValid;
-//     }
-//     handleOnChangeInput = (event, id) => {
-//         let copyState = {
-//             ...this.state
-//         }
-//         copyState[id] = event.target.value;
-//         this.setState({
-//             ...copyState
-//         })
-
-//     }
-//     handleAddNewMember = () => {
-//         let isValid = this.checkInput();
-//         if (isValid === true) {
-//             this.props.createMember(this.state);
-//         }
-//         else {
-//         }
-
-//     }
-//     render() {
-//         return (
-//             <div>
-//             <Modal 
-//             isOpen={this.props.isOpen} 
-//             toggle={()=>{this.props.setIsOpen()}}
-//             size='lg'
-//             centered
-//             className='modal-member-container'
-//             > 
-//               <ModalHeader 
-//               toggle={()=>{this.props.setIsOpen()}} 
-//               >Thêm nhân viên mới</ModalHeader>
-//               <ModalBody>
-//                 <div className='modal-member-body'>
-//                     <div className='input-container  max-width-input'>
-//                         <label>
-//                             Mã nhân viên: 
-//                         </label>
-//                         <input 
-//                             type="text" 
-//                             onChange={(event)=>{this.handleOnChangeInput(event, "member_id")}}
-//                             value={this.state.member_id}
-//                         />
-//                     </div>
-//                     <div className='input-container max-width-input'>
-//                         <label>
-//                             Họ và tên: 
-//                         </label>
-//                         <input 
-//                             type="text" 
-//                             onChange={(event)=>{this.handleOnChangeInput(event, "name")}}
-//                             value ={this.state.name}
-//                         />
-//                     </div>
-
-//                     <div className='input-container'>
-//                         <label>
-//                             Email: 
-//                         </label>
-//                         <input 
-//                             type="email" 
-//                             onChange={(event)=>{this.handleOnChangeInput(event, "email")}}
-//                             value={this.state.email}
-//                         />
-//                     </div>
-//                     <div className='input-container'>
-//                         <label>
-//                             Ngày sinh: 
-//                         </label>
-//                         <input 
-//                             type="date" 
-//                             onChange={(event)=>{this.handleOnChangeInput(event, "birthday")}}
-//                             value={this.state.birthday}
-//                         />
-//                     </div>
-//                     <div className='input-container'>
-//                         <label>
-//                             Giới tính: 
-//                         </label>
-//                         <input 
-//                             type="text" 
-//                             onChange={(event)=>{this.handleOnChangeInput(event, "sex")}}
-//                             value={this.state.sex}
-//                         />
-//                     </div>
-//                     <div className='input-container'>
-//                         <label>
-//                             Số điện thoại: 
-//                         </label>
-//                         <input  
-//                             type="text" 
-//                             onChange={(event)=>{this.handleOnChangeInput(event, "phone")}}
-//                             value={this.state.phone}
-//                         />
-//                     </div>
-//                     <div className='input-container max-width-input'>
-//                         <label>
-//                             Chức vụ: 
-//                         </label>
-//                         <input 
-//                             type="text" 
-//                             onChange={(event)=>{this.handleOnChangeInput(event, "position")}}
-//                             value={this.state.position}
-//                             />
-//                     </div>
-//                     <div className='input-container max-width-input'>
-//                         <label>
-//                             Username: 
-//                         </label>
-//                         <input 
-//                             type="text" 
-//                             onChange={(event)=>{this.handleOnChangeInput(event, "username")}}
-//                             value ={this.state.username}
-//                         />
-//                     </div>
-//                     <div className='input-container max-width-input'>
-//                         <label>
-//                             Password: 
-//                         </label>
-//                         <input 
-//                             type="text" 
-//                             onChange={(event)=>{this.handleOnChangeInput(event, "password")}}
-//                             value ={this.state.password}
-//                         />
-//                     </div>
-//                     <div className='input-container  max-width-input'>
-//                         <label>
-//                             Vai trò: 
-//                         </label>
-//                         <input 
-//                             type="text" 
-//                             onChange={(event)=>{this.handleOnChangeInput(event, "role")}}
-//                             value={this.state.role}
-//                         />
-//                     </div>
-//                     <ModalFooter>
-//                         <Button color="primary" onClick={()=>{this.handleAddNewMember()}}>
-//                         Thêm
-//                         </Button>{' '}
-//                         <Button color="secondary" onClick={()=>{this.props.setIsOpen}}>
-//                         Hủy
-//                         </Button>
-//                     </ModalFooter>
-//                 </div>
-//               </ModalBody>
-//             </Modal>
-//           </div>
-//         )
-//     } 
-// }

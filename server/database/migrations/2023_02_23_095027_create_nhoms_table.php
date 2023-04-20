@@ -17,6 +17,9 @@ class CreateNhomsTable extends Migration
             $table->increments('nhom_id');
             $table->integer('course_id')->unsigned();
             $table->string('name');
+            $table->string('day');
+            $table->string('time');
+            $table->string('member_id');
             $table->string('description');
             $table->integer('created_by')->unsigned()->nullable();
             $table->integer('updated_by')->unsigned()->nullable();

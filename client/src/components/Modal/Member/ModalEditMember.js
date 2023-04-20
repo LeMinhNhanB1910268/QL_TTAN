@@ -12,6 +12,7 @@ function ModalEditMember (props){
     const [birthday,setBirthday] = useState('')
     const [member_id,setMember] = useState('')
     const [sex,setSex] = useState('')
+    const [address,setAddress] = useState('')
     const [position,setPosition] = useState('')
     const [username,setUserName] = useState('')
     const [password,setPassword] = useState('')
@@ -27,6 +28,7 @@ function ModalEditMember (props){
         setBirthday(member.memberEdit.birthday)
         setMember(member.memberEdit.member_id)
         setSex(member.memberEdit.sex)
+        setAddress(member.memberEdit.address)
         setPosition(member.memberEdit.position)
         setUserName(member.memberEdit.username)
         setPassword(member.memberEdit.password)
@@ -43,6 +45,7 @@ function ModalEditMember (props){
             'birthday',
             'member_id',
             'sex',
+            'address',
             'position',
             'username',
             'password',
@@ -68,6 +71,7 @@ function ModalEditMember (props){
                 birthday,
                 member_id,
                 sex,
+                address,
                 position,
                 username,
                 password,
@@ -140,6 +144,16 @@ function ModalEditMember (props){
                             type="text" 
                             onChange={(event)=>{setBirthday(event.target.value)}}
                             value={birthday}
+                        />
+                    </div>
+                    <div className='input-container max-width-input'>
+                        <label>
+                            Địa chỉ: 
+                        </label>
+                        <input 
+                            type="text" 
+                            onChange={(event)=>{setAddress(event.target.value)}}
+                            value ={address}
                         />
                     </div>
                     <div className='input-container '>

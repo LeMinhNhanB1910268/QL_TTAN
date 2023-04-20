@@ -37,12 +37,10 @@ function MemberManager () {
         }
     }
     const handleAddMenber = () => {
-        setisOpenNewMember({isOpenNewMember: true})
+        setisOpenNewMember(true)
     }
     const handleEditMenber = (member) => {
-        setisOpenEditMember({
-            isOpenEditMember: true
-        })
+        setisOpenEditMember(true)
         setmemberEdit({
             memberEdit: member
         })
@@ -52,9 +50,7 @@ function MemberManager () {
         try{
             let response = await updateAccountService(account.account_id, account)
             if (response){
-                setisOpenEditMember({
-                    isOpenEditMember: true
-                })
+                setisOpenEditMember(false)
             }
         }catch(e){
             console.log(e)
@@ -65,7 +61,7 @@ function MemberManager () {
         try{
             let response = await createAccountService(account);
             console.log('tra ve', response)
-            setisOpenNewMember({isOpenNewMember: false})
+            setisOpenNewMember(false)
         }catch(e){
             console.log(e)
         }

@@ -64,8 +64,11 @@ class NhomController extends Controller
     }
     public function getCourse($id)
     {
-        // return Nhom::with('getStudent')->find($id);
         return new NhomResource(Nhom::with('getCourse')->find($id));
+    }
+    public function getClassOfMenber($id)
+    {
+        return new NhomResource(Nhom::where('member_id', $id)->get());
     }
 
     /**

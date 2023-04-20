@@ -1,7 +1,18 @@
 import React, { useEffect,useState} from "react";
 import {Link} from 'react-router-dom'
 import './Header.scss'
+import {getUser} from '../../services/accountService'
 export default function Header() {
+    const [user,setUser] = useState('')
+
+    const getMember= async ()=>{
+        const data = await getUser();
+        setUser(data);
+        console.log(user.name)
+    }
+    useEffect(()=>{
+        getMember();
+    },[])
     return(
         <div>
             <div className='header'>
@@ -17,6 +28,7 @@ export default function Header() {
                             <Link to='/'><button><i className="fa-solid fa-house"></i>Trang chủ</button>  </Link>
                             <button><i className="fa-solid fa-right-from-bracket"></i>Đăng xuất</button>
                         </div>
+                        <div className="account">Xin chào {user.name}</div>
                     </div>
                 </div>
             </div>

@@ -16,7 +16,6 @@ class CreateTuitionfeesTable extends Migration
         Schema::create('tuitionfees', function (Blueprint $table) {
             $table->increments('tuitionfee_id');
             $table->integer('student_id')->unsigned();
-            $table->integer('nhom_id')->unsigned();
             $table->string('status');
             $table->integer('created_by')->unsigned()->nullable();
             $table->integer('updated_by')->unsigned()->nullable();

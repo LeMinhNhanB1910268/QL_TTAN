@@ -1,22 +1,31 @@
 .container{
-
-    .title-Course{
-        color: black;
-    }
-    .content-Course{
-        border: none;
-        label{
-            font-size: 18px;
-            margin: 5px;
-            min-width: 200px;
+    .content-course-detail{
+        margin-top: 30px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        .title-Course{
+            color: black;
+            background-color: #04AA6D;
+            color: white;
+            text-align: center;
+            border-radius: 10px 10px 0px 0px;
         }
-        p{
-            display: inline;
+        .content-Course{
+            border: none;
             margin-left: 10px;
-            font-size: 18px;
-        }
-        table{
-            font-size: 18px;
+            label{
+                font-size: 18px;
+                margin: 5px;
+                min-width: 200px;
+            }
+            p{
+                display: inline;
+                margin-left: 10px;
+                font-size: 18px;
+            }
+            table{
+                font-size: 18px;
+            }
         }
     }
 }

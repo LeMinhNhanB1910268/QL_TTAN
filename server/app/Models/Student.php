@@ -16,6 +16,7 @@ class Student extends Model
         'phone',
         'picture',
         'nhom_id',
+        'address',
         'created_by',
         'modified_by',
         'created_at',

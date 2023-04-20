@@ -17,11 +17,9 @@ function ModalAddReview (props){
         }
     },[props.isOpen])
     useEffect(()=>{
-       
         if(user){
             setMember_id(user.member_id);
         }
-
     },[user])
     useEffect(()=>{
         getMember();
