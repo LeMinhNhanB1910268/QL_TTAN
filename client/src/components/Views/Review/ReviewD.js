@@ -1,20 +1,17 @@
 import React, {useEffect, useState} from "react";
 
-import {getStateFeeB} from '../../services/studentService'
-import './FeeCD.scss'
-export default function FeeCD(props) {
 
+import { getReviewD } from "../../../services/studentService";
+export default function ReviewD(props) {
     const [arrCD,setArrCD] = useState('')
     const [ID,setID] = useState(props.nhomid)
-
-    // console.log('ahuhu',props.nhomid)
     useEffect(()=>{
         if(ID){
-            getChuaDong();
+            getDat();
         }
     },[ID])
-    const getChuaDong = async () => {
-        let response = await getStateFeeB(ID) 
+    const getDat = async () => {
+        let response = await getReviewD(ID) 
         if(response){
             setArrCD(response)
             console.log(response)
@@ -22,11 +19,11 @@ export default function FeeCD(props) {
     }
   return (
     <div>
-        <h3 className="text-center mt-4">Danh sách học viên chưa đóng</h3>
+        <h3 className="text-center mt-4">Danh sách học viên đạt chuẩn</h3>
         <table id="customers">
             <tbody>
                 <tr>
-                    <td>Mã học viên1</td>
+                    <td>Mã học viên</td>
                     <td>Họ và tên</td>
                     <td>Giới tính</td>
                     <td>Ngày sinh</td>

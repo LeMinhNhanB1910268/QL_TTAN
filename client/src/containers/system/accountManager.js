@@ -82,7 +82,7 @@ function AccountManager (){
     return (
         <div>
             <div className="title">
-                Quản lí tài khoản của trung tâm
+                <h1 className="mt-4">Quản lí tài khoản của trung tâm</h1>
             </div>
             <div >
                 <button 

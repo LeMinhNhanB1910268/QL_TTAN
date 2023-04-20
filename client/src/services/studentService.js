@@ -32,6 +32,21 @@ const getCountStateFeeB = async(nhom_id) => {
 const getCountStateFee = async(nhom_id) => {
     return (await api.get('api/getCountStateFee/'+nhom_id)).data
 }
+const getCountReview = async(nhom_id) => {
+    return (await api.get('api/getCountReview/'+nhom_id)).data
+}
+const getCountReviewD = async(nhom_id) => {
+    return (await api.get('api/getCountReviewD/'+nhom_id)).data
+}
+const getCountReviewCD = async(nhom_id) => {
+    return (await api.get('api/getCountReviewCD/'+nhom_id)).data
+}
+const getReviewD = async(nhom_id) => {
+    return (await api.get('api/getReviewD/'+nhom_id)).data
+}
+const getReviewCD = async(nhom_id) => {
+    return (await api.get('api/getReviewCD/'+nhom_id)).data
+}
 const createStudentService = async(data) => {
     console.log('data1:', data)
     return (await api.post('api/student',data))
@@ -59,6 +74,11 @@ export {
     getCountStateFee,
     getCountStateFeeB,
     getCountStateFeeA,
+    getCountReview,
+    getCountReviewD,
+    getCountReviewCD,
+    getReviewD,
+    getReviewCD,
     createStudentService,
     deleteStudentService,
     updateStudentService

@@ -111,6 +111,8 @@ function JoinCourse (){
                         <th>ID</th> 
                         <th>Tên Nhóm</th>
                         <th>Khóa học</th>
+                        <th>Ngày học</th>
+                        <th>Thời gian học</th>
                         <th>Chi tiết</th>
                         <th>Thao tác</th>
                     </tr>
@@ -122,6 +124,8 @@ function JoinCourse (){
                                     <td>{item.nhom_id}</td>
                                     <td onClick={()=>{handleDetail(item.nhom_id)}}>{item.name}</td>
                                     <td>{item.course_id}</td>
+                                    <td>{item.day}</td>
+                                    <td>{item.time}</td>
                                     <td>{item.description}</td>
                                     <td>
                                         <Button color="warning" className="btn-edit" onClick={() => {handleEditNhom(item)}}>

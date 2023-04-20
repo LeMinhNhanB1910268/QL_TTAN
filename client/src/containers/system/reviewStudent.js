@@ -5,7 +5,7 @@ import './reviewManager.scss'
 import { getAllCourse, getClass } from "../../services/courseService";
 import ModalAddReview from '../../components/Modal/Review/ModalAddReview'
 import ModalEditReview from '../../components/Modal/Review/ModalEditReview'
-import { getReview } from "../../services/studentService";
+import { getReview, updateStudentService } from "../../services/studentService";
 import {createReviewService, deleteReviewService, updateReviewService} from '../../services/reviewService'
 
 function ReviewStudent () {
@@ -58,6 +58,7 @@ function ReviewStudent () {
     }
     const createReview = async (review) =>{
         await createReviewService(review)
+        setisOpenAddReview(false)
         getReviewWithStudent();
     }
     const handleEidtReview = (student) => {
@@ -82,6 +83,10 @@ function ReviewStudent () {
             console.log(e)
         }
         getReviewWithStudent();
+    }
+    const handleAddTarget = async (student) => {
+        console.log('rv_id',student)
+        let response = await updateStudentService(student.student_id,{target: 'dat'})
     }
     const handleDetail = (student) => {
         localStorage.setItem('student', JSON.stringify(student));
@@ -179,6 +184,7 @@ function ReviewStudent () {
                                     </td>
                                     <td>
                                         <button className="btn-add-review" onClick={()=>{handleAddReview(item)}}>Thêm dánh giá</button>
+                                        <button className="btn-add-target" onClick={()=>{handleAddTarget(item)}}>Xác nhận</button>
                                     </td>
                                 </tr>
                             )

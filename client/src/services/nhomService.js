@@ -6,7 +6,6 @@ const getAllNhom = async() => {
 }
 
 const getNhom = async(nhom_id) => {
-
     return (await api.get('api/nhom/'+nhom_id)).data
 }
 const createNhomService = async(data) => {

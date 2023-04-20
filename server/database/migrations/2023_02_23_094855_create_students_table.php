@@ -21,8 +21,9 @@ class CreateStudentsTable extends Migration
             $table->string('email');
             $table->string('phone');
             $table->string('address');
-            $table->integer('nhom_id')->unsigned();
-            // $table->string('nhom_id');
+            $table->string('target');
+            // $table->integer('nhom_id')->unsigned();
+            $table->string('nhom_id');
             $table->integer('created_by')->unsigned()->nullable();
             $table->integer('updated_by')->unsigned()->nullable();
             $table->timestamps();

@@ -4,8 +4,8 @@ import React, {useEffect, useState} from "react";
 import './StatisticalFee.scss'
 import FeeCD from "./FeeCD";
 import FeeDD from "./FeeDD";
-import { getAllCourse, getClass } from "../../services/courseService";
-import {getStateFeeA, getStateFeeB, getCountStateFeeB, getCountStateFeeA,getCountStateFee} from '../../services/studentService'
+import { getAllCourse, getClass } from "../../../services/courseService";
+import {getCountStateFeeB, getCountStateFeeA,getCountStateFee} from '../../../services/studentService'
 export default function StatisticalFee() {
     const [nhomID,setnhomID] = useState('')
     const [CourseID,setCourseID] = useState('')
@@ -127,7 +127,6 @@ export default function StatisticalFee() {
         </table>
       </div>
       <div onClick={()=>{setisOpenViewDD(false)}}>
-
         {isOpenViewDD ? (<FeeDD nhomid={nhomID}/>): (<></>)}
       </div>
       <div onClick={()=>{setisOpenViewCD(false)}}> 

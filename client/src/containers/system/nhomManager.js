@@ -98,18 +98,28 @@ function NhomManager () {
         navigate({pathname: '/class-detail/'+id})
         // console.log(id);
     }
+    const handleJoinClass = (nhom_id) => {
+        navigate({pathname: '/join-class/'+nhom_id})
+    }
     return (
         <div>
             <div className="title">
-                    Quản lí lớp của trung tâm
+                <h1 className="mt-4">Quản lí lớp học của trung tâm</h1>
             </div>
-            <div >
-                <button 
-                className="btn btn-primary btn-add" 
-                onClick={() => {handleAddNhom()}}>
-                    <i className="fa-solid fa-plus"></i>Thêm nhóm
-                </button>
-            </div>
+            {
+                user.role == 'admin' ?
+                (
+                    <div >
+                        <button 
+                        className="btn btn-primary btn-add" 
+                        onClick={() => {handleAddNhom()}}>
+                            <i className="fa-solid fa-plus"></i>Thêm nhóm
+                        </button>
+                    </div>
+                ) : (
+                    <></>
+                )
+            }
                 <ModalAddNhom 
                 setIsOpen={()=>{setisOpenNewNhom(false)}} 
                 isOpen={isOpenNewNhom}
@@ -159,6 +169,9 @@ function NhomManager () {
                                                     >
                                                         <i className="fa-solid fa-trash"></i>
                                                     </Button>
+                                                    <Button color="success" className="btn-join" onClick={()=>{handleJoinClass(item.course_id)}}>
+                                                        <i className="fa-solid fa-right-to-bracket"></i>
+                                                    </Button>
                                                 </td>
                                             </tr>
                                         )
@@ -178,15 +191,18 @@ function NhomManager () {
                                                 <td>{item.time}</td>
                                                 <td>{item.description}</td>
                                                 <td>
-                                                    <Button color="warning" className="btn-edit" onClick={()=>{handleEditNhom(item)}}>
+                                                    {/* <Button color="warning" className="btn-edit" onClick={()=>{handleEditNhom(item)}}>
                                                         <i className="fa-solid fa-pen-to-square"></i>
-                                                    </Button>
-                                                    <Button 
+                                                    </Button> */}
+                                                    {/* <Button 
                                                         color="danger" 
                                                         className="btn-delete"
                                                         onClick={()=>{handleDeleteNhom(item)}}
                                                     >
                                                         <i className="fa-solid fa-trash"></i>
+                                                    </Button> */}
+                                                    <Button color="success" className="btn-join" onClick={()=>{handleJoinClass(item.course_id)}}>
+                                                        <i className="fa-solid fa-right-to-bracket"></i>
                                                     </Button>
                                                 </td>
                                             </tr>

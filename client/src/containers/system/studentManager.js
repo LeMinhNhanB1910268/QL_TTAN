@@ -6,6 +6,7 @@ import {getAllStudent, createStudentService, deleteStudentService, updateStudent
 import ModalAddStudent from '../../components/Modal/Student/ModalAddStudent'
 import ModalEditStudent from '../../components/Modal/Student/ModalEditStudent'
 import { createTuitionService } from "../../services/tuiionfeeService";
+import {getUser} from '../../services/accountService'   
 
 function StudentManager () {
     const navigate = useNavigate();
@@ -13,9 +14,10 @@ function StudentManager () {
     const [isOpenNewStudent,setisOpenNewStudent] = useState(false)
     const [isOpenEditStudent,setisOpenEditStudent] = useState(false)
     const [studentEdit,setStudentEdit] = useState({})
-
+    const [user,setUser] = useState('')
     useEffect(()=>{
         getAllStudents();
+        getMember();
     },[])
 
     const getAllStudents = async () => {
@@ -27,6 +29,11 @@ function StudentManager () {
                 console.log('hihi',arrStudent)
             }
         }
+    }
+    const getMember= async ()=>{
+        const data = await getUser();
+        console.log("hihi", data);
+        setUser(data);
     }
     const handleAddStudent = () => {
         setisOpenNewStudent( true)
@@ -75,15 +82,21 @@ function StudentManager () {
     return (
         <div>
             <div className="title">
-                    Quản lí học viên của trung tâm
+                <h1 className="mt-4">Quản lí học viên của trung tâm</h1>
             </div>
-            <div >
-                <button 
-                className="btn btn-primary btn-add" 
-                onClick={() => {handleAddStudent()}}>
-                    <i className="fa-solid fa-plus"></i>Thêm học viên
-                </button>
-            </div>
+            {
+                user.role == 'admin' ?
+                (            <div >
+                    <button 
+                    className="btn btn-primary btn-add" 
+                    onClick={() => {handleAddStudent()}}>
+                        <i className="fa-solid fa-plus"></i>Thêm học viên
+                    </button>
+                </div>
+                ): (
+                    <></>
+                )
+            }
             <ModalAddStudent 
                 setIsOpen={()=>{setisOpenNewStudent(false)}} 
                 isOpen={isOpenNewStudent}
@@ -119,18 +132,25 @@ function StudentManager () {
                                         <td>{item.birthday}</td>
                                         <td>{item.email}</td>
                                         <td>{item.phone}</td>
-                                        <td>
-                                            <Button color="warning" className="btn-edit" onClick={()=>{handleEditStudent(item)}}>
-                                                <i className="fa-solid fa-pen-to-square"></i>
-                                            </Button>
-                                            <Button 
-                                                color="danger" 
-                                                className="btn-delete"
-                                                onClick={()=>{handleDeleteStudent(item)}}
-                                            >
-                                                <i className="fa-solid fa-trash"></i>
-                                            </Button>
-                                        </td>
+                                        {
+                                            user.role == 'admin' ?
+                                            (           
+                                                <td>
+                                                    <Button color="warning" className="btn-edit" onClick={()=>{handleEditStudent(item)}}>
+                                                        <i className="fa-solid fa-pen-to-square"></i>
+                                                    </Button>
+                                                    <Button 
+                                                        color="danger" 
+                                                        className="btn-delete"
+                                                        onClick={()=>{handleDeleteStudent(item)}}
+                                                    >
+                                                        <i className="fa-solid fa-trash"></i>
+                                                    </Button>
+                                                </td>
+                                            ): (
+                                                <></>
+                                            )
+                                        }
                                     </tr>
                                 )
                             })

@@ -100,7 +100,9 @@ function pointManager() {
     }
     return (
         <div className="content-point">
-            <h2 className="title">Quản lý điểm học viên</h2>
+            <div className="title">
+                <h1 className="mt-4">Quản lí điểm của học viên</h1>
+            </div>
             <div className="row">
                 <h3>Xem học viên</h3>
                 <div className="col-3"></div>

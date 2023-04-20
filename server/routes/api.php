@@ -41,6 +41,11 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('getCountStateFee/{id}', 'StudentController@getCountStateFee');
     Route::get('getCountStateFeeA/{id}', 'StudentController@getCountStateFeeA');
     Route::get('getCountStateFeeB/{id}', 'StudentController@getCountStateFeeB');
+    Route::get('getCountReview/{id}', 'StudentController@getCountReview');
+    Route::get('getCountReviewD/{id}', 'StudentController@getCountReviewD');
+    Route::get('getCountReviewCD/{id}', 'StudentController@getCountReviewCD');
+    Route::get('getReviewD/{id}', 'StudentController@getReviewD');
+    Route::get('getReviewCD/{id}', 'StudentController@getReviewCD');
     Route::get('getClassOfMenber/{id}', 'NhomController@getClassOfMenber');
     // Route::get('getPoint', 'StudentController@getPoint');
 

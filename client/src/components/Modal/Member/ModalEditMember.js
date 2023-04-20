@@ -5,7 +5,6 @@ import './ModalEditMember.scss'
 
 
 function ModalEditMember (props){
-    const [modal,setModal] = useState(false)
     const [name,setName] = useState('')
     const [email,setEmail] = useState('')
     const [phone,setPhone] = useState('')

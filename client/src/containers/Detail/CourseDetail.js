@@ -14,49 +14,23 @@ function CourseDetail (){
     const getClassOfCourse = async () => {
         let response = await getClass(course.course_id);
         if (response){
-            setCourse(response.data)
             setCount(response.data.data.get_class.length);
-            // console.log('course',response.data.data)
-            // console.log('course1',response.data.data.get_class.length)
         }
     }
     return (
         <div className="container">
             <div className="content-course-detail">
                 <div className="title-Course">
-                    <h2>Thông tin khóa học</h2>
+                    <h2>Thông tin chi tiết</h2>
                 </div>
-                <div className="content-Course">
-                    <div>
-                        <label>
-                            <h3>Tên khóa học: </h3>
-                        </label>
-                        <p>{course.name}</p>
-                    </div>
-                    <div>
-                        <label>
-                            <h3>Thời gian bắt đầu: </h3>
-                        </label>
-                        <p>{course.time_start}</p>
-                    </div>
-                    <div>
-                        <label>
-                            <h3>Thời gian kết thúc: </h3>
-                        </label>
-                        <p>{course.time_finish}</p>
-                    </div>
-                    <div>
-                        <label>
-                            <h3>Giá: </h3>
-                        </label>
-                        <p>{course.price}</p>
-                    </div>
-                    <div>
-                        <label>
-                            <h3>Số lượng nhóm: </h3>
-                        </label>
-                        <p>{Count}</p>
-                    </div>
+                <div className="content-Course mt-3">
+                        <h3>Thông tin khóa học</h3>
+                        <p><label>Tên khóa học:</label>{course.name}</p>
+                        <p><label>Thời gian bắt đầu:</label>{course.time_start}</p>
+                        <p><label>Thời gian kết thúc:</label>{course.time_finish}</p>
+                        <p><label>Giá:</label>{course.price}</p>
+                        <p><label>Số lượng nhóm:</label>{Count}</p>
+                    
                 </div>
             </div>
         </div>

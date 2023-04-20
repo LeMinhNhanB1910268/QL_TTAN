@@ -1,0 +1,43 @@
+.content-statistical-review{
+    .body-statistical{
+        margin-top: 20px;
+        .row{
+            margin-top: 30px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            text-align: center;
+            background-color: #dfe6e9;
+            border-radius: 10px;
+            h3{
+                background-color: #04AA6D;
+                color: white;
+                border-radius: 10px 10px 0px 0px;
+                font-size: 20px;
+            }
+            .course{
+                label{
+                    font-size: 17px;
+                    margin-right: 5px;
+                    font-weight: 600;
+                }
+                select{
+                    min-width: 100px;
+                    height: 30px;
+                    border-radius: 5px;
+                }
+            }
+            .nhom{
+                label{
+                    font-size: 17px;
+                    margin-right: 5px;
+                    font-weight: 600;
+                }
+                select{
+                    min-width: 100px;
+                    height: 30px;
+                    border-radius: 5px;
+                }
+            }
+        }
+    }
+}

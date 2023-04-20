@@ -83,7 +83,7 @@ function MemberManager () {
     return (
         <div>
             <div className="title">
-                    Quản lí thành viên của trung tâm
+                <h1 className="mt-4">Quản lí thành viên của trung tâm</h1>
             </div>
             <div >
                 <button 

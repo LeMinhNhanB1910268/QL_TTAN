@@ -63,6 +63,8 @@ function ClassDetail () {
                         <h3>Thông tin nhóm</h3>
                         <p><label>Mã nhóm:</label>{Nhom.nhom_id}</p>
                         <p><label>Tên nhóm:</label>{Nhom.name}</p>
+                        <p><label>Tên nhóm:</label>{Nhom.name}</p>
+                        <p><label>Ngày học:</label>{Nhom.day}</p>
                         <p><label>Số lượng học viên:</label>{Count}</p>
                         <p><label>Giới thiệu về lớp:</label>{Nhom.description}</p>
                     </div>
@@ -74,13 +76,6 @@ function ClassDetail () {
                         <p><label>Thời gian kết thúc:</label>{Course.time_finish}</p>
                         <p><label>Học phí:</label>{Course.price}</p>
                     </div>
-                    {/* <div className="info-teacher">
-                        <h3>Giảng viên giảng dạy</h3>
-                            <p><label>Mã giáo viên:</label>{Teacher[0].member_id}</p>
-                            <p><label>Tên giáo viên:</label>{Teacher[0].name}</p>
-                            <p><label>Số điện thoại:</label>{Teacher[0].phone}</p>
-                            <p><label>Email:</label>{Teacher[0].email}</p>
-                    </div> */}
                 </div>
             </div>
         </div>

@@ -17,6 +17,7 @@ class CreateTuitionfeesTable extends Migration
             $table->increments('tuitionfee_id');
             $table->integer('student_id')->unsigned();
             $table->string('status');
+            $table->string('member_id');
             $table->integer('created_by')->unsigned()->nullable();
             $table->integer('updated_by')->unsigned()->nullable();
             $table->timestamps();

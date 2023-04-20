@@ -5,7 +5,7 @@ import { Button } from "reactstrap";
 import {getAllCourse, createCourseService, deleteCourseService, updateCourseService} from '../../services/courseService'
 import ModalAddCourse from '../../components/Modal/Course/ModalAddCourse'
 import ModalEditCourse from '../../components/Modal/Course/ModalEditCourse'
-
+import {getUser} from '../../services/accountService'
 
 function CourseManager () {
     const navigate = useNavigate();
@@ -14,10 +14,17 @@ function CourseManager () {
     const [isOpenEditCourse,setisOpenEditCourse] = useState(false)
     const [courseEdit,setCourseEdit] = useState({})
     const [courseid] = useState(JSON.parse(localStorage.getItem('course')))
+    const [user,setUser] = useState('')
 
     useEffect(()=>{
         getAllCourses();
+        getMember();
     },[])
+    const getMember= async ()=>{
+        const data = await getUser();
+        console.log("hihi", data);
+        setUser(data);
+    }
     const getAllCourses = async () => {
         let response = await getAllCourse();
         if(response){
@@ -76,15 +83,23 @@ function CourseManager () {
     return (
         <div>
             <div className="title">
-                Quản lí khóa học của trung tâm
+                <h1 className="mt-4">Quản lí khóa học của trung tâm</h1>
             </div>
-            <div >
-                <button 
-                    className="btn btn-primary btn-add" 
-                    onClick={()=>{handleAddCourse()}}>
-                    <i className="fa-solid fa-plus"></i>Thêm khóa học
-                </button>
-            </div>
+            {
+                user.role == 'admin' ?
+                (
+                    <div >
+                        <button 
+                            className="btn btn-primary btn-add" 
+                            onClick={()=>{handleAddCourse()}}>
+                            <i className="fa-solid fa-plus"></i>Thêm khóa học
+                        </button>
+                    </div>
+                ):
+                (
+                    <></>
+                )
+            }
             <ModalAddCourse 
             setIsOpen={()=>{setisOpenNewCourse(false)}} 
             isOpen={isOpenNewCourse}
@@ -118,21 +133,35 @@ function CourseManager () {
                                         <td>{item.time_start}</td>
                                         <td>{item.time_finish}</td>
                                         <td>{item.price}</td>
-                                        <td>
-                                        <Button color="warning" className="btn-edit" onClick={()=>{handleEditCourse(item)}}>
-                                            <i className="fa-solid fa-pen-to-square"></i>
-                                        </Button>
-                                        <Button 
-                                            color="danger" 
-                                            className="btn-delete"
-                                            onClick={()=>{handleDeleteCourse(item)}}
-                                        >
-                                            <i className="fa-solid fa-trash"></i>
-                                        </Button>
-                                        <Button color="success" className="btn-join" onClick={()=>{handleJoinCourse(item.course_id)}}>
-                                            <i className="fa-solid fa-right-to-bracket"></i>
-                                        </Button>
-                                    </td>
+                                        {
+                                            user.role == 'admin' ? 
+                                            (
+                                                <td>
+                                                <Button color="warning" className="btn-edit" onClick={()=>{handleEditCourse(item)}}>
+                                                    <i className="fa-solid fa-pen-to-square"></i>
+                                                </Button>
+                                                <Button 
+                                                    color="danger" 
+                                                    className="btn-delete"
+                                                    onClick={()=>{handleDeleteCourse(item)}}
+                                                >
+                                                    <i className="fa-solid fa-trash"></i>
+                                                </Button>
+                                                <Button color="success" className="btn-join" onClick={()=>{handleJoinCourse(item.course_id)}}>
+                                                    <i className="fa-solid fa-right-to-bracket"></i>
+                                                </Button>
+                                            </td>
+                                            ) :
+                                            (
+                                                <td>     
+                                                    <Button color="success" className="btn-join" onClick={()=>{handleJoinCourse(item.course_id)}}>
+                                                        <i className="fa-solid fa-right-to-bracket"></i>
+                                                    </Button>
+                                                </td>
+                                            )
+                                        }
+
+
                                 </tr>
                             )
                         })

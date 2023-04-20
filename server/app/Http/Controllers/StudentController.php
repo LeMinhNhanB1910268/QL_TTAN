@@ -28,14 +28,14 @@ class StudentController extends Controller
     {
         return new StudentCollection(Student::where('nhom_id', $id)->with('tuitionfee')->get());
     }
-    public function getStateFeeA($id)
-    {
-        $result = Student::where('nhom_id',$id)->join('tuitionfees','students.student_id','=', 'tuitionfees.student_id')->where('status','=','da dong')->get();
-        return $result;
-    } 
     public function getCountStateFee($id)
     {
         $result = Student::where('nhom_id',$id)->join('tuitionfees','students.student_id','=', 'tuitionfees.student_id')->count();
+        return $result;
+    } 
+    public function getStateFeeA($id)
+    {
+        $result = Student::where('nhom_id',$id)->join('tuitionfees','students.student_id','=', 'tuitionfees.student_id')->where('status','=','da dong')->get();
         return $result;
     } 
     public function getCountStateFeeA($id)
@@ -53,25 +53,40 @@ class StudentController extends Controller
         $result = Student::where('nhom_id',$id)->join('tuitionfees','students.student_id','=', 'tuitionfees.student_id')->where('status','<>','da dong')->count();
         return $result;
     } 
-
-
     public function getReview($id)
     {
         return new StudentCollection(Student::where('nhom_id', $id)->with('review')->with('points')->get());
+    }
+
+    public function getCountReview($id)
+    {
+        $result = Student::where('nhom_id', $id)->with('review')->with('points')->count();
+        return $result;
+    }
+    public function getCountReviewD($id)
+    {
+        $result = Student::where('nhom_id', $id)->with('review')->with('points')->where('target','=','dat')->count();
+        return $result;
+    }
+    public function getCountReviewCD($id)
+    {
+        $result = Student::where('nhom_id', $id)->with('review')->with('points')->where('target','<>','dat')->count();
+        return $result;
+    }
+    public function getReviewD($id)
+    {
+        $result = Student::where('nhom_id', $id)->with('review')->with('points')->where('target','=','dat')->get();
+        return $result;
+    }
+    public function getReviewCD($id)
+    {
+        $result = Student::where('nhom_id', $id)->with('review')->with('points')->where('target','<>','dat')->get();
+        return $result;
     }
     public function getPoint($id)
     {
         return new StudentCollection(Student::where('nhom_id', $id)->with('points')->get());
     }
-    // public function getPoint($id) {
-    //     $result = Point::where(['student_id'=>$id])->get();
-    //     return $result;
-    // }
-    // public function getPoint() {
-    //     $result = Student::join('nhoms','students.nhom_id','=','nhoms.nhom_id')->get();
-    //     return $result;
-    // }
-
 
 
     /**

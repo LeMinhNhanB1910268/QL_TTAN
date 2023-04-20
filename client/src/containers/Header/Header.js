@@ -27,8 +27,9 @@ export default function Header() {
                         <div className='col-sm-3 col-right'>
                             <Link to='/'><button><i className="fa-solid fa-house"></i>Trang chủ</button>  </Link>
                             <button><i className="fa-solid fa-right-from-bracket"></i>Đăng xuất</button>
+                            <div className="account">Xin chào {user.name}</div>
                         </div>
-                        <div className="account">Xin chào {user.name}</div>
+
                     </div>
                 </div>
             </div>

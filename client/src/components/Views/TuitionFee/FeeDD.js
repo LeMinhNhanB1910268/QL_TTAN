@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 
-import {getStateFeeA} from '../../services/studentService'
-import './FeeDD.scss'
+import {getStateFeeA} from '../../../services/studentService'
+
 export default function FeeDD(props) {
 
     const [arrDD,setArrDD] = useState('')
