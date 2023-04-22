@@ -8,8 +8,13 @@
                 h2{
                     font-size: 35px;
                     color: white;
+                    .name-center{
+                        font-size: 20px;
+                        margin-left: 7%;
+                    }
                 }
             }
+
             .col-right{
                 button{
                     border: none;

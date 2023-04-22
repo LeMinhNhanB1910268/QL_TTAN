@@ -18,7 +18,20 @@ function Homepage (){
     const getMember= async ()=>{
         const data = await getUser();
         console.log("hihi", data);
-        setUser(data);
+        if(data){
+            setUser(data);
+
+        }
+
+    }
+    // window.onload = () => {
+    //     if(!window.location.hash) {
+    //         window.location = window.location + '/';
+    //         window.location.reload();
+    //     }
+    // }
+    const reload =() => {
+        window.location.reload(false);
     }
     const doEditMember = async (account) => {
         console.log('save', account)
@@ -77,7 +90,7 @@ function Homepage (){
                 <div className='col-sm-6 homepage-right'>
                     <div className='content-right'>
                         {
-                            user.role != 'admin' ? (<HomeAdmin />) : (<HomeMember />)
+                            user.role == 'admin' ? (<HomeAdmin />) : (<HomeMember />)
                         }
 
                     </div>

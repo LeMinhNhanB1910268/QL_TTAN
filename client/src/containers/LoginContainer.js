@@ -46,6 +46,7 @@ const LoginContainer =()=> {
           <Row className='justify-content-center' >
               <Col md="5" >
               <Segment color='green'>  
+                <h2 className='text-center'>Đăng nhập</h2>
                 <Card className='login-form' fluid>
                   <Card.Content>
                     <Form>

@@ -142,7 +142,7 @@ function ModalAddMember (props){
                            Ngày sinh: 
                         </label>
                         <input 
-                            type="date" 
+                            type="text" 
                             onChange={(event)=>{setBirthday(event.target.value)}}
                             value={birthday}
                         />

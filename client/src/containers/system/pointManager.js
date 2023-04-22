@@ -53,7 +53,7 @@ function pointManager() {
         getStudent();
     }
     const handleAddPoint = (student) => {
-        setisOpenAddPoint(false)
+        setisOpenAddPoint(true)
         setStudentPoint({studentPoint: student})
     }
     const handleEditPoint = (student) => {

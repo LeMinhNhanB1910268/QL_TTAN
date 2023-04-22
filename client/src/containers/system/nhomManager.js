@@ -6,7 +6,7 @@ import {getAllNhom,getClassofMember, createNhomService, deleteNhomService, updat
 import ModalAddNhom from '../../components/Modal/Nhom/ModalAddNhom'
 import ModalEditNhom from '../../components/Modal/Nhom/ModalEditNhom'
 import {getUser} from '../../services/accountService'
-
+import DeleteClass from "../../components/Modal/Confirm/DeleteClass";
 
 function NhomManager () {
     const navigate = useNavigate();
@@ -14,7 +14,9 @@ function NhomManager () {
     const [arrNhomOfMember,setArrNhomOfMember] = useState('')
     const [isOpenNewNhom,setisOpenNewNhom] = useState(false)
     const [isOpenEditNhom,setisOpenEditNhom] = useState(false)
+    const [isDeleteNhom,setisDeleteNhom] = useState(false)
     const [nhomEdit,setnhomEdit] = useState({})
+    const [nhomDelete,setnhomDelete] = useState({})
     const [user,setUser] = useState('')
     const [member_id,setMember_id] = useState('')
     useEffect(()=>{
@@ -85,6 +87,11 @@ function NhomManager () {
         getAllNhoms();
     }
     const handleDeleteNhom = async (nhom) => {
+        setisDeleteNhom(true);
+        setnhomDelete({nhomDelete: nhom})
+    }
+    const deleteNhom = async (nhom) => {
+        setisDeleteNhom(false);
         try{
             let res = await deleteNhomService(nhom.nhom_id)
             if(res.status===200){
@@ -132,6 +139,15 @@ function NhomManager () {
                     isOpen={isOpenEditNhom}
                     currentNhom={nhomEdit}
                     editNhom = {doEditNhom}
+                />
+                }
+                {
+                    isDeleteNhom &&
+                    <DeleteClass
+                    setIsOpen={()=>{setisDeleteNhom(false)}} 
+                    isOpen={isDeleteNhom}
+                    currentClass={nhomDelete}
+                    deleteNhom = {deleteNhom}
                 />
                 }
                 <table id="customers">

@@ -23,7 +23,7 @@ function ModalAddStudent (props){
             'email', 
             'phone', 
             'birthday',
-            'member_id',
+            // 'member_id',
             'sex',
             'nhom_id'
         ];
@@ -45,7 +45,7 @@ function ModalAddStudent (props){
                 email,
                 phone,
                 birthday,
-                member_id,
+                // member_id,
                 sex,
                 nhom_id}
             props.createStudent(data);
@@ -68,7 +68,7 @@ function ModalAddStudent (props){
               >Thêm học viên mới</ModalHeader>
               <ModalBody>
                 <div className='modal-student-body'>
-                    <div className='input-container  max-width-input'>
+                    {/* <div className='input-container  max-width-input'>
                         <label>
                            Mã nhân viên: 
                         </label>
@@ -77,7 +77,7 @@ function ModalAddStudent (props){
                             onChange={(event)=>{setStudent(event.target.value)}}
                             value={member_id}
                         />
-                    </div>
+                    </div> */}
                     <div className='input-container max-width-input'>
                         <label>
                             Họ và tên: 
@@ -123,7 +123,7 @@ function ModalAddStudent (props){
                            Ngày sinh: 
                         </label>
                         <input 
-                            type="date" 
+                            type="text" 
                             onChange={(event)=>{setBirthday(event.target.value)}}
                             value={birthday}
                         />

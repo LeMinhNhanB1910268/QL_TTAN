@@ -9,39 +9,18 @@ function MemberDetail (){
     },[])
     return (
         <div className="container">
-            <div className="title-Member">
-                <h1>Thông tin học viên</h1>
-            </div>
-            <div className="content-Member">
-                <div>
-                    <label>
-                        <h3>Họ và tên: </h3>
-                    </label>
-                    <p>{member.name}</p>
+            <div className="content-member-detail">
+                <div className="title-Member">
+                    <h1>Thông tin chi tiết</h1>
                 </div>
-                <div>
-                    <label>
-                        <h3>Địa chỉ: </h3>
-                    </label>
-                    <p>{member.name}</p>
-                </div>
-                <div>
-                    <label>
-                        <h3>Giới tinh: </h3>
-                    </label>
-                    <p>{member.sex}</p>
-                </div>
-                <div>
-                    <label>
-                        <h3>Số điện thoại: </h3>
-                    </label>
-                    <p>{member.phone}</p>
-                </div>
-                <div>
-                    <label>
-                        <h3>Email: </h3>
-                    </label>
-                    <p>{member.email}</p>
+                <div className="content-Member mt-3">
+                    <h3>Thông tin thành viên</h3>
+                    <p><label>Họ và tên:</label>{member.name}</p>
+                    <p><label>Địa chỉ:</label>{member.address}</p>
+                    <p><label>Giới tinh:</label>{member.sex}</p> 
+                    <p><label>Số điện thoại:</label>{member.phone}</p>
+                    <p><label>Email:</label>{member.email}</p> 
+                    <p><label>Chức vụ:</label>{member.position}</p> 
                 </div>
             </div>
         </div>

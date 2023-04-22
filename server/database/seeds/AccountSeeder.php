@@ -14,8 +14,8 @@ class AccountSeeder extends Seeder
     {
         DB::table('accounts')->insert([
             array('username' => 'nhanminhle', 
-            'password' => 'nhan123', 
-            'role' => 'Admin',  
+            'password' => bcrypt('nhan123'), 
+            'role' => 'admin',  
             'member_id'=>'B1910268',
             'name'=> 'Le Minh Nhan',  
             'sex' => 'Nam', 

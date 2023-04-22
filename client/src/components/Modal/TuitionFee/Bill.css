@@ -5,7 +5,7 @@ table{
     width: 95%;
     margin-right: 20px;
 }
-table, th, td {
+.table-bill th,td {
     border: 1px solid black;
     padding: 5px;
     border-collapse: collapse;

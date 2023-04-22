@@ -8,6 +8,9 @@ const handleLoginApi = (username, password) => {
 const getUser = async()=>{
     return (await api.get(`api/user`)).data;
 }
+const Search = async (name)=>{
+    return (await api.get('api/member/search/'+name)).data
+}
 const getAllAccount = async () => {
     return (await api.get('api/account')).data;
 }
@@ -40,6 +43,7 @@ export {
     handleLoginApi,
     getAllAccount,
     getTeacher,
+    Search,
     createAccountService,
     deleteAccountService,
     updateAccountService,

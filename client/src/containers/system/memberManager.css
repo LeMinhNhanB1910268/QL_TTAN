@@ -41,3 +41,12 @@
     font-weight: 600;
     font-size: 15px;
   }
+  .search{
+    text-align: end;
+  }
+  .search input{
+    border-radius: 5px;
+    height: 30px;
+    margin: 10px;
+    width: 200px;
+  }

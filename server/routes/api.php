@@ -52,6 +52,7 @@ Route::middleware('auth:sanctum')->group(function(){
 });
 Route::post('auth/login', 'AuthController@login');
 Route::post('auth/resgiter', 'AuthController@register');
-Route::get('member/search/{sex}', 'MemberController@search');
-
+Route::get('auth/logout', 'AuthController@Logout');
+Route::get('member/search/{name}', 'UserController@search');
+Route::get('student/search/{name}', 'StudentController@search');
 Route::post('account/NoMember/',[CloneController::class,'noMember']);

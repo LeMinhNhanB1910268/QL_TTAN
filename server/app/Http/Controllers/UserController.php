@@ -49,6 +49,7 @@ class UserController extends Controller
             'birthday' => $request->birthday,
             'position' => $request->position,
             'sex' => $request->sex,
+            'address' => $request->address,
         ]);
         return $user;
     }
@@ -99,8 +100,12 @@ class UserController extends Controller
         $account->delete();
     }
 
-    public function search($sex) {
-        return User::with('account')->where('sex','like', '%'.$sex.'%')->get();
+    // public function search($name) {
+    //     return User::where('sex','like', '%'.$name.'%')->get();
+    //     // return $sex;
+    // }
+    public function search($name) {
+        return User::where('name','like', $name)->get();
         // return $sex;
     }
 }

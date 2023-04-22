@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\User;
+// use Auth;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
@@ -39,4 +40,8 @@ class AuthController extends Controller
         };
         return $this->response( Auth::user());
     }
+    // public function Logout(Request $request){
+    //     $request->user()->token()->delete();
+    //     return response()->json(['message'=>'Thanh cong']);
+    // }
 }

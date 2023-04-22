@@ -47,6 +47,9 @@ const getReviewD = async(nhom_id) => {
 const getReviewCD = async(nhom_id) => {
     return (await api.get('api/getReviewCD/'+nhom_id)).data
 }
+const Search = async (name)=>{
+    return (await api.get('api/student/search/'+name)).data
+}
 const createStudentService = async(data) => {
     console.log('data1:', data)
     return (await api.post('api/student',data))
@@ -67,6 +70,7 @@ export {
     getAllStudent,
     getStudent,
     getFee,
+    Search,
     getPoint,
     getReview,
     getStateFeeA,

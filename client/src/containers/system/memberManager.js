@@ -5,7 +5,7 @@ import { Button } from "reactstrap";
 import {getAllAccount,getUser, createAccountService, deleteAccountService, updateAccountService} from '../../services/accountService'
 import ModalAddMember from "../../components/Modal/Member/ModalAddMember";
 import ModalEditMember from "../../components/Modal/Member/ModalEditMember";
-
+import DeleteMember from "../../components/Modal/Confirm/DeleteMember";
 
 function MemberManager () {
     const navigate = useNavigate();
@@ -13,6 +13,8 @@ function MemberManager () {
     const [arrMember,setArrMember] = useState('')
     const [isOpenNewMember,setisOpenNewMember] = useState(false)
     const [isOpenEditMember,setisOpenEditMember] = useState(false)
+    const [isDeleteMember,setisDeleteMember] = useState(false)
+    const [memberDelete,setmemberDelete] = useState({})
     const [memberEdit,setmemberEdit] = useState({})
     const getMember= async ()=>{
         const data = await getUser();
@@ -67,7 +69,18 @@ function MemberManager () {
         }
         getAllMember();
     }
+    const handleDeleteStudent = async (student) => {
+        setisDelete(true)
+        setStudentDelete({
+            studentDelete: student
+        })
+    }
     const handleDeleteMember = async (member) => {
+        setisDeleteMember(true)
+        setmemberDelete({memberDelete: member})
+    }
+    const deleteMember = async (member) => {
+        setisDeleteMember(false)
         try{
             let res = await deleteAccountService(member.account_id)
         }catch(e){
@@ -75,6 +88,7 @@ function MemberManager () {
         }
         getAllMember();
     }
+
     const handleDetail =  async (member) => {
         localStorage.setItem('member', JSON.stringify(member));
         navigate('/member-detail')
@@ -85,12 +99,17 @@ function MemberManager () {
             <div className="title">
                 <h1 className="mt-4">Quản lí thành viên của trung tâm</h1>
             </div>
-            <div >
-                <button 
-                className="btn btn-primary btn-add" 
-                onClick={() => {handleAddMenber()}}>
-                    <i className="fa-solid fa-plus"></i>Thêm thành viên
-                </button>
+            <div className="row">
+                <div className="col-6">
+                    <button 
+                    className="btn btn-primary btn-add" 
+                    onClick={() => {handleAddMenber()}}>
+                        <i className="fa-solid fa-plus"></i>Thêm thành viên
+                    </button>
+                </div>
+                    <div className="search col-6">
+                        <input placeholder="Nhập tên cần tìm kiếm"></input>
+                    </div>
             </div>
                 <ModalAddMember 
                 setIsOpen={()=>{setisOpenNewMember(false)}} 
@@ -105,6 +124,15 @@ function MemberManager () {
                     isOpen={isOpenEditMember}
                     currentMember={memberEdit}
                     editMember = {doEditMember}
+                />
+                }
+                {
+                    isDeleteMember &&
+                    <DeleteMember 
+                    setIsOpen={()=>{setisDeleteMember(false)}} 
+                    isOpen={isDeleteMember}
+                    currentMember={memberDelete}
+                    deleteMember = {deleteMember}
                 />
                 }
                 <table id="customers">

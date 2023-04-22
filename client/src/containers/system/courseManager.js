@@ -6,13 +6,16 @@ import {getAllCourse, createCourseService, deleteCourseService, updateCourseServ
 import ModalAddCourse from '../../components/Modal/Course/ModalAddCourse'
 import ModalEditCourse from '../../components/Modal/Course/ModalEditCourse'
 import {getUser} from '../../services/accountService'
+import DeleteCourse from "../../components/Modal/Confirm/DeleteCourse";
 
 function CourseManager () {
     const navigate = useNavigate();
     const [arrCourse,setArrCourse] = useState('')
     const [isOpenNewCourse,setisOpenNewCourse] = useState(false)
     const [isOpenEditCourse,setisOpenEditCourse] = useState(false)
+    const [isDeleteCourse,setisDeleteCourse] = useState(false)
     const [courseEdit,setCourseEdit] = useState({})
+    const [courseDelete,setCourseDelete] = useState({})
     const [courseid] = useState(JSON.parse(localStorage.getItem('course')))
     const [user,setUser] = useState('')
 
@@ -63,6 +66,11 @@ function CourseManager () {
         getAllCourses();
     }
     const handleDeleteCourse = async (course) => {
+        setisDeleteCourse(true)
+        setCourseDelete({courseDelete: course})
+    }
+    const deleteCourse = async (course) => {
+        setisDeleteCourse(false)
         try{
 
             let res = await deleteCourseService(course.course_id)
@@ -112,6 +120,15 @@ function CourseManager () {
                 isOpen={isOpenEditCourse}
                 currentCourse={courseEdit}
                 editCourse = {doEditCourse}
+            />
+            }
+            {
+                isDeleteCourse &&
+                <DeleteCourse
+                setIsOpen={()=>{setisDeleteCourse(false)}} 
+                isOpen={isDeleteCourse}
+                currentCourse={courseDelete}
+                deleteCourse = {deleteCourse}
             />
             }
             <table id="customers">

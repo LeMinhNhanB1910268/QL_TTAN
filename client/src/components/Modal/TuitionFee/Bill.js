@@ -35,15 +35,15 @@ export default function Bill(props) {
                     <p><label>Email:</label>nn.english@gmail.com</p>
                 </div>
                 <hr />
-                <div className="info-student">
+                <div className="info-student mb-4">
                     <h3>Thông tin học viên</h3>
-                    <p><label>Họ và tên:</label>1234567890</p>
-                    <p><label>Giới tính:</label>1234567890</p>
-                    <p><label>Số điện thoại:</label>1234567890</p>
-                    <p><label>Email:</label>1234567890</p>
+                    <p><label>Họ và tên:</label>Lê Minh Nhân</p>
+                    <p><label>Giới tính:</label>Nam</p>
+                    <p><label>Số điện thoại:</label>0565766636</p>
+                    <p><label>Email:</label>nhanb1910268@student.ctu.edu.vn</p>
                 </div>
                 <div className="table">
-                    <table style={{border: "1px solid black",}}>
+                    <table className="table-bill">
                         <tbody>
                             <tr>
                                 <th className="stt">STT</th>

@@ -28,6 +28,10 @@ class StudentController extends Controller
     {
         return new StudentCollection(Student::where('nhom_id', $id)->with('tuitionfee')->get());
     }
+    public function search($name) {
+        return new StudentCollection(Student::where('name','like', $name)->get());
+        // return $sex;
+    }
     public function getCountStateFee($id)
     {
         $result = Student::where('nhom_id',$id)->join('tuitionfees','students.student_id','=', 'tuitionfees.student_id')->count();

@@ -103,7 +103,6 @@ function ModalAddAccount (props){
                 </Button>
               </ModalFooter>
             </Modal>
-            {/* Minh */}
         </div>
     )
 }
