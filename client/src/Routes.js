@@ -18,7 +18,12 @@ import TuitionManager from "./containers/system/tuitionManager";
 import PointManager from "./containers/system/pointManager";
 import Statistical from "./containers/system/statistical";
 import JoinClass from "../src/containers/Join/JoinClass"
+
 function Router (){
+    const token = localStorage.getItem('token')
+    if(!token){
+        return <LoginContainer />
+    }
     return (
         <Routes>
             <Route path='/' element={<HomePage />}></Route>

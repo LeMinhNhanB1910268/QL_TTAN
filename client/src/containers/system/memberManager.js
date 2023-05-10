@@ -2,7 +2,7 @@ import React, {useEffect,useState} from "react";
 import { useNavigate} from 'react-router-dom';
 import './memberManager.css'
 import { Button } from "reactstrap";
-import {getAllAccount,getUser, createAccountService, deleteAccountService, updateAccountService} from '../../services/accountService'
+import {getAllAccount,Search,getUser, createAccountService, deleteAccountService, updateAccountService} from '../../services/accountService'
 import ModalAddMember from "../../components/Modal/Member/ModalAddMember";
 import ModalEditMember from "../../components/Modal/Member/ModalEditMember";
 import DeleteMember from "../../components/Modal/Confirm/DeleteMember";
@@ -16,6 +16,7 @@ function MemberManager () {
     const [isDeleteMember,setisDeleteMember] = useState(false)
     const [memberDelete,setmemberDelete] = useState({})
     const [memberEdit,setmemberEdit] = useState({})
+    const [SearchText,setSearchText] = useState('')
     const getMember= async ()=>{
         const data = await getUser();
         setUser(data);
@@ -26,7 +27,17 @@ function MemberManager () {
         getAllMember();
         getMember();
     },[])
-
+    useEffect(()=>{
+        if(SearchText){
+            handleArr();
+        }
+    },[SearchText])
+    useEffect(() => {
+        if (SearchText === '') {
+          setSearchText('');
+          getAllMember();
+        }
+      }, [SearchText]);
     const getAllMember = async () => {
         let response = await getAllAccount();
         console.log(response);
@@ -35,7 +46,17 @@ function MemberManager () {
             ,()=> {
                 console.log('hihi',arrAccount)
             }
-            
+        }
+    }
+    const handleArr = async() => {
+        if(SearchText!=''){
+            let response = await Search(SearchText);
+            if(response){
+                setArrMember(response.data)
+            }
+            // setArrStudent(arrStudent1)
+        }else {
+            getAllMember();
         }
     }
     const handleAddMenber = () => {
@@ -69,12 +90,12 @@ function MemberManager () {
         }
         getAllMember();
     }
-    const handleDeleteStudent = async (student) => {
-        setisDelete(true)
-        setStudentDelete({
-            studentDelete: student
-        })
-    }
+    // const handleDeleteStudent = async (student) => {
+    //     setisDelete(true)
+    //     setStudentDelete({
+    //         studentDelete: student
+    //     })
+    // }
     const handleDeleteMember = async (member) => {
         setisDeleteMember(true)
         setmemberDelete({memberDelete: member})
@@ -108,8 +129,10 @@ function MemberManager () {
                     </button>
                 </div>
                     <div className="search col-6">
-                        <input placeholder="Nhập tên cần tìm kiếm"></input>
-                    </div>
+                    <input placeholder="Nhập tên cần tìm kiếm"
+                    onChange={(event)=>{setSearchText(event.target.value)}}
+                    value={SearchText}></input>
+                </div>
             </div>
                 <ModalAddMember 
                 setIsOpen={()=>{setisOpenNewMember(false)}} 
@@ -159,20 +182,20 @@ function MemberManager () {
                                     <td>{item.phone}</td>
                                     <td>{item.position}</td>
                                     <td>
-                                        <Button color="warning" className="btn-edit" onClick={() => {handleEditMenber(item)}}>
+                                        <Button color="warning" className="btn-edit" onClick={()=>{handleEditMenber(item)}}>
                                             <i className="fa-solid fa-pen-to-square"></i>
                                         </Button>
                                         <Button 
                                             color="danger" 
                                             className="btn-delete"
-                                            onClick={()=> {handleDeleteMember(item)}}
+                                            onClick={()=>{handleDeleteMember(item)}}
                                         >
                                             <i className="fa-solid fa-trash"></i>
                                         </Button>
                                     </td>
                                 </tr>
-                            )
-                            })
+                            )}
+                        )
                     }
                     </tbody>
                 </table>    

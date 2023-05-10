@@ -29,6 +29,7 @@ const LoginContainer =()=> {
       .then(res=>{
         localStorage.setItem('token', res.data.token);
         navigate('../');
+        window.location.reload();
       }).catch(e=>{console.log(e);})
     }catch(e) {
       seterrMessage(e.message)

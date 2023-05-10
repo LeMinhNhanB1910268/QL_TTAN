@@ -1,5 +1,6 @@
 // import React, { Component } from 'react'
 import React, { useEffect,useState} from "react";
+import {useNavigate} from 'react-router-dom'
 import {getUser,updateAccountService} from '../../services/accountService'
 import ModalEditMember from "../../components/Modal/Member/ModalEditMember";import './HomePage.scss'
 import HomeAdmin from "../../components/Views/Home/HomeAdmin";
@@ -8,10 +9,11 @@ import HomeMember from "../../components/Views/Home/HomeMember";
 
 
 function Homepage (){
+    const navigate = useNavigate();
     const [user,setUser] = useState('')
     const [isOpenEditMember,setisOpenEditMember] = useState(false)
     const [memberEdit,setmemberEdit] = useState({})
-
+    const token = localStorage.getItem('token')
     useEffect(()=>{
         getMember();
     },[])
@@ -20,18 +22,13 @@ function Homepage (){
         console.log("hihi", data);
         if(data){
             setUser(data);
-
         }
-
+        if(!token){
+            navigate('/login')
+        }
     }
-    // window.onload = () => {
-    //     if(!window.location.hash) {
-    //         window.location = window.location + '/';
-    //         window.location.reload();
-    //     }
-    // }
     const reload =() => {
-        window.location.reload(false);
+        window.location.reload();
     }
     const doEditMember = async (account) => {
         console.log('save', account)

@@ -30,6 +30,12 @@ function StudentManager () {
             handleArr();
         }
     },[SearchText])
+    useEffect(() => {
+        if (SearchText === '') {
+          setSearchText('');
+          getAllStudents();
+        }
+      }, [SearchText]);
     console.log('search', SearchText);  
     console.log('admin',arrStudent);
     const getAllStudents = async () => {

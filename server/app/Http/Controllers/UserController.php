@@ -20,6 +20,10 @@ class UserController extends Controller
         return new UserCollection(User::paginate());
     }
 
+    public function search($name) {
+        return new UserCollection(User::where('name','like', $name)->orWhere('member_id','like', $name)->get());
+        // return $sex;
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -104,8 +108,4 @@ class UserController extends Controller
     //     return User::where('sex','like', '%'.$name.'%')->get();
     //     // return $sex;
     // }
-    public function search($name) {
-        return User::where('name','like', $name)->get();
-        // return $sex;
-    }
 }

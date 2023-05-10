@@ -38,7 +38,7 @@ export default function Header() {
                             <h2>
                                 {/* <img className='logo' src='' /> */}
                                 HỆ THỐNG QUẢN LÝ
-                                <h3 className="name-center">Trung tâm anh ngữ N&N</h3>
+                                <p className="name-center">Trung tâm anh ngữ N&N</p>
                             </h2>
 
                         </div>
