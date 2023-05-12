@@ -1,24 +1,34 @@
 import React, { useEffect,useState} from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import './ModalEditPoint.scss'
-
+import {getUser} from '../../../services/accountService'
 
 function ModalEditPoint (props){
     const [point_id,setPoint_id] = useState('')
     const [name,setName] = useState('')
-    const [student_id,setCourse_id] = useState('')
+    const [student_id,setStudent_id] = useState('')
     const [diem,setDescription] = useState('')
-
+    const [user,setUser] = useState('')
+    const [member_id,setMember_id] = useState('')
 
     useEffect(()=>{
         const point = props.currentPoint;
         // console.log('point',point)
         setName(point.studentPoint.name)
-        setCourse_id(point.studentPoint.student_id)
+        setStudent_id(point.studentPoint.student_id)
         setDescription(point.studentPoint.diem)
         setPoint_id(point.studentPoint.point_id)
+        getMember();
     },[])
-
+    useEffect(()=>{
+        if(user){
+            setMember_id(user.member_id);
+        }
+    },[user])
+    const getMember= async ()=>{
+        const data = await getUser();
+        setUser(data);
+    }
     const checkInput = () => {
         let isValid  = true
         let arrInput = [
@@ -59,22 +69,32 @@ function ModalEditPoint (props){
             > 
               <ModalHeader 
               toggle={()=>{props.setIsOpen()}} 
-              >Thêm học viên mới</ModalHeader>
+              >Chỉnh sửa điểm</ModalHeader>
               <ModalBody>
                 <div className='modal-point-body'>
                     <div className='input-container '>
                         <label>
-                           Mã học viên: 
+                           Mã nhân viên: 
                         </label>
                         <input 
                             type="text" 
-                            onChange={(event)=>{setCourse_id(event.target.value)}}
+                            onChange={(event)=>{setStudent_id(event.target.value)}}
+                            value ={member_id}
+                        />
+                    </div>
+                    <div className='input-container'>
+                        <label>
+                            Mã học viên: 
+                        </label>
+                        <input 
+                            type="text" 
+                            onChange={(event)=>{setStudent_id(event.target.value)}}
                             value ={student_id}
                         />
                     </div>
                     <div className='input-container'>
                         <label>
-                            Tên đánh giá: 
+                            Kì kiểm tra: 
                         </label>
                         <input 
                             type="text" 
@@ -82,9 +102,9 @@ function ModalEditPoint (props){
                             value ={name}
                         />
                     </div>
-                    <div className='input-container max-width-input'>
+                    <div className='input-container'>
                         <label>
-                           Nội dung: 
+                           Điểm: 
                         </label>
                         <input
                             type="text" 

@@ -2,6 +2,7 @@ import React, {useEffect, useState, useRef} from "react";
 
 import { useReactToPrint } from 'react-to-print'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { getOneCourse } from "../../../services/courseService";
 import './Bill.css'
 
 export default function Bill(props) {
@@ -9,6 +10,38 @@ export default function Bill(props) {
     const handlePrint = useReactToPrint({
         content: () => componentRef.current,
       });
+    const course = props.currentCourse;
+    const [name,setName] = useState('')
+    const [email,setEmail] = useState('')
+    const [phone,setPhone] = useState('')
+    const [sex,setSex] = useState('')
+    const [Course,setCourse] = useState('')
+
+
+    useEffect(()=>{
+        const student = props.currentStudent;
+        // console.log('student',student);
+        setName(student.name)
+        setEmail(student.email)
+        setPhone(student.phone)
+        setSex(student.sex)
+    },[props.currentStudent])
+    // useEffect(()=>{
+
+    // },[props.currentCourse])
+    useEffect(()=>{
+        if(course){
+            getCourseInfo();
+        }
+    },[course])
+    const getCourseInfo = async() => {
+        // console.log(course);
+        let response = await getOneCourse(course);
+        if (response){
+            setCourse(response.data)
+        }
+        // console.log('hhaha',response.data);
+    }
   return (
     <div className="bill-content">
     <Modal 
@@ -37,10 +70,10 @@ export default function Bill(props) {
                 <hr />
                 <div className="info-student mb-4">
                     <h3>Thông tin học viên</h3>
-                    <p><label>Họ và tên:</label>Lê Minh Nhân</p>
-                    <p><label>Giới tính:</label>Nam</p>
-                    <p><label>Số điện thoại:</label>0565766636</p>
-                    <p><label>Email:</label>nhanb1910268@student.ctu.edu.vn</p>
+                    <p><label>Họ và tên:</label>  {name}</p>
+                    <p><label>Giới tính:</label>  {sex}</p>
+                    <p><label>Số điện thoại:</label>  {phone}</p>
+                    <p><label>Email:</label>  {email}</p>
                 </div>
                 <div className="table">
                     <table className="table-bill">
@@ -52,10 +85,10 @@ export default function Bill(props) {
                                 <th className="status">Đã thu</th>
                             </tr>
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>1</td>
+                                <td>{Course.name}</td>
+                                <td>{Course.price}</td>
+                                <td>{'V'}</td>
                             </tr>
                             <tr>
                                 <td></td>
@@ -98,7 +131,7 @@ export default function Bill(props) {
         <Button color="primary" onClick={()=>{handlePrint()}}>
         In hóa đơn
         </Button>
-        <Button color="secondary" onClick={()=>{props.setIsOpen}}>
+        <Button color="secondary" onClick={()=>{props.setIsOpen()}}>
           Hủy
         </Button>
       </ModalFooter>

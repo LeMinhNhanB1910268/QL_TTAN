@@ -20,6 +20,7 @@ function StudentManager () {
     const [isDelete,setisDelete] = useState(false)
     const [SearchText,setSearchText] = useState('')
     const [user,setUser] = useState('')
+    const [studentID,setStudentID] = useState('')
     useEffect(()=>{
         getAllStudents();
         getMember();
@@ -36,11 +37,11 @@ function StudentManager () {
           getAllStudents();
         }
       }, [SearchText]);
-    console.log('search', SearchText);  
-    console.log('admin',arrStudent);
+    // console.log('search', SearchText);  
+    // console.log('admin',arrStudent);
     const getAllStudents = async () => {
         let response = await getAllStudent();
-        console.log(response);
+        // console.log(response);
         if(response){
             setArrStudent(response.data)
         }
@@ -62,7 +63,7 @@ function StudentManager () {
     }
     const getMember= async ()=>{
         const data = await getUser();
-        console.log("hihi", data);
+        // console.log("hihi", data);
         setUser(data);
     }
     const handleAddStudent = () => {
@@ -87,14 +88,16 @@ function StudentManager () {
         getAllStudents();
     }
     const createStudent = async (student) => {
-        
         try{
-            let response = await createStudentService(student);
-            console.log('tra ve', response)
+            let response = await createStudentService(student)
+            let IDst = response.data.data.student_id;
+            createTuitionService({ student_id: IDst, status: 'Chưa đóng' });
+            setStudentID(response.data.data.student_id)
+            console.log('tra ve', response.data.data.student_id)
             setisOpenNewStudent(false)
         }catch(e){
             console.log(e)
-        }
+        } 
         getAllStudents();
     }
     const handleDeleteStudent = async (student) => {
@@ -142,9 +145,15 @@ function StudentManager () {
                 </div>
                 
                 ): (
-                    <div className="search">
-                        <input placeholder="Nhập tên cần tìm kiếm"></input>
+                    <div className="row">
+                        <div className="col-6"></div>
+                        <div className="search col-6">
+                            <input placeholder="Nhập tên cần tìm kiếm"
+                            onChange={(event)=>{setSearchText(event.target.value)}}
+                            value={SearchText}></input>
+                        </div> 
                     </div>
+
                 )
             }
             <ModalAddStudent 
@@ -170,57 +179,48 @@ function StudentManager () {
                 deleteStudent = {deleteStudent}
                 />
             }
-                <table id="customers">
-                    <tbody>
-                        <tr>
-                            <th>ID</th> 
-                            <th>Họ và tên</th>
-                            <th>GIới tính</th>
-                            <th>Ngày sinh</th>
-                            <th>Email</th>
-                            <th>Số điện thoại</th>
-                            {
-                                user.role == 'admin' ? (
-                                    <th>Thao tác</th>
-                                ):
-                                (<></>)
-                            }
-                        </tr>
-                        {
-                            arrStudent && arrStudent.map((item, index)=>{
-                                return (
-                                    <tr key={index}> 
-                                        <td>{item.student_id}</td>
-                                        <td onClick={()=>{handleDetail(item)}}>{item.name}</td>
-                                        <td>{item.sex}</td>
-                                        <td>{item.birthday}</td>
-                                        <td>{item.email}</td>
-                                        <td>{item.phone}</td>
-                                        {
-                                            user.role == 'admin' ?
-                                            (           
-                                                <td>
-                                                    <Button color="warning" className="btn-edit" onClick={()=>{handleEditStudent(item)}}>
-                                                        <i className="fa-solid fa-pen-to-square"></i>
-                                                    </Button>
-                                                    <Button 
-                                                        color="danger" 
-                                                        className="btn-delete"
-                                                        onClick={()=>{handleDeleteStudent(item)}}
-                                                    >
-                                                        <i className="fa-solid fa-trash"></i>
-                                                    </Button>
-                                                </td>
-                                            ): (
-                                                <></>
-                                            )
-                                        }
-                                    </tr>
-                                )
-                            })
-                        }
-                    </tbody>
-                </table>    
+ <table id="customers">
+    <tbody>
+        <tr>
+            <th><span>ID</span></th> 
+            <th><span>Họ và tên</span></th>
+            <th><span>GIới tính</span></th>
+            <th><span>Ngày sinh</span></th>
+            <th><span>Email</span></th>
+            <th><span>Số điện thoại</span></th>
+            {user.role == 'admin' ? (
+                <th><span>Thao tác</span></th>
+            ) : null}
+        </tr>
+        {arrStudent && arrStudent.map((item, index) => {
+            return (
+                <tr key={index}> 
+                    <td><span>{item.student_id}</span></td>
+                    <td onClick={() => { handleDetail(item) }}><span>{item.name}</span></td>
+                    <td><span>{item.sex}</span></td>
+                    <td><span>{item.birthday}</span></td>
+                    <td><span>{item.email}</span></td>
+                    <td><span>{item.phone}</span></td>
+                    {user.role == 'admin' ? (
+                        <td>
+                            <Button color="warning" className="btn-edit" onClick={() => { handleEditStudent(item) }}>
+                                <i className="fa-solid fa-pen-to-square"></i>
+                            </Button>
+                            <Button color="danger" className="btn-delete" onClick={() => { handleDeleteStudent(item) }}>
+                                <i className="fa-solid fa-trash"></i>
+                            </Button>
+                        </td>
+                    ) : null}
+                </tr>
+            );
+        })}
+        <div className="space">
+        
+        </div>
+    </tbody>
+
+</table>
+
         </div>
     )
 }

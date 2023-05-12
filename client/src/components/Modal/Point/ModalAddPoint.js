@@ -70,7 +70,7 @@ function ModalAddPoint (props){
             > 
               <ModalHeader 
               toggle={()=>{props.setIsOpen()}} 
-              >Thêm nhận xét</ModalHeader>
+              >Thêm điểm</ModalHeader>
               <ModalBody>
                 <div className='modal-point-body'>
                     <div className='input-container '>

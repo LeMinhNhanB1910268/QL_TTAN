@@ -1,14 +1,12 @@
 import React, {useEffect, useState} from "react";
 
 import './tuitionfeeManager.scss'
-import { getNhom } from "../../services/nhomService";
 import { getAllCourse, getCourse,getClass } from "../../services/courseService";
 import { getFee } from "../../services/studentService";
 import {updateTuitionService, createTuitionService} from "../../services/tuiionfeeService";
 import Bill from "../../components/Modal/TuitionFee/Bill"
 
 function tuitionManager() {
-
     // const [arrNhom,setArrNhom] = useState('')
     const [arrCourse,setArrCourse] = useState('')
     const [nhomID,setnhomID] = useState('')
@@ -16,6 +14,8 @@ function tuitionManager() {
     const [Course,setCourse] = useState('')
     const [isOpenPrint,setisOpenPrint] = useState(false)
     const [Student,setStudent] = useState('')
+    const [StudentBill,setStudentBill] = useState('')
+
 
     useEffect(()=>{
         getAllCourses();
@@ -31,8 +31,13 @@ function tuitionManager() {
             getStudent();
         }
     },[nhomID])
+    useEffect(()=>{
+        if(StudentBill){
+            console.log(StudentBill)
+        }
+    },[StudentBill])
     const getStudent = async () => {
-        console.log('nhomID', nhomID)
+        // console.log('nhomID', nhomID)
         let response = await getFee(nhomID);
         if(response){
             setStudent(response.data)
@@ -53,16 +58,19 @@ function tuitionManager() {
 
         }
     }
-    const handleState = async (student) => {
-        let rp = await createTuitionService({
-            student_id: student.student_id,
-            status: 'da dong'
+    const handleState = async (fee) => {
+        console.log('ahihi',fee.tuitionfee)
+        let rp = await updateTuitionService(fee.tuitionfee.tuitionfee_id,{
+            status: 'Đã đóng'
         })
         getStudent();
     }
-    const handlePrint = async () => {
-        setisOpenPrint(true)
+    const handlePrint = (student) => {
+        // console.log(student);
+        setStudentBill(student);
+        setisOpenPrint(true);
     }
+    
 
     return (
         <div className="content-fee">
@@ -72,7 +80,7 @@ function tuitionManager() {
                 <div className="col-3"></div>
                 <div className="col-3 course">
                     <label>Khóa hoc:</label>
-                    <select onClick={(e)=>{setCourseID(e.target.value)}}>
+                    <select onClick={(e)=>{setCourseID(e.target.value);}}>
                         {
                             arrCourse && arrCourse.map((item, index) => {
                                 return (
@@ -99,6 +107,8 @@ function tuitionManager() {
                 <Bill 
                     setIsOpen={()=>{setisOpenPrint(false)}} 
                     isOpen={isOpenPrint}
+                    currentStudent={StudentBill}
+                    currentCourse={CourseID}
 
                 />
                 <table id="customers">
@@ -126,10 +136,10 @@ function tuitionManager() {
 
                                     <td>
                                         {
-                                        item.tuitionfee!==null && item.tuitionfee.status == "da dong" ? (
+                                        item.tuitionfee!==null && item.tuitionfee.status == "Đã đóng" ? (
                                             <>
                                                 <button className="btn-confirm" onClick={()=>{handleState(item)}}>Xác nhận</button>
-                                                <button className="btn-print" onClick={()=>{handlePrint()}}>In HD</button>
+                                                <button className="btn-print" onClick={()=>{handlePrint(item)}}>In HD</button>
                                             </>
                                         ) : (                                        
                                             <>

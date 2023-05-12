@@ -50,6 +50,7 @@ function pointManager() {
     }
     const createPoint = async (point) => {
         let rp = await createPointService(point);
+        setisOpenAddPoint(false)
         getStudent();
     }
     const handleAddPoint = (student) => {
@@ -154,7 +155,7 @@ function pointManager() {
                             <th>Họ và tên</th>
                             <th>Giới tính</th>
                             <th>Ngày sinh</th>
-                            <th>Diem</th>
+                            <th>Điểm</th>
 
                             <th>Thao tác</th>
                         </tr>

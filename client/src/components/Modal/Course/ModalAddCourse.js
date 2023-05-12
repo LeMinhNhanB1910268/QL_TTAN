@@ -1,3 +1,4 @@
+import { flatMap } from "lodash";
 import React, { useEffect,useState} from "react";
 // import React, { Component } from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
@@ -7,7 +8,6 @@ import './ModalAddCourse.scss'
 
 
 function ModalAddCourse (props){
-    const [modal,setModal] = useState('')
     const [name,setName] = useState('')
     const [time_start,setTimeStart] = useState('')
     const [time_finish,setTimeFinish] = useState('')
@@ -16,7 +16,14 @@ function ModalAddCourse (props){
     // useEffect(()=>{
 
     // },[])
-
+    useEffect(() => {
+        if (props.setIsOpen === true) {
+          setName('');
+          setTimeFinish('');
+          setTimeStart('');
+          setPrice('');
+        }
+      }, [props.setIsOpen]);
     const checkInput = () => {
         let isValid  = true
         let arrInput = ['name', 'time_start', 'time_finish', 'price'];
@@ -52,7 +59,7 @@ function ModalAddCourse (props){
             > 
               <ModalHeader 
               toggle={()=>{props.setIsOpen()}} 
-              >Thêm học viên mới</ModalHeader>
+              >Thêm khóa học mới</ModalHeader>
               <ModalBody>
                 <div className='modal-student-body'>
                     <div className='input-container max-width-input'>

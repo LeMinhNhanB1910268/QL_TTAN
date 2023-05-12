@@ -72,9 +72,8 @@ function MemberManager () {
         console.log('save', account)
         try{
             let response = await updateAccountService(account.account_id, account)
-            if (response){
-                setisOpenEditMember(false)
-            }
+   
+            setisOpenEditMember(false)
         }catch(e){
             console.log(e)
         }

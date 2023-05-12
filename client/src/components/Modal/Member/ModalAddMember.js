@@ -84,7 +84,7 @@ function ModalAddMember (props){
             > 
               <ModalHeader 
               toggle={()=>{props.setIsOpen()}} 
-              >Thêm học viên mới</ModalHeader>
+              >Thêm nhân viên mới</ModalHeader>
               <ModalBody>
                 <div className='modal-student-body'>
                     <div className='input-container  max-width-input'>

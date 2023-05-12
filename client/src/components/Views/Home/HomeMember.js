@@ -1,7 +1,6 @@
 import React from 'react'
 import Review from '../../../assets/review1.png'
 import TuitionFee from '../../../assets/tuitionfee.png'
-import Member from '../../../assets/member.png'
 import Student from '../../../assets/student.png'
 import TK from '../../../assets/tk.png'
 import Course from '../../../assets/course.png'

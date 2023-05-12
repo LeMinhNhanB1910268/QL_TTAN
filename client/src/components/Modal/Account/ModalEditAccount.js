@@ -111,7 +111,6 @@ function ModalEditAccount (props){
                 </Button>
               </ModalFooter>
             </Modal>
-            {/* Minh */}
         </div>
     )
 }

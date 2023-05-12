@@ -118,8 +118,8 @@ export default function StatisticalFee() {
                 </tr>
                 <tr>
                     <td>{nhomID}</td>
-                    <td>{arrCountDD}/{arrCount}</td> 
-                    <td>{arrCountCD}/{arrCount}</td>
+                    <td>{arrCountDD>0 ? (arrCountDD) : 0}/{arrCount}</td> 
+                    <td>{arrCountCD>0 ? (arrCountCD) : 0}/{arrCount}</td>
                     <td><p onClick={()=>{handleViewDD()}}>Xem danh sách</p></td>
                     <td><p onClick={()=>{handleViewCD()}}>Xem danh sách</p></td>
                 </tr>

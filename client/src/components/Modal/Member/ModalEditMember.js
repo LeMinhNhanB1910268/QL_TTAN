@@ -92,7 +92,7 @@ function ModalEditMember (props){
             > 
               <ModalHeader 
               toggle={()=>{props.setIsOpen()}} 
-              >Thêm học viên mới</ModalHeader>
+              >Chỉnh sửa nhân viên</ModalHeader>
               <ModalBody>
                 <div className='modal-student-body'>
                     <div className='input-container  max-width-input'>
@@ -210,7 +210,7 @@ function ModalEditMember (props){
               <ModalFooter>
                 <Button color="primary" onClick={()=>{handleAddEditMember()}}>
                   Thay đổi
-                </Button>{' '}
+                </Button>
                 <Button color="secondary" onClick={()=>{props.setIsOpen}}>
                   Hủy
                 </Button>

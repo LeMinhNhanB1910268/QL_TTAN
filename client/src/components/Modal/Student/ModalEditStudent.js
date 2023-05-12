@@ -11,6 +11,7 @@ function ModalEditStudent (props){
     const [sex,setSex] = useState('')
     const [student_id,setAccount] = useState('')
     const [nhom_id,setNhom_id] = useState('')
+    const [address,setAddress] = useState('')
 
     useEffect(()=>{
         const student = props.currentStudent;
@@ -21,6 +22,7 @@ function ModalEditStudent (props){
         setSex(student.studentEdit.sex)
         setAccount(student.studentEdit.student_id)
         setNhom_id(student.studentEdit.nhom_id)
+        setAddress(student.studentEdit.address)
     },[])
 
     const checkInput = () => {
@@ -31,7 +33,8 @@ function ModalEditStudent (props){
             'phone', 
             'birthday',
             'sex',
-            'student_id'];
+            'student_id',
+            'address'];
         for (let i=0; i<arrInput.length; i++){
             if(!arrInput[i]){
                 isValid = false;
@@ -52,7 +55,8 @@ function ModalEditStudent (props){
                 birthday,
                 sex,
                 student_id,
-                nhom_id}
+                nhom_id,
+                address}
             props.editStudent(data);
         }
         else {
@@ -130,6 +134,16 @@ function ModalEditStudent (props){
                             type="text" 
                             onChange={(event)=>{setSex(event.target.value)}}
                             value={sex}
+                        />
+                    </div>
+                    <div className='input-container  '>
+                        <label>
+                           Địa chỉ: 
+                        </label>
+                        <input 
+                            type="text" 
+                            onChange={(event)=>{setAddress(event.target.value)}}
+                            value={address}
                         />
                     </div>                  
                 </div>

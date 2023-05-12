@@ -5,8 +5,6 @@ function MemberDetail (){
 
     const [member] = useState(JSON.parse(localStorage.getItem('member')))
 
-    useEffect(()=>{
-    },[])
     return (
         <div className="container">
             <div className="content-member-detail">

@@ -33,6 +33,7 @@ Route::middleware('auth:sanctum')->group(function(){
     });
     Route::get('ClassWithCourse/{id}', 'NhomController@getCourse');
     Route::get('getClass/{id}', 'CourseController@getClass');
+    Route::get('getACourse/{id}', 'CourseController@showOne1');
     Route::get('getTuition/{id}', 'StudentController@getFee');
     Route::get('getReview/{id}', 'StudentController@getReview');
     Route::get('getPoint/{id}', 'StudentController@getPoint');

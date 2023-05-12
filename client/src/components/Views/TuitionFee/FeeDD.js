@@ -25,7 +25,7 @@ export default function FeeDD(props) {
         <table id="customers">
             <tbody>
                 <tr>
-                    <td>Mã học viên1</td>
+                    <td>Mã học viên</td>
                     <td>Họ và tên</td>
                     <td>Giới tính</td>
                     <td>Ngày sinh</td>

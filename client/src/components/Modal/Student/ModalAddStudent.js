@@ -13,6 +13,7 @@ function ModalAddStudent (props){
     const [birthday,setBirthday] = useState('')
     const [member_id,setStudent] = useState('')
     const [sex,setSex] = useState('')
+    const [address,setAddress] = useState('')
     const [nhom_id,setNhom_id] = useState('')
 
 
@@ -25,7 +26,8 @@ function ModalAddStudent (props){
             'birthday',
             // 'member_id',
             'sex',
-            'nhom_id'
+            'nhom_id',
+            'address'
         ];
         for (let i=0; i<arrInput.length; i++){
             if(!arrInput[i]){
@@ -47,7 +49,8 @@ function ModalAddStudent (props){
                 birthday,
                 // member_id,
                 sex,
-                nhom_id}
+                nhom_id, 
+                address}
             props.createStudent(data);
         }
         else {
@@ -136,6 +139,16 @@ function ModalAddStudent (props){
                             type="text" 
                             onChange={(event)=>{setSex(event.target.value)}}
                             value={sex}
+                        />
+                    </div>
+                    <div className='input-container  '>
+                        <label>
+                           Địa chỉ: 
+                        </label>
+                        <input 
+                            type="text" 
+                            onChange={(event)=>{setAddress(event.target.value)}}
+                            value={address}
                         />
                     </div>
                 </div>

@@ -1,6 +1,5 @@
 import React, { useEffect,useState} from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import  _ from 'lodash'
 import './ModalEditNhom.scss'
 
 
@@ -68,7 +67,7 @@ function ModalEditNhom (props){
             > 
               <ModalHeader 
               toggle={()=>{props.setIsOpen()}} 
-              >Thêm học viên mới</ModalHeader>
+              >Thay đổi thông tin nhóm</ModalHeader>
               <ModalBody>
                 <div className='modal-nhom-body'>
                     <div className='input-container max-width-input'>
@@ -83,7 +82,7 @@ function ModalEditNhom (props){
                     </div>
                     <div className='input-container'>
                         <label>
-                           Ma khoa hoc: 
+                           Mã khóa học: 
                         </label>
                         <input 
                             type="text" 
@@ -123,7 +122,7 @@ function ModalEditNhom (props){
                     </div>
                     <div className='input-container max-width-input'>
                         <label>
-                           Thong tin chi tiet: 
+                           Thông tin chi tiết: 
                         </label>
                         <input 
                             type="text" 

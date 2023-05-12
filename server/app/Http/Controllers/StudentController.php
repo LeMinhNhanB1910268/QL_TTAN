@@ -39,22 +39,22 @@ class StudentController extends Controller
     } 
     public function getStateFeeA($id)
     {
-        $result = Student::where('nhom_id',$id)->join('tuitionfees','students.student_id','=', 'tuitionfees.student_id')->where('status','=','da dong')->get();
+        $result = Student::where('nhom_id',$id)->join('tuitionfees','students.student_id','=', 'tuitionfees.student_id')->where('status','=','Đã đóng')->get();
         return $result;
     } 
     public function getCountStateFeeA($id)
     {
-        $result = Student::where('nhom_id',$id)->join('tuitionfees','students.student_id','=', 'tuitionfees.student_id')->where('status','=','da dong')->count();
+        $result = Student::where('nhom_id',$id)->join('tuitionfees','students.student_id','=', 'tuitionfees.student_id')->where('status','=','Đã đóng')->count();
         return $result;
     } 
     public function getStateFeeB($id)
     {
-        $result = Student::where('nhom_id',$id)->join('tuitionfees','students.student_id','=', 'tuitionfees.student_id')->where('status','<>','da dong')->get();
+        $result = Student::where('nhom_id',$id)->join('tuitionfees','students.student_id','=', 'tuitionfees.student_id')->where('status','<>','Đã đóng')->get();
         return $result;
     } 
     public function getCountStateFeeB($id)
     {
-        $result = Student::where('nhom_id',$id)->join('tuitionfees','students.student_id','=', 'tuitionfees.student_id')->where('status','<>','da dong')->count();
+        $result = Student::where('nhom_id',$id)->join('tuitionfees','students.student_id','=', 'tuitionfees.student_id')->where('status','<>','Đã đóng')->count();
         return $result;
     } 
     public function getReview($id)

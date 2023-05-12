@@ -185,7 +185,7 @@ function NhomManager () {
                                                     >
                                                         <i className="fa-solid fa-trash"></i>
                                                     </Button>
-                                                    <Button color="success" className="btn-join" onClick={()=>{handleJoinClass(item.course_id)}}>
+                                                    <Button color="success" className="btn-join" onClick={()=>{handleJoinClass(item.nhom_id)}}>
                                                         <i className="fa-solid fa-right-to-bracket"></i>
                                                     </Button>
                                                 </td>

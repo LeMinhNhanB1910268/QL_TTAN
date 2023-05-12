@@ -61,7 +61,7 @@ function ModalAddNhom (props){
               >Thêm học viên mới</ModalHeader>
               <ModalBody>
                 <div className='modal-nhom-body'>
-                    <div className='input-container '>
+                    <div className='input-container max-width-input'>
                         <label>
                             Tên nhóm: 
                         </label>

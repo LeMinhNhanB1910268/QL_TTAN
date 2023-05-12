@@ -13,14 +13,6 @@ export default function HomeAdmin() {
   return (
     <div>
         <div className='row'>
-            <div className='col-sm-6 item text-center'>
-                <Link to='/member'>
-                    <button className='bth-item'>
-                        <img src={Member}/>
-                        <div className='bth-text'>Nhân viên</div>
-                    </button>
-                </Link>
-            </div>
             <div className='col-sm-6 item text-center'> 
                 <Link to='/student'>
                     <button className='bth-item'>
@@ -31,7 +23,16 @@ export default function HomeAdmin() {
                     </button>
                 </Link>
             </div>
+            <div className='col-sm-6 item text-center'>
+                <Link to='/member'>
+                    <button className='bth-item'>
+                        <img src={Member}/>
+                        <div className='bth-text'>Nhân viên</div>
+                    </button>
+                </Link>
         </div>
+        </div>
+
         <div className='row'>
             <div className='col-sm-6 item text-center'>
                 <Link to='/course'>
